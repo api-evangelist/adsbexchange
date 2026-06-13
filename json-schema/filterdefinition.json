@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FilterDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "property": {
+      "type": "string",
+      "description": "Name of the property to filter on. Case-insensitive.\nOnly top-level properties are supported at the moment."
+    },
+    "operator": {
+      "type": "string",
+      "description": "Operator to use when comparing the property value. All string comparisons are case-insensitive.\nSupported operators are:\n- \"eq\" (equals)\n- \"ne\" (not equals)\n- \"gt\" (greater than)\n- \"lt\" (less than)\n- \"ge\" (greater than or equal to)\n- \"le\" (less than or equal to)\n- \"isNull\" (property value is null)\n- \"isNotNull\" (property is not null)\n- \"contains\" (property value contains the specified value)\n- \"notContains\" (property value does not contain the specified value)\n- \"startsWith\" (property value starts with the specified value)\n- \"notStartsWith\" (property value does not start with the specified value)\n- \"endsWith\" (property value ends with the specified value)\n- \"notEndsWith\" (property value does not end with the specified value)"
+    },
+    "value": {
+      "description": "Value to compare the property against.\nThis can be a string, number, boolean and must match target property type.\n- If number - it will be parsed as double (scientific notation is not supported).\n- If string - maximum length is 255 characters.\n- If boolean - it will be parsed as boolean.\n            \nValue is not required for operators \"isNull\" and \"isNotNull\".",
+      "nullable": true
+    }
+  }
+}

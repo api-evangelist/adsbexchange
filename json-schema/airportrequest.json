@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AirportRequest",
+  "type": "object",
+  "description": "Model representing a request for obtaining aircraft in proximity to an airport(s)",
+  "additionalProperties": false,
+  "properties": {
+    "airports": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

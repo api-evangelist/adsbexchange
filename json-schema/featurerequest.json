@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FeatureRequest",
+  "type": "object",
+  "description": "Describes single feature in the GeoJSON feature collection",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the GeoJSON object. Should be \"Feature\""
+    },
+    "properties": {
+      "type": "object",
+      "description": "Collection of properties associated with the geometry.\nProperties with will propagated to each aircraft object in \"properties\" field.\n\n**IMPORTANT**: Only 5 properties supported. Each key and value must not exceed 128 characters.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "geometry": {
+      "description": "Geometry of the feature. Must be a Polygon or MultiPolygon.",
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/FeatureGeometryRequest"
+        }
+      ]
+    }
+  }
+}

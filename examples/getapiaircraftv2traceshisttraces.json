@@ -1,0 +1,118 @@
+{
+  "operationId": "GetApiAircraftV2TracesHistTraces",
+  "summary": "Get historical trace file",
+  "description": "Returns the trace file for the aircraft with the specified ICAO code.\n\nThe trace file contains aircraft position history before UTC today.\nFor getting the trace file for the current day, use the 'Get recent trace file' endpoint.\nFile name must begin with 'trace_full_' and end with '.json'.\nFolder name must be the last 2 characters of the aircraft ICAO code.\n\nTraces are available from January 1st, 2016 and later.\n\nExample: to request trace file for aircraft with ICAO code 'A1B2C3' for January 22, 2023:\n```\nGET /api/aircraft/v2/traces-hist/2023/01/22/traces/c3/trace_full_a1b2c3.json\n```\n\n\nThe trace file is a JSON file with the following structure:\n```\n{\n    icao: \"a1b2c3\", // hex id of the aircraft\n    timestamp: 1609275898.495, // unix timestamp in seconds since epoch (1970)\n    trace: [\n        [ seconds after timestamp,\n            lat,\n            lon,\n            altitude in ft or \"ground\" or null,\n            ground speed in knots or null,\n            track in degrees or null, (if altitude == \"ground\", this will be true heading instead of track)\n            flags as a bitfield: (use bitwise and to extract data)\n                (flags & 1 > 0): position is stale (no position received for 20 seconds before this one)\n                (flags & 2 > 0): start of a new leg (tries to detect a separation point between landing and takeoff that separates flights)\n                (flags & 4 > 0): vertical rate is geometric and not barometric\n                (flags & 8 > 0): altitude is geometric and not barometric\n             ,\n            vertical rate in fpm or null,\n            aircraft object with extra details or null (see aircraft.json documentation, note that not all fields are present as lat and lon for example already in the values above),\n            // the following fields only in files generated 2022 and later:\n            type / source of this position or null,\n            geometric altitude or null,\n            geometric vertical rate or null,\n            indicated airspeed or null,\n            roll angle or null\n        ],\n        [next entry like the one before],\n        [next entry like the one before],\n    ]\n}\n```\n\n\nExample of the response:\n```\n{\n\t\"icao\":\"a1b2c3\",\n\t\"r\":\"N11Y22\",\n\t\"t\":\"P123\",\n\t\"dbFlags\":0,\n\t\"desc\":\"Gulfstream G650\",\n\t\"ownOp\":\"SOME CORP\",\n\t\"year\":\"2021\",\n\t\"timestamp\": 1712275200.000,\n\t\"trace\":[\n\t\t[76863.35,41.279114,-70.128967,2500,118.4,326.7,5,704,{\"type\":\"adsr_icao\",\"track\":326.71,\"geom_rate\":704,\"nic\":8,\"rc\":186,\"nac_v\":0,\"alert\":0,\"spi\":0},\"adsr_icao\",null,704,null,null],\n\t\t[76870.59,41.282455,-70.131775,2600,119.0,328.0,4,384,null,\"adsr_icao\",2150,384,null,null],\n\t\t[76877.88,41.286804,-70.135376,2700,117.7,328.2,4,640,null,\"adsr_icao\",2250,640,null,null],\n\t\t[76885.92,41.290512,-70.138489,2800,118.5,328.5,4,448,null,\"adsr_icao\",2350,448,null,null],\n        ...\n\t]\n}\n```",
+  "method": "GET",
+  "path": "/traces-hist/{year}/{month}/{day}/traces/{folder}/{jsonFile}",
+  "parameters": [
+    {
+      "name": "year",
+      "in": "path",
+      "required": true,
+      "description": "Year of the trace file.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "name": "month",
+      "in": "path",
+      "required": true,
+      "description": "Month of the trace file.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 2
+    },
+    {
+      "name": "day",
+      "in": "path",
+      "required": true,
+      "description": "Day of the trace file.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 3
+    },
+    {
+      "name": "folder",
+      "in": "path",
+      "required": true,
+      "description": "Last 2 characters of ICAO code.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 4
+    },
+    {
+      "name": "jsonFile",
+      "in": "path",
+      "required": true,
+      "description": "Name of the JSON file. Must be in the format 'trace_full_{ICAO}.json'.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 5
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "JSON response with the contents of the trace file.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/TraceResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "404": {
+      "description": "Trace Not Found",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/TraceNotFoundResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

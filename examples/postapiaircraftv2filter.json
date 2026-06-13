@@ -1,0 +1,81 @@
+{
+  "operationId": "PostApiAircraftV2Filter",
+  "summary": "Filter aircraft by criteria",
+  "description": "Filters and returns only aircraft that match the provided criteria.\nFilter contains of a list of filter definitions and a logical operator that defines how filter criteria shall be combined.\n\nTwo logical operators are supported: \"and\" and \"or\". Default is \"and\" when property is not provided.\n\nFilter definition consists of the following properties:\n* \"property\" (string) - name of the property to filter by. Case-insensitive. Filtering only on top-level properties is supported.\n* \"operator\" (string) - comparison operator. All string comparisons are case-insensitive. Supported operators:\n    * \"eq\" (equals)\n    * \"ne\" (not equals)\n    * \"gt\" (greater than, number only)\n    * \"lt\" (less than, number only)\n    * \"ge\" (greater than or equal to, number only)\n    * \"le\" (less than or equal to, number only)\n    * \"isNull\" (property value is null)\n    * \"isNotNull\" (property is not null)\n    * \"contains\" (property contains the value, string only)\n    * \"notContains\" (property does not contain the value, string only)\n    * \"startsWith\" (property starts with the value, string only)\n    * \"notStartsWith\" (property does not start with the value, string only)\n    * \"endsWith\" (property ends with the value, string only)\n    * \"notEndsWith\" (property does not end with the value, string only)\n* \"value\" (string/number/boolean) - value to compare the property to.\nIf string - comparison is case-insensitive.\nIf number has decimal point - it will be parsed as double, otherwise as long.\nDecimals are compared with precision of 6 digits after the point (scientific notation is not supported).\nYou have to ensure type of the value specified matches the target property type (i.e. if response object type is number, you have to provide number).\n\nYou can supply up to 10 filters in a single request.\n\n**Example 1**: get all airborne aircraft under 5000 feet:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"le\",\n        \"value\": 5000\n      }\n    ]\n}\n            \n```\nPlease note, that when numeric value is provided, aircraft with value \"ground\" are excluded.\n\n            \n**Example 2**: get aircraft that have updated their position in the last second:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"seen\",\n        \"operator\": \"le\",\n        \"value\": 1\n      }\n    ]\n}\n            \n```\nIf you're calling API at high frequency rate, this can be a reliable way to get only aircraft that have updated their position since the last request,\nand reduce the amount of data your application has to process.\n\n*Please note, if you decide to proceed this way - you have to keep track of the time when the last successful request\nwas made on your end, so that if you miss a request, you can adjust the time accordingly. Using value smaller than 0.5 seconds is not recommended, as\nAPI server refreshes aircraft positions every 500 milliseconds.*\n            \n\n**Example 3**: get all airborne aircraft under 1000 feet and ones on the ground:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"le\",\n        \"value\": 1000\n      },\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"eq\",\n        \"value\": \"ground\"\n      }\n    ]\n}\n            \n```\n\n            \n**Example 4**: get all WestJet and AirCanada aircraft:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      {\n        \"property\": \"flight\",\n        \"operator\": \"startsWith\",\n        \"value\": \"WJA\"\n      },\n      {\n        \"property\": \"flight\",\n        \"operator\": \"startsWith\",\n        \"value\": \"ACA\"\n      }\n    ]\n}\n```\n\n            \n**Example 5**: get PIA aircraft:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 4 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 5 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 6 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 7 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 12 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 13 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 14 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 15 }\n    ]\n}\n```\nExplanation: whether aircraft is PIA or not is defined by the third bit in dbFlags property \"dbFlags & 4\".\nIn binary notation, 4 is 0100. Thus, if the third bit is set, the aircraft is PIA.\nWhich makes the following numeric values satisfy the requirement: 4, 5, 6, 7, 12, 13, 14, 15.\n\n            \n**Example 6**: get aircraft where type is known:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"t\",\n        \"operator\": \"isNotNull\"\n      }\n    ]\n}\n```",
+  "method": "POST",
+  "path": "/filter",
+  "parameters": [
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models that match filter criteria.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "422": {
+      "description": "Request can not be processed due to error in filters",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  },
+  "requestBody": {
+    "x-name": "request",
+    "description": "JSON request model containing definition of filter criteria.",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/FilterRequest"
+        }
+      }
+    },
+    "required": true,
+    "x-position": 1
+  }
+}

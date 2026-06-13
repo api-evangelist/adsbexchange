@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoboundaryCountrySubdivision",
+  "type": "object",
+  "description": "Represents the response from the geoboundary endpoint.",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the country subdivision.\nExample: California"
+    },
+    "iso_a2": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.\nExample: US"
+    },
+    "iso_3166_2": {
+      "type": "string",
+      "description": "ISO 3166-2 country subdivision code.\nExample: US-CA (for California)"
+    },
+    "adm1_code": {
+      "type": "string",
+      "description": "ADM1 code.\nExample: USA-3521",
+      "nullable": true
+    },
+    "name_alt": {
+      "type": "string",
+      "description": "Alternative name of the country subdivision.\nExample: CA|Calif.|Cal.",
+      "nullable": true
+    },
+    "region": {
+      "type": "string",
+      "description": "Name of the region.\nExample: West",
+      "nullable": true
+    }
+  }
+}

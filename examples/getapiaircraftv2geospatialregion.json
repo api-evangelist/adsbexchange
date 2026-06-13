@@ -1,0 +1,70 @@
+{
+  "operationId": "GetApiAircraftV2GeospatialRegion",
+  "summary": "Get aircraft by geographical region",
+  "description": "Returns aircraft within the boundaries of the given geographical region.\n\nSupported regions:\n* Northern/Eastern/Southern/Western Europe\n* North/Central/South America\n* Central/East/South-East/South/West Asia\n* North/Middle/East/South/West Africa\n* Australia and New Zealand\n* Caribbean\n* Melanesia\n* Micronesia\n* Polynesia\n\n\nTo filter by 'North America' use pure text value from the list above. Remove spaces, or URL-encode them. Case-insensitive.\n            \n* `/api/aircraft/v2/geospatial/region/NorthAmerica`\n* `/api/aircraft/v2/geospatial/region/North%20America`\n\n\nTo filter by 'South-East Asia':\n            \n* `/api/aircraft/v2/geospatial/region/south-eastasia`\n* `/api/aircraft/v2/geospatial/region/South-East%20Asia`",
+  "method": "GET",
+  "path": "/geospatial/region/{region}",
+  "parameters": [
+    {
+      "name": "region",
+      "in": "path",
+      "required": true,
+      "description": "Name of the geographical region from the list above. Case-insensitive.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

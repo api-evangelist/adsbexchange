@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AcasResolutionAdvisoryResponse",
+  "type": "object",
+  "description": "ACAS Resolution Advisory Class",
+  "additionalProperties": false,
+  "properties": {
+    "utc": {
+      "type": "string",
+      "description": "UTC timestamp of the advisory.",
+      "nullable": true
+    },
+    "unix_timestamp": {
+      "type": "number",
+      "description": "Unix timestamp.",
+      "format": "double",
+      "nullable": true
+    },
+    "bytes": {
+      "type": "string",
+      "description": "Advisory bytes as a string.",
+      "nullable": true
+    },
+    "ARA": {
+      "type": "string",
+      "description": "Advisory ARA field.",
+      "nullable": true
+    },
+    "RAT": {
+      "type": "string",
+      "description": "Advisory RAT field.",
+      "nullable": true
+    },
+    "MTE": {
+      "type": "string",
+      "description": "Advisory MTE field.",
+      "nullable": true
+    },
+    "RAC": {
+      "type": "string",
+      "description": "Advisory RAC field.",
+      "nullable": true
+    },
+    "advisory_complement": {
+      "type": "string",
+      "description": "Advisory complement description.",
+      "nullable": true
+    },
+    "advisory": {
+      "type": "string",
+      "description": "Advisory description.",
+      "nullable": true
+    },
+    "TTI": {
+      "type": "string",
+      "description": "TTI field.",
+      "nullable": true
+    },
+    "threat_id_hex": {
+      "type": "string",
+      "description": "Threat ID in hexadecimal.",
+      "nullable": true
+    }
+  }
+}

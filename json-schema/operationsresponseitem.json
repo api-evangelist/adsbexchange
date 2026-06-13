@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OperationsResponseItem",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "icao": {
+      "type": "string"
+    },
+    "registration": {
+      "type": "string",
+      "nullable": true
+    },
+    "flight": {
+      "type": "string",
+      "nullable": true
+    },
+    "ac_type": {
+      "type": "string",
+      "nullable": true
+    },
+    "time": {
+      "type": "string",
+      "nullable": true
+    },
+    "time_epoch": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "airport": {
+      "type": "string",
+      "nullable": true
+    },
+    "runway": {
+      "type": "string",
+      "nullable": true
+    },
+    "operation": {
+      "type": "string",
+      "nullable": true
+    },
+    "flight_link": {
+      "type": "string",
+      "nullable": true
+    },
+    "gs": {
+      "type": "string",
+      "nullable": true
+    },
+    "squawk": {
+      "type": "string",
+      "nullable": true
+    },
+    "signal_type": {
+      "type": "string",
+      "nullable": true
+    },
+    "alt_baro": {
+      "type": "integer",
+      "format": "int32",
+      "nullable": true
+    },
+    "track": {
+      "type": "string",
+      "nullable": true
+    },
+    "lat": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "lon": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "alt_geom": {
+      "type": "integer",
+      "format": "int32",
+      "nullable": true
+    },
+    "rate": {
+      "type": "integer",
+      "format": "int32",
+      "nullable": true
+    },
+    "category": {
+      "type": "string",
+      "nullable": true
+    },
+    "reg": {
+      "type": "string",
+      "nullable": true
+    },
+    "icaotype": {
+      "type": "string",
+      "nullable": true
+    },
+    "year": {
+      "type": "string",
+      "nullable": true
+    },
+    "manufacturer": {
+      "type": "string",
+      "nullable": true
+    },
+    "model": {
+      "type": "string",
+      "nullable": true
+    },
+    "ownop": {
+      "type": "string",
+      "nullable": true
+    },
+    "faa_pia": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "faa_ladd": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "short_type": {
+      "type": "string",
+      "nullable": true
+    },
+    "mil": {
+      "type": "boolean",
+      "nullable": true
+    },
+    "apt_type": {
+      "type": "string",
+      "nullable": true
+    },
+    "name": {
+      "type": "string",
+      "nullable": true
+    },
+    "continent": {
+      "type": "string",
+      "nullable": true
+    },
+    "iso_country": {
+      "type": "string",
+      "nullable": true
+    },
+    "iso_region": {
+      "type": "string",
+      "nullable": true
+    },
+    "municipality": {
+      "type": "string",
+      "nullable": true
+    },
+    "scheduled_service": {
+      "type": "string",
+      "nullable": true
+    },
+    "iata_code": {
+      "type": "string",
+      "nullable": true
+    },
+    "wgs84_elev": {
+      "type": "integer",
+      "format": "int32",
+      "nullable": true
+    }
+  }
+}

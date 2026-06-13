@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProximityPointFilter",
+  "type": "object",
+  "description": "Describes a point in proximity to which aircraft should be queried",
+  "additionalProperties": false,
+  "properties": {
+    "latitude": {
+      "type": "number",
+      "description": "Latitude of the coordinate",
+      "format": "double"
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Longitude of the coordinate",
+      "format": "double"
+    },
+    "radius": {
+      "type": "number",
+      "description": "Radius in Nautical Miles from the coordinate specified via Latitude and Longitude",
+      "format": "double"
+    },
+    "altitude_min": {
+      "type": "integer",
+      "description": "Altitude in feet to filter aircraft by (lower boundary)",
+      "format": "int32",
+      "nullable": true
+    },
+    "altitude_max": {
+      "type": "integer",
+      "description": "Altitude in feet to filter aircraft by (upper boundary)",
+      "format": "int32",
+      "nullable": true
+    }
+  }
+}

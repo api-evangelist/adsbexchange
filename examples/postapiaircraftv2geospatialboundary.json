@@ -1,0 +1,81 @@
+{
+  "operationId": "PostApiAircraftV2GeospatialBoundary",
+  "summary": "Get aircraft within boundary",
+  "description": "Returns all aircraft within the given geospatial boundary(ies) described by GeoJSON Features.\n\n\nThe boundary is defined as a GeoJSON \"FeatureCollection\" object that contains multiple \"Feature\" objects.\nOnly \"Polygon\" and \"MultiPolygon\" feature types are supported.\n\nWhen feature object in the request contains \"properties\" dictionary,\neach aircraft matched by the boundaries of the geometry in the response will inherit those.\nThis allows sending single request with multiple geometries. API supports having up to 5 properties per feature.\n**Important**: When overlapping geometries are provided, the aircraft will be returned only once.\nAircraft will inherit all properties from all geometries it falls into.\n\nTypical use-cases include:\n* Monitoring boundaries of multiple locations (e.g. airports, cities, regions)\n* Monitoring approaching certain airspace boundaries (defining multiple overlapping geometries)\n\nThe more geometries supplied in a single request, the slower the response becomes.\nWe recommended making more requests with fewer geometries to ensure faster response times.\n\nGet aircraft in the San Francisco Bay Area:\n```\nPOST /api/aircraft/v2/geospatial/boundary\n{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"properties\": {\n          \"id\": \"usa-san-francisco-bay-area\",\n          \"name\": \"San Francisco Bay Area\"\n      },\n      \"geometry\": {\n        \"coordinates\": [\n          [\n            [\n              -122.44631395117611,\n              37.83516640724265\n            ],\n            [\n              -122.5693889887842,\n              37.75095177721121\n            ],\n            [\n              -122.43882801189045,\n              37.67277406071676\n            ],\n            [\n              -122.29229571649552,\n              37.749864464293466\n            ],\n            [\n              -122.44631395117611,\n              37.83516640724265\n            ]\n          ]\n        ],\n        \"type\": \"Polygon\"\n      }\n    }\n  ]\n}\n```\n\n\nThe GeoJSON Specification can be found at https://geojson.org/.\n\nUsing https://geojson.io/ simplifies creating GeoJSON boundaries.",
+  "method": "POST",
+  "path": "/geospatial/boundary",
+  "parameters": [
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models within the given boundaries.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "400": {
+      "description": "When the request is malformed or the GeoJSON is invalid.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/BadRequest"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  },
+  "requestBody": {
+    "x-name": "FeatureCollectionRequest",
+    "description": "",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/FeatureCollectionRequest"
+        }
+      }
+    },
+    "required": true,
+    "x-position": 1
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "operationId": "GetApiAircraftV2GeospatialCountrySubdivisions",
+  "summary": "Get subdivisions by country code",
+  "description": "Whe country code is provided, this endpoint will return a list of state/province subdivisions for the given country.\n\nThis endpoint is complimentary to `/geospatial/country/{country}/subdivision/{subdivision}` endpoint.\n\nThe complete list of supported country codes and states/provinces can be accessed here:\n* Countries: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n* States/Provinces: https://en.wikipedia.org/wiki/ISO_3166-2\n\n\nFor example, to get a list of subdivisions for the United States you would call:\n```\nGET /api/aircraft/v2/geospatial/country/US/subdivisions\n```\nand expect a response with a collection of subdivisions:\n```json\n{\n    \"country\": \"us\",\n    \"subdivisions\": [\n        {\n            \"name\": \"Washington\",\n            \"iso_a2\": \"US\",\n            \"iso_3166_2\": \"US-WA\",\n            \"adm1_code\": \"USA-3519\",\n            \"name_alt\": \"WA|Wash.\",\n            \"region\": \"West\"\n        },\n        ...\n    ]\n}\n```\nand in requests to `/geospatial/country/{country}/subdivision/{subdivision}` endpoint you would use `iso_3166_2` code as a subdivision identifier.",
+  "method": "GET",
+  "path": "/geospatial/country/{country}/subdivisions",
+  "parameters": [
+    {
+      "name": "country",
+      "in": "path",
+      "required": true,
+      "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of subdivisions.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/GeoboundaryCountrySubdivisionsResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

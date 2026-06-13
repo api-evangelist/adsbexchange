@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AircraftSingleResponse",
+  "type": "object",
+  "description": "Full aircraft model with all available information.",
+  "additionalProperties": false,
+  "properties": {
+    "hex": {
+      "type": "string",
+      "description": "The ICAO 24-bit address (hex) of the aircraft."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of message (e.g., adsb_icao, tisb_icao, etc.).",
+      "nullable": true
+    },
+    "flight": {
+      "type": "string",
+      "description": "The flight number or callsign.",
+      "nullable": true
+    },
+    "r": {
+      "type": "string",
+      "description": "Registration or tail number.",
+      "nullable": true
+    },
+    "t": {
+      "type": "string",
+      "description": "Aircraft type (e.g., B38M for Boeing 737 MAX 8).",
+      "nullable": true
+    },
+    "dbFlags": {
+      "type": "integer",
+      "description": "Bitfield for certain database flags, below and must be a bitwise and \u2026 check the documentation for your programming language",
+      "nullable": true,
+      "example": "  military = dbFlags & 1;\n  interesting = dbFlags & 2;\n  PIA = dbFlags & 4;\n  LADD = dbFlags & 8;"
+    },
+    "alt_baro": {
+      "description": "Barometric altitude in feet.",
+      "nullable": true
+    },
+    "alt_geom": {
+      "type": "number",
+      "description": "Geometric altitude in feet.",
+      "format": "float",
+      "nullable": true
+    },
+    "gs": {
+      "type": "number",
+      "description": "Ground speed in knots.",
+      "format": "float",
+      "nullable": true
+    },
+    "ias": {
+      "type": "number",
+      "description": "Indicated airspeed in knots",
+      "format": "float",
+      "nullable": true
+    },
+    "tas": {
+      "type": "number",
+      "description": "True airspeed in knots.",
+      "format": "float",
+      "nullable": true
+    },
+    "mach": {
+      "type": "number",
+      "description": "Mach number (speed as a fraction of the speed of sound).",
+      "format": "float",
+      "nullable": true
+    },
+    "wd": {
+      "type": "integer",
+      "description": "Wind direction in degrees.",
+      "nullable": true
+    },
+    "ws": {
+      "type": "integer",
+      "description": "Wind speed in knots.",
+      "nullable": true
+    },
+    "oat": {
+      "type": "integer",
+      "description": "Outer/Static air temperature (OAT), typically somewhat inaccurate at lower altitudes.",
+      "nullable": true
+    },
+    "tat": {
+      "type": "integer",
+      "description": "Total air temperature (TAT), typically somewhat inaccurate at lower altitudes.",
+      "nullable": true
+    },
+    "track": {
+      "type": "number",
+      "description": "Aircraft track over the ground in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "track_rate": {
+      "type": "number",
+      "description": "Rate of change of the track in degrees per second.",
+      "format": "float",
+      "nullable": true
+    },
+    "roll": {
+      "type": "number",
+      "description": "Aircraft roll angle in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "mag_heading": {
+      "type": "number",
+      "description": "Magnetic heading in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "true_heading": {
+      "type": "number",
+      "description": "True heading in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "baro_rate": {
+      "type": "integer",
+      "description": "Barometric vertical rate (climb or descent) in feet per minute.",
+      "format": "int32",
+      "nullable": true
+    },
+    "geom_rate": {
+      "type": "integer",
+      "description": "Geometric vertical rate (climb or descent) in feet per minute.",
+      "format": "int32",
+      "nullable": true
+    },
+    "squawk": {
+      "type": "string",
+      "description": "Transponder squawk code.",
+      "nullable": true
+    },
+    "emergency": {
+      "type": "string",
+      "description": "Emergency code (if applicable).",
+      "nullable": true
+    },
+    "category": {
+      "type": "string",
+      "description": "Aircraft category based on size and weight.",
+      "nullable": true
+    },
+    "nav_qnh": {
+      "type": "number",
+      "description": "QNH setting (altimeter pressure setting) in hPa.",
+      "format": "float",
+      "nullable": true
+    },
+    "nav_altitude_mcp": {
+      "type": "integer",
+      "description": "MCP (Mode Control Panel) altitude setting in feet.",
+      "nullable": true
+    },
+    "nav_altitude_fms": {
+      "type": "integer",
+      "description": "Selected altitude from the Flight Management System (FMS) in feet.",
+      "nullable": true
+    },
+    "nav_heading": {
+      "type": "number",
+      "description": "MCP heading setting in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "nav_modes": {
+      "type": "array",
+      "description": "Navigation modes: autopilot, vnav, althold, approach, lnav, tcas",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "rr_lat": {
+      "type": "number",
+      "description": "Rough estimated latitude based on receiver's position.",
+      "format": "float",
+      "nullable": true
+    },
+    "rr_lon": {
+      "type": "number",
+      "description": "Rough estimated longitude based on receiver's position.",
+      "format": "float",
+      "nullable": true
+    },
+    "lastPosition": {
+      "description": "Last known position if lat/lon are older than 60 seconds.",
+      "nullable": true,
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/LastPositionDataResponse"
+        }
+      ]
+    },
+    "gpsOkBefore": {
+      "type": "number",
+      "description": "Indicator of whether GPS was working well before degradation.",
+      "format": "double",
+      "nullable": true
+    },
+    "gpsOkLat": {
+      "type": "number",
+      "description": "Indicator of whether GPS was working well before degradation - latitude.",
+      "format": "double",
+      "nullable": true
+    },
+    "gpsOkLon": {
+      "type": "number",
+      "description": "Indicator of whether GPS was working well before degradation - longitude.",
+      "format": "double",
+      "nullable": true
+    },
+    "lat": {
+      "type": "number",
+      "description": "Latitude of the aircraft.",
+      "format": "float",
+      "nullable": true
+    },
+    "lon": {
+      "type": "number",
+      "description": "Longitude of the aircraft.",
+      "format": "float",
+      "nullable": true
+    },
+    "nic": {
+      "type": "integer",
+      "description": "Navigation Integrity Category.",
+      "format": "int32",
+      "nullable": true
+    },
+    "rc": {
+      "type": "integer",
+      "description": "Containment Radius of Accuracy in meters.",
+      "nullable": true
+    },
+    "seen_pos": {
+      "type": "number",
+      "description": "Time since the last positional update in seconds.",
+      "format": "float",
+      "nullable": true
+    },
+    "version": {
+      "type": "integer",
+      "description": "ADS-B version.",
+      "format": "int32",
+      "nullable": true
+    },
+    "nic_baro": {
+      "type": "integer",
+      "description": "Barometric NIC (Navigation Integrity Category).",
+      "nullable": true
+    },
+    "nac_p": {
+      "type": "integer",
+      "description": "Navigation Accuracy Category for Position.",
+      "nullable": true
+    },
+    "nac_v": {
+      "type": "integer",
+      "description": "Navigation Accuracy Category for Velocity.",
+      "nullable": true
+    },
+    "sil": {
+      "type": "integer",
+      "description": "Source Integrity Level.",
+      "nullable": true
+    },
+    "sil_type": {
+      "type": "string",
+      "description": "Source Integrity Level type (e.g., per hour or per sample).",
+      "nullable": true
+    },
+    "gva": {
+      "type": "integer",
+      "description": "Geometric Vertical Accuracy.",
+      "nullable": true
+    },
+    "sda": {
+      "type": "integer",
+      "description": "System Design Assurance.",
+      "nullable": true
+    },
+    "alert": {
+      "type": "integer",
+      "description": "Alert status (whether the transponder is indicating an alert).",
+      "nullable": true
+    },
+    "spi": {
+      "type": "integer",
+      "description": "Special Position Identification (SPI) status.",
+      "nullable": true
+    },
+    "mlat": {
+      "type": "array",
+      "description": "List of fields derived from MLAT data (e.g., \"lat\", \"lon\", \"nic\", \"rc\").",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tisb": {
+      "type": "array",
+      "description": "List of fields derived from TIS-B data (e.g., \"gs\", \"lat\", \"lon\", \"nic\", \"rc\", \"nac_p\", \"sil\", \"sil_type\").",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "messages": {
+      "type": "integer",
+      "description": "The number of messages received from the aircraft.",
+      "format": "int64",
+      "nullable": true
+    },
+    "seen": {
+      "type": "number",
+      "description": "Time since the last message was received, in seconds.",
+      "format": "float",
+      "nullable": true
+    },
+    "rssi": {
+      "type": "number",
+      "description": "Signal strength in dBFS.",
+      "format": "float",
+      "nullable": true
+    },
+    "acas_ra": {
+      "description": "ACAS Resolution Advisory data (experimental, subject to change).",
+      "nullable": true,
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/AcasResolutionAdvisoryResponse"
+        }
+      ]
+    },
+    "now": {
+      "type": "integer",
+      "description": "Unix milliseconds timestamp of the time the data was put into the cache.",
+      "format": "int64",
+      "nullable": true
+    },
+    "geometries": {
+      "type": "array",
+      "description": "Contains caller-supplied collection of properties (up to 5) per matched geometry.\nProperties are propagated from each geometry object in the filter request.",
+      "nullable": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

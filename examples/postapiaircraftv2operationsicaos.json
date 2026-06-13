@@ -1,0 +1,113 @@
+{
+  "operationId": "PostApiAircraftV2OperationsIcaos",
+  "summary": "Get operations by multiple aircraft ICAO codes",
+  "description": "Returns operations (Takeoffs and Landings) for the given ICAO codes. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of ICAOs per request is 500 (enforced by model validation), further constrained by FleetLimit entitlement.",
+  "method": "POST",
+  "path": "/operations/icaos",
+  "parameters": [
+    {
+      "name": "page",
+      "x-originalName": "pageNumber",
+      "in": "query",
+      "schema": {
+        "type": "integer",
+        "format": "int32",
+        "nullable": true
+      },
+      "x-position": 2
+    },
+    {
+      "name": "time_from",
+      "x-originalName": "unixTimestampFrom",
+      "in": "query",
+      "schema": {
+        "type": "integer",
+        "format": "int64",
+        "nullable": true
+      },
+      "x-position": 3
+    },
+    {
+      "name": "time_to",
+      "x-originalName": "unixTimestampTo",
+      "in": "query",
+      "schema": {
+        "type": "integer",
+        "format": "int64",
+        "nullable": true
+      },
+      "x-position": 4
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/OperationsResponse"
+      },
+      "example": {}
+    },
+    "400": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/BadRequest"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  },
+  "requestBody": {
+    "x-name": "request",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/OperationsIcaosRequest"
+        }
+      }
+    },
+    "required": true,
+    "x-position": 1
+  }
+}

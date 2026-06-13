@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RegistrationRequest",
+  "type": "object",
+  "description": "Model for querying api for multiple aircraft by registration numbers",
+  "additionalProperties": false,
+  "properties": {
+    "registrations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

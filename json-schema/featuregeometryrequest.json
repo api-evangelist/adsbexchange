@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FeatureGeometryRequest",
+  "type": "object",
+  "description": "Describes the geometry of the feature in the GeoJSON feature collection",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the GeoJSON object. Should be \"Polygon\" or \"MultiPolygon\""
+    },
+    "coordinates": {
+      "type": "array",
+      "description": "Coordinates of the polygon or multipolygon geometry in GeoJSON format.",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    }
+  }
+}

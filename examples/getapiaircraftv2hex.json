@@ -1,0 +1,78 @@
+{
+  "operationId": "GetApiAircraftV2Hex",
+  "summary": "Get last known position",
+  "description": "This endpoint will return a last known position for the aircraft.\n\n\nEach aircraft model will contain the \"now\" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.\n\n**Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,\ninstead of returning a collection of aircraft with a single aircraft, the method will return a single aircraft model. We understand\nthis is an unconventional behavior, which will be addressed in the future version of the API. To force a collection response, append a trailing comma\nto the ICAO code provided in the URL. This will still return a single aircraft model, but it will be wrapped in a collection as per API spec.\n\nExample:\n```\nGET /api/aircraft/v2/hex/A1B2C3,\n```\nwill force a collection response.",
+  "method": "GET",
+  "path": "/hex/{hex}",
+  "parameters": [
+    {
+      "name": "hex",
+      "in": "path",
+      "required": true,
+      "description": "ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "When single aircraft requested, returns a single aircraft model response, otherwise will return a collection of aircraft models. See the description.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "414": {
+      "description": "Requested URL is too long",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/RequestedUrlTooLongResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

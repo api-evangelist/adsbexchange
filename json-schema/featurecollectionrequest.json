@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FeatureCollectionRequest",
+  "type": "object",
+  "description": "Mimics the request model for the feature collection endpoint (GeoJSON)",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the GeoJSON object. Should be \"FeatureCollection\""
+    },
+    "features": {
+      "type": "array",
+      "description": "Collection of features describing the geometries",
+      "items": {
+        "$ref": "#/components/schemas/FeatureRequest"
+      }
+    }
+  }
+}

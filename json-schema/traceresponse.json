@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TraceResponse",
+  "type": "object",
+  "description": "Model used to represent a trace response example.",
+  "additionalProperties": false,
+  "properties": {
+    "icao": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "number",
+      "format": "double"
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoboundaryCountrySubdivisionsResponse",
+  "type": "object",
+  "description": "Response from the geoboundary endpoint containing country subdivisions.",
+  "additionalProperties": false,
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    "subdivisions": {
+      "type": "array",
+      "description": "List of subdivisions for the country available in the API.",
+      "items": {
+        "$ref": "#/components/schemas/GeoboundaryCountrySubdivision"
+      }
+    }
+  }
+}

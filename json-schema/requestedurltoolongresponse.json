@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RequestedUrlTooLongResponse",
+  "type": "object",
+  "description": "Requested URL is too long.",
+  "additionalProperties": false,
+  "properties": {
+    "msg": {
+      "type": "string"
+    }
+  }
+}

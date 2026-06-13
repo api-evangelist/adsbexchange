@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProximityRequest",
+  "type": "object",
+  "description": "Model for querying api for multiple aircraft by proximity",
+  "additionalProperties": false,
+  "properties": {
+    "filters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ProximityPointFilter"
+      }
+    }
+  }
+}

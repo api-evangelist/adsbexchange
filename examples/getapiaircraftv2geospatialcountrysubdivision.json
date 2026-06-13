@@ -1,0 +1,80 @@
+{
+  "operationId": "GetApiAircraftV2GeospatialCountrySubdivision",
+  "summary": "Get aircraft by country subdivision: state/province",
+  "description": "Returns aircraft within the boundaries of the given country's subdivision: state or province.\n\n* Country must be specified as ISO 3166-1 alpha-2 code.\n* State/province must be specified as ISO 3166-2 code. You can omit the country code prefix.\nBoth of the arguments are case-insensitive.\n            \nSee below examples of how to query aircraft by country and state/province.\n            \nUSA - California:\n* `/api/aircraft/v2/geospatial/country/US/subdivision/CA`\n* `/api/aircraft/v2/geospatial/country/US/subdivision/US-CA`\n            \nCanada - British Columbia:\n* `/api/aircraft/v2/geospatial/country/CA/subdivision/BC`\n* `/api/aircraft/v2/geospatial/country/CA/subdivision/CA-BC`\n            \nFrance - Paris:\n* `/api/aircraft/v2/geospatial/country/FR/subdivision/75`\n* `/api/aircraft/v2/geospatial/country/FR/subdivision/FR-75`\n\n\nThe complete list of supported country codes and states/provinces can be accessed here:\n* Countries: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n* States/Provinces: https://en.wikipedia.org/wiki/ISO_3166-2\n\nYou can get supported states/provinces by making GET request to\n`/geospatial/country/{country}/subdivisions` endpoint.",
+  "method": "GET",
+  "path": "/geospatial/country/{country}/subdivision/{subdivision}",
+  "parameters": [
+    {
+      "name": "country",
+      "in": "path",
+      "required": true,
+      "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "name": "subdivision",
+      "in": "path",
+      "required": true,
+      "description": "Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 2
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AircraftCollectionMinimalResponse",
+  "type": "object",
+  "description": "Response envelope for the multiple aircraft endpoint.",
+  "additionalProperties": false,
+  "properties": {
+    "ac": {
+      "type": "array",
+      "description": "List of aircraft with all available information.",
+      "items": {
+        "$ref": "#/components/schemas/AircraftSingleMinimalResponse"
+      }
+    },
+    "msg": {
+      "type": "string",
+      "description": "Message indicating the status of the request overall."
+    },
+    "now": {
+      "type": "integer",
+      "description": "Unix timestamp of the current UTC time on the server (ms).",
+      "format": "int64"
+    },
+    "total": {
+      "type": "integer",
+      "description": "The number of aircraft in the response.",
+      "format": "int32"
+    },
+    "ctime": {
+      "type": "integer",
+      "description": "Unix timestamp (ms) of when the underlying data was last updated.",
+      "format": "int64"
+    },
+    "ptime": {
+      "type": "integer",
+      "description": "Time taken on server to process the request (ms).",
+      "format": "int64"
+    }
+  }
+}

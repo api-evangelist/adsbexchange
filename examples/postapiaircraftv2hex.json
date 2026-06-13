@@ -1,0 +1,73 @@
+{
+  "operationId": "PostApiAircraftV2Hex",
+  "summary": "Get last known position",
+  "description": "This endpoint will return a last known position for the aircraft. Because GET request has a limit on the number of characters in the URL,\nit is recommended to use POST request when querying multiple aircraft (more than 10).\n\n\nEach aircraft model will contain the \"now\" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.\n\n**Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,\ninstead of returning a collection of aircraft with a single aircraft, the method will return a single aircraft model. We understand\nthis is an unconventional behavior, which will be addressed in the future version of the API. To force a collection response, append an empty string to\n\"hex_list\" property in the JSON request model. This will still return a single aircraft model, but it will be wrapped in a collection as per API spec.\n\nExample:\n```\nPOST /api/aircraft/v2/hex\n            \n{\n    \"hex_list\": [\"A1B2C3\", \"\"]\n}\n```\nwill force a collection response.",
+  "method": "POST",
+  "path": "/hex",
+  "parameters": [
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "When single aircraft requested, returns a single aircraft model response, otherwise will return a collection of aircraft models. See the description.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  },
+  "requestBody": {
+    "x-name": "request",
+    "description": "JSON request model containing a list of ICAO codes to retrieve aircraft last known data for.",
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/AircraftRequest"
+        }
+      }
+    },
+    "required": true,
+    "x-position": 1
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AircraftSingleMinimalResponse",
+  "type": "object",
+  "description": "Contains the minimal information about an aircraft.",
+  "additionalProperties": false,
+  "properties": {
+    "hex": {
+      "type": "string",
+      "description": "The ICAO 24-bit address (hex) of the aircraft."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of message (e.g., adsb_icao, tisb_icao, etc.).",
+      "nullable": true
+    },
+    "flight": {
+      "type": "string",
+      "description": "The flight number or callsign.",
+      "nullable": true
+    },
+    "r": {
+      "type": "string",
+      "description": "Registration or tail number.",
+      "nullable": true
+    },
+    "t": {
+      "type": "string",
+      "description": "Aircraft type (e.g., B38M for Boeing 737 MAX 8).",
+      "nullable": true
+    },
+    "alt_baro": {
+      "description": "Barometric altitude in feet.",
+      "nullable": true
+    },
+    "alt_geom": {
+      "type": "number",
+      "description": "Geometric altitude in feet.",
+      "format": "float",
+      "nullable": true
+    },
+    "gs": {
+      "type": "number",
+      "description": "Ground speed in knots.",
+      "format": "float",
+      "nullable": true
+    },
+    "ias": {
+      "type": "number",
+      "description": "Indicated airspeed in knots",
+      "format": "float",
+      "nullable": true
+    },
+    "tas": {
+      "type": "number",
+      "description": "True airspeed in knots.",
+      "format": "float",
+      "nullable": true
+    },
+    "mach": {
+      "type": "number",
+      "description": "Mach number (speed as a fraction of the speed of sound).",
+      "format": "float",
+      "nullable": true
+    },
+    "wd": {
+      "type": "integer",
+      "description": "Wind direction in degrees.",
+      "nullable": true
+    },
+    "ws": {
+      "type": "integer",
+      "description": "Wind speed in knots.",
+      "nullable": true
+    },
+    "oat": {
+      "type": "integer",
+      "description": "Outer/Static air temperature (OAT), typically somewhat inaccurate at lower altitudes.",
+      "nullable": true
+    },
+    "tat": {
+      "type": "integer",
+      "description": "Total air temperature (TAT), typically somewhat inaccurate at lower altitudes.",
+      "nullable": true
+    },
+    "track": {
+      "type": "number",
+      "description": "Aircraft track over the ground in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "track_rate": {
+      "type": "number",
+      "description": "Rate of change of the track in degrees per second.",
+      "format": "float",
+      "nullable": true
+    },
+    "roll": {
+      "type": "number",
+      "description": "Aircraft roll angle in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "mag_heading": {
+      "type": "number",
+      "description": "Magnetic heading in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "true_heading": {
+      "type": "number",
+      "description": "True heading in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "baro_rate": {
+      "type": "integer",
+      "description": "Barometric vertical rate (climb or descent) in feet per minute.",
+      "format": "int32",
+      "nullable": true
+    },
+    "geom_rate": {
+      "type": "integer",
+      "description": "Geometric vertical rate (climb or descent) in feet per minute.",
+      "format": "int32",
+      "nullable": true
+    },
+    "squawk": {
+      "type": "string",
+      "description": "Transponder squawk code.",
+      "nullable": true
+    },
+    "category": {
+      "type": "string",
+      "description": "Aircraft category based on size and weight.",
+      "nullable": true
+    },
+    "nav_qnh": {
+      "type": "number",
+      "description": "QNH setting (altimeter pressure setting) in hPa.",
+      "format": "float",
+      "nullable": true
+    },
+    "nav_altitude_mcp": {
+      "type": "integer",
+      "description": "MCP (Mode Control Panel) altitude setting in feet.",
+      "nullable": true
+    },
+    "nav_altitude_fms": {
+      "type": "integer",
+      "description": "Selected altitude from the Flight Management System (FMS) in feet.",
+      "nullable": true
+    },
+    "nav_heading": {
+      "type": "number",
+      "description": "MCP heading setting in degrees.",
+      "format": "float",
+      "nullable": true
+    },
+    "nav_modes": {
+      "type": "array",
+      "description": "Navigation modes: autopilot, vnav, althold, approach, lnav, tcas",
+      "nullable": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "lat": {
+      "type": "number",
+      "description": "Latitude of the aircraft.",
+      "format": "float",
+      "nullable": true
+    },
+    "lon": {
+      "type": "number",
+      "description": "Longitude of the aircraft.",
+      "format": "float",
+      "nullable": true
+    },
+    "seen_pos": {
+      "type": "number",
+      "description": "Time since the last positional update in seconds.",
+      "format": "float",
+      "nullable": true
+    },
+    "seen": {
+      "type": "number",
+      "description": "Time since the last message was received, in seconds.",
+      "format": "float",
+      "nullable": true
+    }
+  }
+}

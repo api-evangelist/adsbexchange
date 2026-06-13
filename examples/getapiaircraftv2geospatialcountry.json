@@ -1,0 +1,70 @@
+{
+  "operationId": "GetApiAircraftV2GeospatialCountry",
+  "summary": "Get aircraft by country",
+  "description": "Returns aircraft within the boundaries of the given country.\n\nSee below examples of how to query aircraft by country.\nCountry must be specified as ISO 3166-1 alpha-2 code.\nThe complete list of supported country codes can be accessed here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n\nUSA:\n* `/api/aircraft/v2/geospatial/country/US`\n\nCanada:\n* `/api/aircraft/v2/geospatial/country/CA`",
+  "method": "GET",
+  "path": "/geospatial/country/{country}",
+  "parameters": [
+    {
+      "name": "country",
+      "in": "path",
+      "required": true,
+      "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

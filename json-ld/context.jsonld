@@ -1,0 +1,118 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "adsb": "https://www.adsbexchange.com/terms/",
+    "aviation": "https://www.faa.gov/aviation/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "provider": "schema:provider",
+    "aircraft": {
+      "@id": "adsb:aircraft",
+      "@type": "@id"
+    },
+    "hex": {
+      "@id": "adsb:icaoHex",
+      "@comment": "24-bit ICAO identifier as 6 hex digits"
+    },
+    "flight": {
+      "@id": "adsb:callsign",
+      "@comment": "Callsign up to 8 characters"
+    },
+    "r": {
+      "@id": "adsb:registration",
+      "@comment": "Aircraft tail number registration"
+    },
+    "t": {
+      "@id": "adsb:aircraftType",
+      "@comment": "ICAO aircraft type designator"
+    },
+    "lat": {
+      "@id": "schema:latitude",
+      "@type": "xsd:decimal"
+    },
+    "lon": {
+      "@id": "schema:longitude",
+      "@type": "xsd:decimal"
+    },
+    "alt_baro": {
+      "@id": "adsb:baroAltitude",
+      "@comment": "Barometric altitude in feet"
+    },
+    "alt_geom": {
+      "@id": "adsb:geometricAltitude",
+      "@comment": "Geometric altitude in feet"
+    },
+    "gs": {
+      "@id": "adsb:groundSpeed",
+      "@comment": "Ground speed in knots"
+    },
+    "track": {
+      "@id": "adsb:track",
+      "@comment": "True track over ground in degrees (0-359)"
+    },
+    "baro_rate": {
+      "@id": "adsb:baroRate",
+      "@comment": "Rate of change of barometric altitude in ft/min"
+    },
+    "squawk": {
+      "@id": "adsb:squawk",
+      "@comment": "Mode A squawk code as 4-digit octal string"
+    },
+    "emergency": {
+      "@id": "adsb:emergency",
+      "@comment": "Emergency status declaration"
+    },
+    "category": {
+      "@id": "adsb:emitterCategory",
+      "@comment": "Emitter category indicating aircraft type"
+    },
+    "mil": {
+      "@id": "adsb:military",
+      "@type": "xsd:boolean",
+      "@comment": "True if aircraft is military"
+    },
+    "seen_pos": {
+      "@id": "adsb:seenPosition",
+      "@comment": "Seconds since last position was received"
+    },
+    "messages": {
+      "@id": "adsb:messageCount",
+      "@comment": "Total number of Mode S messages received"
+    },
+    "rssi": {
+      "@id": "adsb:signalStrength",
+      "@comment": "Signal power in dBFS"
+    },
+    "type": {
+      "@id": "adsb:dataSourceType",
+      "@comment": "Data source type: adsb_icao, mlat, tisb_icao, etc."
+    },
+    "now": {
+      "@id": "adsb:responseTimestamp",
+      "@type": "xsd:long",
+      "@comment": "Milliseconds since Unix epoch"
+    },
+    "total": {
+      "@id": "adsb:totalAircraft",
+      "@type": "xsd:integer"
+    },
+    "ctime": {
+      "@id": "adsb:cacheTime",
+      "@type": "xsd:long"
+    },
+    "ptime": {
+      "@id": "adsb:processingTime",
+      "@type": "xsd:long",
+      "@comment": "Server processing time in milliseconds"
+    },
+    "ac": {
+      "@id": "adsb:aircraftList",
+      "@container": "@set"
+    },
+    "AircraftCollectionResponse": "adsb:AircraftCollectionResponse",
+    "AircraftSingleResponse": "adsb:AircraftSingleResponse",
+    "OperationsResponse": "adsb:OperationsResponse",
+    "TraceResponse": "adsb:TraceResponse"
+  }
+}

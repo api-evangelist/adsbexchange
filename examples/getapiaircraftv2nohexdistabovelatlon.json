@@ -1,0 +1,104 @@
+{
+  "operationId": "GetApiAircraftV2NohexDistAboveLatLon",
+  "summary": "Get aircraft in radius (above altitude)",
+  "description": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates, and above the provided altitude (ft).\n\nGet aircraft within 50 nautical miles of San Francisco, above 5000 feet (sea level):\n```\nGET /nohex/dist/50/above/5000/lat/37.7749/lon/-122.4194\n```",
+  "method": "GET",
+  "path": "/nohex/dist/{dist}/above/{alt}/lat/{lat}/lon/{lon}",
+  "parameters": [
+    {
+      "name": "lat",
+      "in": "path",
+      "required": true,
+      "description": "Latitude of the center point.",
+      "schema": {
+        "type": "number",
+        "format": "double"
+      },
+      "x-position": 1
+    },
+    {
+      "name": "lon",
+      "in": "path",
+      "required": true,
+      "description": "Longitude of the center point.",
+      "schema": {
+        "type": "number",
+        "format": "double"
+      },
+      "x-position": 2
+    },
+    {
+      "name": "dist",
+      "in": "path",
+      "required": true,
+      "description": "Radius in nautical miles.",
+      "schema": {
+        "type": "number",
+        "format": "double"
+      },
+      "x-position": 3
+    },
+    {
+      "name": "alt",
+      "in": "path",
+      "required": true,
+      "description": "Altitude in feet above sea level.",
+      "schema": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "x-position": 4
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models within the given radius.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}

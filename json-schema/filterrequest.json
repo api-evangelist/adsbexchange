@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FilterRequest",
+  "type": "object",
+  "description": "Model describing filter criteria for live aircraft data.",
+  "additionalProperties": false,
+  "properties": {
+    "logical_operator": {
+      "type": "string",
+      "description": "Specifies the logical operator to use when combining filters."
+    },
+    "filters": {
+      "type": "array",
+      "description": "Specifies the filters to apply to the aircraft data.",
+      "items": {
+        "$ref": "#/components/schemas/FilterDefinition"
+      }
+    }
+  }
+}

@@ -44,6 +44,8 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
       - type: FinOps
         url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/openapi/openapi.json
     contact:
       - FN: ADS-B Exchange Support
         url: https://www.adsbexchange.com/community/developer-hub/

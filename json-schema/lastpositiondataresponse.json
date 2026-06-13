@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LastPositionDataResponse",
+  "type": "object",
+  "description": "When the regular lat and lon are older than 60 seconds\nthey are no longer considered valid, this will provide\nthe last position and show the age for the last position.\nAircraft will only be in the aircraft json if a position\nhas been received in the last 60 seconds or if any message\nhas been received in the last 30 seconds.",
+  "additionalProperties": false,
+  "properties": {
+    "lat": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "lon": {
+      "type": "number",
+      "format": "float",
+      "nullable": true
+    },
+    "nic": {
+      "type": "integer",
+      "description": "Navigation Integrity Category (2.2.3.2.7.2.6)",
+      "format": "int32",
+      "nullable": true
+    },
+    "rc": {
+      "type": "integer",
+      "description": "Radius of Containment, meters; a measure of position integrity\nderived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)",
+      "format": "int32",
+      "nullable": true
+    },
+    "seen_pos": {
+      "type": "number",
+      "description": "How long ago (in seconds before \u201cnow\u201d) the position was last updated",
+      "format": "double",
+      "nullable": true
+    }
+  }
+}

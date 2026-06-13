@@ -1,0 +1,78 @@
+{
+  "operationId": "GetApiAircraftV2Icao",
+  "summary": "Get aircraft by ICAO",
+  "description": "This endpoint will return aircraft data for the provided ICAO code(s). This will not return a match if aircraft has not been seen by ADSB Exchange in the last 15 minutes.",
+  "method": "GET",
+  "path": "/icao/{icao}",
+  "parameters": [
+    {
+      "name": "icao",
+      "in": "path",
+      "required": true,
+      "description": "ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes.",
+      "schema": {
+        "type": "string"
+      },
+      "x-position": 1
+    },
+    {
+      "type": "string",
+      "name": "Accept-Encoding",
+      "in": "header",
+      "required": true,
+      "description": "The encoding type the client will accept in the response. API call must use compression.",
+      "default": "gzip",
+      "example": "gzip"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "Response containing a collection of aircraft models.",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/AircraftCollectionResponse"
+      },
+      "example": {}
+    },
+    "402": {
+      "description": "Payment Required",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiUnauthorizedResponse"
+      },
+      "example": {}
+    },
+    "403": {
+      "description": "Forbidden",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiForbiddenResponse"
+      },
+      "example": {}
+    },
+    "414": {
+      "description": "Requested URL is too long",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/RequestedUrlTooLongResponse"
+      },
+      "example": {}
+    },
+    "429": {
+      "description": "Rate Limit Exceeded",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ApiTooManyRequestsResponse"
+      },
+      "example": {}
+    },
+    "500": {
+      "description": "Server Error",
+      "content_type": "application/json",
+      "schema": {
+        "$ref": "#/components/schemas/ProblemDetails"
+      },
+      "example": {}
+    }
+  }
+}
