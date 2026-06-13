@@ -1,0 +1,41 @@
+rateLimits:
+  - plan: Community API (RapidAPI)
+    description: The ADS-B Exchange Community API accessed via RapidAPI enforces
+      a monthly request quota of 10,000 requests for the $10/month plan. Real-time
+      aircraft data is updated every 500ms at the source, but individual API
+      requests are counted against the monthly quota. Rate limits above the quota
+      threshold are enforced by RapidAPI's gateway.
+    limits:
+      - type: Requests
+        period: month
+        value: 10000
+        note: Monthly quota for $10/month Community plan via RapidAPI
+      - type: UpdateFrequency
+        period: second
+        value: 0.5
+        note: Source data refreshed every 500ms; individual requests counted against quota
+    notes:
+      - Community API is for non-commercial use only
+      - Exceeding the 10,000 monthly request limit requires upgrading to a higher tier
+      - Enterprise plans have custom rate limits negotiated directly with ADS-B Exchange
+      - Commercial use requires an enterprise subscription, not the Community API
+      - No per-second or per-minute rate limits are publicly documented for the Community plan
+  - plan: Enterprise (Live Positions, Live Operations)
+    description: Enterprise API rate limits are not publicly disclosed. ADS-B Exchange
+      enterprise subscriptions are customized based on use case and volume requirements,
+      negotiated directly with the ADS-B Exchange sales team. Data delivery occurs
+      at 500ms or 5-second intervals depending on chosen product.
+    limits:
+      - type: DataDeliveryInterval
+        period: second
+        value: 0.5
+        note: Live data updated every 500ms (or 5-second option for Live Positions)
+      - type: Requests
+        period: month
+        value: null
+        note: Custom limits per enterprise agreement
+    notes:
+      - Enterprise rate limits are custom per contract
+      - gRPC streaming is available for Live Positions product
+      - One-time data extracts and project-based access are explicitly not offered
+      - Minimum annual commitment required for all enterprise products

@@ -1,0 +1,72 @@
+name: ADS-B Exchange
+description: Unfiltered flight tracking network with REST APIs for accessing real-time
+  aircraft positions, military flights, and global ADS-B flight data without filtering.
+  Operated by a crowdsourced global network of ADS-B and MLAT receivers providing
+  ultra-low-latency aircraft tracking data for aviation research and applications.
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Aviation
+  - Flight Tracking
+  - ADS-B
+  - Aircraft
+  - Real-Time
+  - Military
+  - MLAT
+apis:
+  - name: ADS-B Exchange Aircraft API
+    description: REST API providing real-time global aircraft positions, ICAO hex
+      identifiers, registrations, squawk codes, altitude, speed, heading, and military
+      aircraft flags. Delivered via the gateway.adsbexchange.com endpoint with API
+      key authentication. Accessible via RapidAPI for community and non-commercial
+      use with paid commercial tiers available.
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.adsbexchange.com/data-products/
+    baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+    tags:
+      - Aircraft Tracking
+      - ADS-B
+      - Real-Time Positions
+      - Military Aircraft
+      - ICAO
+      - Aviation
+    properties:
+      - type: Documentation
+        url: https://www.adsbexchange.com/version-2-api/
+      - type: Documentation
+        url: https://www.adsbexchange.com/data-products/sample-api-call/
+      - type: Plans
+        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+      - type: RateLimits
+        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+      - type: FinOps
+        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+    contact:
+      - FN: ADS-B Exchange Support
+        url: https://www.adsbexchange.com/community/developer-hub/
+common:
+  - type: Website
+    url: https://www.adsbexchange.com
+  - type: Developer
+    url: https://www.adsbexchange.com/community/developer-hub/
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Pricing
+    url: https://www.adsbexchange.com/data-products/
+  - type: DataProducts
+    url: https://www.adsbexchange.com/data-products/
+  - type: Contact
+    url: https://www.adsbexchange.com/contact/
+  - type: TermsOfService
+    url: https://www.adsbexchange.com/legal/terms-and-conditions/
+  - type: PrivacyPolicy
+    url: https://www.adsbexchange.com/legal/privacy-policy/
+  - type: RapidAPI
+    url: https://rapidapi.com/adsbx/api/adsbexchange-com1
+maintainers:
+  - FN: API Evangelist
+    url: https://apievangelist.com
+    email: info@apievangelist.com

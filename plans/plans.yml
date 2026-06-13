@@ -1,0 +1,84 @@
+name: ADS-B Exchange API Plans
+description: ADS-B Exchange offers a Community API for non-commercial use via RapidAPI
+  at $10/month with 10,000 requests. Commercial and enterprise data products (Live
+  Positions, Live Operations, Daily Positions, Daily Operations) are available as
+  annual subscription services with custom pricing negotiated directly with ADS-B
+  Exchange.
+url: https://www.adsbexchange.com/data-products/
+plans:
+  - name: Community API
+    description: Non-commercial access to real-time global aircraft positions via
+      RapidAPI. Designed for side projects, research, custom trackers, and data
+      experiments. Provides REST endpoints with 500ms update frequency for live
+      aircraft data.
+    url: https://rapidapi.com/adsbx/api/adsbexchange-com1
+    price: 10
+    currency: USD
+    unit: month
+    period: month
+    features:
+      - 10,000 API requests per month
+      - Real-time aircraft positions (500ms update frequency)
+      - Query by ICAO hex, callsign, squawk, and location
+      - JSON responses with full aircraft field set
+      - API key authentication via RapidAPI
+      - Non-commercial use only
+  - name: Live Positions Enterprise
+    description: Enterprise subscription delivering ultra-low-latency global aircraft
+      positions every 500ms via REST API or gRPC streaming. Requires annual commitment.
+      Pricing available upon request.
+    url: https://www.adsbexchange.com/data-products/
+    price: 0
+    currency: USD
+    unit: custom
+    period: year
+    features:
+      - Global aircraft position data at 500ms or 5-second intervals
+      - REST API and gRPC streaming delivery options
+      - Full ADS-B and MLAT coverage worldwide
+      - Unfiltered data including military aircraft
+      - Annual subscription with minimum commitment
+      - Up to 10 years of historical backfill available
+  - name: Live Operations Enterprise
+    description: Enterprise subscription for precision real-time operational data
+      enriched with departure and arrival context at 500ms intervals. Requires
+      annual commitment. Pricing available upon request.
+    url: https://www.adsbexchange.com/data-products/
+    price: 0
+    currency: USD
+    unit: custom
+    period: year
+    features:
+      - Live flight data with departure and arrival context
+      - 500ms update frequency
+      - REST API delivery
+      - Enriched operational decision-making data
+      - Annual subscription with minimum commitment
+  - name: Daily Positions Enterprise
+    description: Enterprise subscription for a comprehensive daily feed of global
+      aircraft position records in JSON and CSV format. The world's most complete
+      high-fidelity record of aircraft movements. Pricing available upon request.
+    url: https://www.adsbexchange.com/data-products/
+    price: 0
+    currency: USD
+    unit: custom
+    period: year
+    features:
+      - Daily rollup of all global aircraft positions
+      - JSON and CSV delivery formats
+      - High-fidelity historical position records
+      - Annual subscription with minimum commitment
+      - Up to 10 years of historical backfill
+  - name: Daily Operations Enterprise
+    description: Enterprise subscription delivering a comprehensive BI-ready daily
+      feed of completed flight events in CSV format. Pricing available upon request.
+    url: https://www.adsbexchange.com/data-products/
+    price: 0
+    currency: USD
+    unit: custom
+    period: year
+    features:
+      - Daily feed of completed flight events
+      - CSV delivery format
+      - BI-ready structured data
+      - Annual subscription with minimum commitment

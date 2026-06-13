@@ -1,0 +1,67 @@
+finops:
+  description: ADS-B Exchange offers two pricing tracks. The Community API via
+    RapidAPI costs $10/month for 10,000 requests, targeted at non-commercial
+    developers and researchers. Enterprise data products (Live Positions, Live
+    Operations, Daily Positions, Daily Operations) are priced as custom annual
+    subscriptions requiring minimum annual commitments with pricing negotiated
+    directly with ADS-B Exchange. Historical data backfills of up to 10 years
+    are available to subscription customers only.
+  model: Subscription
+  pricing:
+    currency: USD
+    tiers:
+      - name: Community API
+        price: 10.00
+        unit: month
+        description: Non-commercial REST API access via RapidAPI with 10,000
+          requests per month
+      - name: Enterprise Live Positions
+        price: 0.00
+        unit: custom
+        description: Annual subscription for real-time global positions at 500ms
+          via API or gRPC; custom pricing on request
+      - name: Enterprise Live Operations
+        price: 0.00
+        unit: custom
+        description: Annual subscription for live operational data enriched with
+          departure and arrival context; custom pricing on request
+      - name: Enterprise Daily Positions
+        price: 0.00
+        unit: custom
+        description: Annual subscription for daily JSON/CSV feed of all global
+          aircraft positions; custom pricing on request
+      - name: Enterprise Daily Operations
+        price: 0.00
+        unit: custom
+        description: Annual subscription for BI-ready daily CSV feed of completed
+          flight events; custom pricing on request
+    perRequest: null
+    perCall: null
+  costOptimization:
+    - Cache aircraft position responses locally to avoid re-querying the same
+      aircraft within the same tracking session
+    - Query by specific ICAO hex codes rather than geographic regions to reduce
+      response payload sizes and request count consumption
+    - For Community API users, batch queries by combining multiple ICAO codes
+      in a single request where supported
+    - Use geographic bounding box queries to limit results to only the region
+      of interest, reducing unnecessary data transfer
+    - Implement local deduplication to avoid re-processing aircraft already
+      seen in recent polling cycles
+  budgetConsiderations:
+    - Community API at $10/month provides 10,000 requests; plan query patterns
+      carefully to stay within monthly quota
+    - Enterprise subscriptions require minimum annual commitments with no
+      one-time or project-based access options
+    - Commercial use of data from the Community API is not permitted; budget
+      for enterprise tier if monetizing derived products
+    - Historical backfills of up to 10 years are available only to active
+      subscription customers; factor this into enterprise contract negotiations
+    - gRPC streaming for Live Positions eliminates per-request cost model in
+      favor of continuous connection; evaluate infrastructure costs accordingly
+  notes:
+    - ADS-B Exchange does not offer one-time data extracts or project-based access
+    - Enterprise pricing is not publicly listed; contact sales for a tour and quote
+    - Community API is hosted on RapidAPI and billed through RapidAPI's platform
+    - The Community API was formerly known as API Lite
+    - As of March 2025, the ADSBx Flight Sim Traffic API on RapidAPI was discontinued
