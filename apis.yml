@@ -3,7 +3,7 @@ description: Unfiltered flight tracking network with REST APIs for accessing rea
   aircraft positions, military flights, and global ADS-B flight data without filtering.
   Operated by a crowdsourced global network of ADS-B and MLAT receivers providing
   ultra-low-latency aircraft tracking data for aviation research and applications.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -23,7 +23,7 @@ apis:
       aircraft flags. Delivered via the gateway.adsbexchange.com endpoint with API
       key authentication. Accessible via RapidAPI for community and non-commercial
       use with paid commercial tiers available.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.adsbexchange.com/data-products/
     baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
     tags:
