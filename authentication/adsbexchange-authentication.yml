@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: X-Api-Key
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Provide your API key via x-api-key header to access the API.
+  sources:
+  - openapi/openapi.json

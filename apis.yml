@@ -50,6 +50,10 @@ apis:
       - FN: ADS-B Exchange Support
         url: https://www.adsbexchange.com/community/developer-hub/
 common:
+  - type: DomainSecurity
+    url: security/adsbexchange-domain-security.yml
+  - type: Authentication
+    url: authentication/adsbexchange-authentication.yml
   - type: Website
     url: https://www.adsbexchange.com
   - type: Developer
