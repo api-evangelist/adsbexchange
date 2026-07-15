@@ -1,0 +1,370 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 30
+  by_action_class:
+    connected: 21
+    acting: 9
+  by_consequence:
+    read: 21
+    write: 9
+  human_in_the_loop_required: 0
+operations:
+- path: /all
+  method: get
+  operationId: GetApiAircraftV2All
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /total-aircraft
+  method: get
+  operationId: GetApiAircraftV2TotalAircraft
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /filter
+  method: post
+  operationId: PostApiAircraftV2Filter
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /hex/{hex}
+  method: get
+  operationId: GetApiAircraftV2Hex
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /hex
+  method: post
+  operationId: PostApiAircraftV2Hex
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /icao/{icao}
+  method: get
+  operationId: GetApiAircraftV2Icao
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /icao
+  method: post
+  operationId: PostApiAircraftV2Icao
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /mil
+  method: get
+  operationId: GetApiAircraftV2Mil
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /callsign/{callsign}
+  method: get
+  operationId: GetApiAircraftV2Callsign
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /registration/{registration}
+  method: get
+  operationId: GetApiAircraftV2Registration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /registration
+  method: post
+  operationId: PostApiAircraftV2Registration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /sqk/{squawk}
+  method: get
+  operationId: GetApiAircraftV2Sqk
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lat/{lat}/lon/{lon}/dist/{dist}
+  method: get
+  operationId: GetApiAircraftV2LatLonDist
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /proximity/radius
+  method: post
+  operationId: PostApiAircraftV2ProximityRadius
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /minimal/lat/{lat}/lon/{lon}/dist/{dist}
+  method: get
+  operationId: GetApiAircraftV2MinimalLatLonDist
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /nohex/dist/{dist}/above/{alt}/lat/{lat}/lon/{lon}
+  method: get
+  operationId: GetApiAircraftV2NohexDistAboveLatLon
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /airport/{airport}
+  method: get
+  operationId: GetApiAircraftV2Airport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /airport
+  method: post
+  operationId: PostApiAircraftV2Airport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /geospatial/boundary
+  method: post
+  operationId: PostApiAircraftV2GeospatialBoundary
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /geospatial/country/{country}
+  method: get
+  operationId: GetApiAircraftV2GeospatialCountry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /geospatial/country/{country}/subdivisions
+  method: get
+  operationId: GetApiAircraftV2GeospatialCountrySubdivisions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /geospatial/country/{country}/subdivision/{subdivision}
+  method: get
+  operationId: GetApiAircraftV2GeospatialCountrySubdivision
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /geospatial/region/{region}
+  method: get
+  operationId: GetApiAircraftV2GeospatialRegion
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /geospatial/continent/{continent}
+  method: get
+  operationId: GetApiAircraftV2GeospatialContinent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /operations/icaos
+  method: post
+  operationId: PostApiAircraftV2OperationsIcaos
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /operations/icao/{icao}
+  method: get
+  operationId: GetApiAircraftV2OperationsIcao
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /operations/airports
+  method: post
+  operationId: PostApiAircraftV2OperationsAirports
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /operations/airport/{airport}
+  method: get
+  operationId: GetApiAircraftV2OperationsAirport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /traces/{folder}/{jsonFile}
+  method: get
+  operationId: GetApiAircraftV2Traces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /traces-hist/{year}/{month}/{day}/traces/{folder}/{jsonFile}
+  method: get
+  operationId: GetApiAircraftV2TracesHistTraces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
