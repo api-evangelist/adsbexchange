@@ -1,0 +1,1276 @@
+openapi: 3.0.0
+info:
+  title: ADSB Exchange Geopolitical Filtering Live Positional Data API
+  description: "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>"
+  termsOfService: https://www.adsbexchange.com/terms-of-use/
+  contact:
+    name: Contact ADSB Exchange
+    url: https://www.adsbexchange.com/products/enterprise-api/
+  version: v2
+  x-logo:
+    url: https://adsbexchange.com/wp-content/uploads/ax_logo_background_api-scaled.avif
+    href: '#'
+servers:
+- url: https://gateway.adsbexchange.com/api/aircraft/v2
+tags:
+- name: Live Positional Data
+  description: 'Endpoints provide access to airborne or recently landed aircraft, as well as last known positions.
+
+    Use these endpoints to get information about aircraft, such as location, flight, altitude, speed, and many more.
+
+    <br /><br />
+
+    Comprehensive filtering by various parameters is supported - such as ICAO hex code, registration, squawk, etc.
+
+    See documentation to learn more about available endpoints and their parameters.
+
+    <br /><br />
+
+    For more information about properties returned, please navigate to <a href="https://www.adsbexchange.com/version-2-api-wip/" target="_blank">Version 2 API Fields</a> documentation.'
+paths:
+  /all:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get all aircraft
+      description: 'Returns all aircraft currently being tracked.
+
+
+        Note: This endpoint can be slow or unresponsive in Swagger UI due to the large volume of data returned. For best results, use an external tool (like Postman or curl).'
+      operationId: GetApiAircraftV2All
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Returns a collection of aircraft.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /total-aircraft:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get total aircraft
+      description: Returns only count of aircraft currently being tracked.
+      operationId: GetApiAircraftV2TotalAircraft
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Returns a collection of aircraft with only total aircraft number set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /filter:
+    post:
+      tags:
+      - Live Positional Data
+      summary: Filter aircraft by criteria
+      description: "Filters and returns only aircraft that match the provided criteria.\nFilter contains of a list of filter definitions and a logical operator that defines how filter criteria shall be combined.\n\nTwo logical operators are supported: \"and\" and \"or\". Default is \"and\" when property is not provided.\n\nFilter definition consists of the following properties:\n* \"property\" (string) - name of the property to filter by. Case-insensitive. Filtering only on top-level properties is supported.\n* \"operator\" (string) - comparison operator. All string comparisons are case-insensitive. Supported operators:\n    * \"eq\" (equals)\n    * \"ne\" (not equals)\n    * \"gt\" (greater than, number only)\n    * \"lt\" (less than, number only)\n    * \"ge\" (greater than or equal to, number only)\n    * \"le\" (less than or equal to, number only)\n    * \"isNull\" (property value is null)\n    * \"isNotNull\" (property is not null)\n    * \"contains\" (property contains the value, string only)\n    * \"notContains\" (property does not contain the value, string only)\n    * \"startsWith\" (property starts with the value, string only)\n    * \"notStartsWith\" (property does not start with the value, string only)\n    * \"endsWith\" (property ends with the value, string only)\n    * \"notEndsWith\" (property does not end with the value, string only)\n* \"value\" (string/number/boolean) - value to compare the property to.\nIf string - comparison is case-insensitive.\nIf number has decimal point - it will be parsed as double, otherwise as long.\nDecimals are compared with precision of 6 digits after the point (scientific notation is not supported).\nYou have to ensure type of the value specified matches the target property type (i.e. if response object type is number, you have to provide number).\n\nYou can supply up to 10 filters in a single request.\n\n**Example 1**: get all airborne aircraft under 5000 feet:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"le\",\n        \"value\": 5000\n      }\n    ]\n}\n            \n```\nPlease note, that when numeric value is provided, aircraft with value \"ground\" are excluded.\n\n            \n**Example 2**: get aircraft that have updated their position in the last second:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"seen\",\n        \"operator\": \"le\",\n        \"value\": 1\n      }\n    ]\n}\n            \n```\nIf you're calling API at high frequency rate, this can be a reliable way to get only aircraft that have updated their position since the last request,\nand reduce the amount of data your application has to process.\n\n*Please note, if you decide to proceed this way - you have to keep track of the time when the last successful request\nwas made on your end, so that if you miss a request, you can adjust the time accordingly. Using value smaller than 0.5 seconds is not recommended, as\nAPI server refreshes aircraft positions every 500 milliseconds.*\n            \n\n**Example 3**: get all airborne aircraft under 1000 feet and ones on the ground:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"le\",\n        \"value\": 1000\n      },\n      {\n        \"property\": \"alt_baro\",\n        \"operator\": \"eq\",\n        \"value\": \"ground\"\n      }\n    ]\n}\n            \n```\n\n            \n**Example 4**: get all WestJet and AirCanada aircraft:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      {\n        \"property\": \"flight\",\n        \"operator\": \"startsWith\",\n        \"value\": \"WJA\"\n      },\n      {\n        \"property\": \"flight\",\n        \"operator\": \"startsWith\",\n        \"value\": \"ACA\"\n      }\n    ]\n}\n```\n\n            \n**Example 5**: get PIA aircraft:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"logical_operator\": \"or\",\n    \"filters\": [\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 4 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 5 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 6 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 7 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 12 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 13 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 14 },\n      { \"property\": \"dbFlags\", \"operator\": \"eq\", \"value\": 15 }\n    ]\n}\n```\nExplanation: whether aircraft is PIA or not is defined by the third bit in dbFlags property \"dbFlags & 4\".\nIn binary notation, 4 is 0100. Thus, if the third bit is set, the aircraft is PIA.\nWhich makes the following numeric values satisfy the requirement: 4, 5, 6, 7, 12, 13, 14, 15.\n\n            \n**Example 6**: get aircraft where type is known:\n```\nPOST /api/aircraft/v2/filter\n            \n{\n    \"filters\": [\n      {\n        \"property\": \"t\",\n        \"operator\": \"isNotNull\"\n      }\n    ]\n}\n```"
+      operationId: PostApiAircraftV2Filter
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      requestBody:
+        x-name: request
+        description: JSON request model containing definition of filter criteria.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+        required: true
+        x-position: 1
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models that match filter criteria.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '422':
+          description: Request can not be processed due to error in filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /hex/{hex}:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get last known position
+      description: 'This endpoint will return a last known position for the aircraft.
+
+
+
+        Each aircraft model will contain the "now" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.
+
+
+        **Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,
+
+        instead of returning a collection of aircraft with a single aircraft, the method will return a single aircraft model. We understand
+
+        this is an unconventional behavior, which will be addressed in the future version of the API. To force a collection response, append a trailing comma
+
+        to the ICAO code provided in the URL. This will still return a single aircraft model, but it will be wrapped in a collection as per API spec.
+
+
+        Example:
+
+        ```
+
+        GET /api/aircraft/v2/hex/A1B2C3,
+
+        ```
+
+        will force a collection response.'
+      operationId: GetApiAircraftV2Hex
+      parameters:
+      - name: hex
+        in: path
+        required: true
+        description: ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes.
+        schema:
+          type: string
+        x-position: 1
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: When single aircraft requested, returns a single aircraft model response, otherwise will return a collection of aircraft models. See the description.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '414':
+          description: Requested URL is too long
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestedUrlTooLongResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /hex:
+    post:
+      tags:
+      - Live Positional Data
+      summary: Get last known position
+      description: "This endpoint will return a last known position for the aircraft. Because GET request has a limit on the number of characters in the URL,\nit is recommended to use POST request when querying multiple aircraft (more than 10).\n\n\nEach aircraft model will contain the \"now\" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.\n\n**Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,\ninstead of returning a collection of aircraft with a single aircraft, the method will return a single aircraft model. We understand\nthis is an unconventional behavior, which will be addressed in the future version of the API. To force a collection response, append an empty string to\n\"hex_list\" property in the JSON request model. This will still return a single aircraft model, but it will be wrapped in a collection as per API spec.\n\nExample:\n```\nPOST /api/aircraft/v2/hex\n            \n{\n    \"hex_list\": [\"A1B2C3\", \"\"]\n}\n```\nwill force a collection response."
+      operationId: PostApiAircraftV2Hex
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      requestBody:
+        x-name: request
+        description: JSON request model containing a list of ICAO codes to retrieve aircraft last known data for.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftRequest'
+        required: true
+        x-position: 1
+      responses:
+        '200':
+          description: When single aircraft requested, returns a single aircraft model response, otherwise will return a collection of aircraft models. See the description.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /icao/{icao}:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by ICAO
+      description: This endpoint will return aircraft data for the provided ICAO code(s). This will not return a match if aircraft has not been seen by ADSB Exchange in the last 15 minutes.
+      operationId: GetApiAircraftV2Icao
+      parameters:
+      - name: icao
+        in: path
+        required: true
+        description: ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes.
+        schema:
+          type: string
+        x-position: 1
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '414':
+          description: Requested URL is too long
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestedUrlTooLongResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /icao:
+    post:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by ICAO
+      description: 'This endpoint will return aircraft data for the provided ICAO code(s).
+
+        This will not return a match if aircraft has not been seen by ADSB Exchange in the last 15 minutes.
+
+
+        Because GET request has a limit on the number of characters in the URL,
+
+        it is recommended to use POST request when querying multiple aircraft (more than 10).'
+      operationId: PostApiAircraftV2Icao
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      requestBody:
+        x-name: request
+        description: JSON request model containing a list of ICAO codes to retrieve aircraft data for.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AircraftRequest'
+        required: true
+        x-position: 1
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /mil:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get military aircraft
+      description: This endpoint will return only military aircraft.
+      operationId: GetApiAircraftV2Mil
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /callsign/{callsign}:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by callsign
+      description: This endpoint will return aircraft data for the provided callsign(s).
+      operationId: GetApiAircraftV2Callsign
+      parameters:
+      - name: callsign
+        in: path
+        required: true
+        description: Callsign of the aircraft, or coma-separated list of callsigns.
+        schema:
+          type: string
+        x-position: 1
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /registration/{registration}:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by registration
+      description: This endpoint will return aircraft data for the provided registration number(s).
+      operationId: GetApiAircraftV2Registration
+      parameters:
+      - name: registration
+        in: path
+        required: true
+        description: Registration number of the aircraft, or comma-separated list of registrations.
+        schema:
+          type: string
+        x-position: 1
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /registration:
+    post:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by registrations
+      description: 'This endpoint will return aircraft data for the provided registration number(s).
+
+
+        Because GET request has a limit on the number of characters in the URL,
+
+        it is recommended to use POST request when querying multiple aircraft (more than 10).'
+      operationId: PostApiAircraftV2Registration
+      parameters:
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      requestBody:
+        x-name: request
+        description: JSON request model containing a list of registration numbers to retrieve aircraft data for.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequest'
+        required: true
+        x-position: 1
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /sqk/{squawk}:
+    get:
+      tags:
+      - Live Positional Data
+      summary: Get aircraft by squawk
+      description: This endpoint will return aircraft data for the provided squawk code(s).
+      operationId: GetApiAircraftV2Sqk
+      parameters:
+      - name: squawk
+        in: path
+        required: true
+        description: Squawk of the aircraft, or coma-separated list of squawk codes.
+        schema:
+          type: string
+        x-position: 1
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: Response containing a collection of aircraft models.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AircraftCollectionResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+components:
+  schemas:
+    AircraftRequest:
+      type: object
+      description: Model for querying api for multiple aircraft hexes
+      additionalProperties: false
+      properties:
+        hex_list:
+          type: array
+          items:
+            type: string
+    RegistrationRequest:
+      type: object
+      description: Model for querying api for multiple aircraft by registration numbers
+      additionalProperties: false
+      properties:
+        registrations:
+          type: array
+          items:
+            type: string
+    AcasResolutionAdvisoryResponse:
+      type: object
+      description: ACAS Resolution Advisory Class
+      additionalProperties: false
+      properties:
+        utc:
+          type: string
+          description: UTC timestamp of the advisory.
+          nullable: true
+        unix_timestamp:
+          type: number
+          description: Unix timestamp.
+          format: double
+          nullable: true
+        bytes:
+          type: string
+          description: Advisory bytes as a string.
+          nullable: true
+        ARA:
+          type: string
+          description: Advisory ARA field.
+          nullable: true
+        RAT:
+          type: string
+          description: Advisory RAT field.
+          nullable: true
+        MTE:
+          type: string
+          description: Advisory MTE field.
+          nullable: true
+        RAC:
+          type: string
+          description: Advisory RAC field.
+          nullable: true
+        advisory_complement:
+          type: string
+          description: Advisory complement description.
+          nullable: true
+        advisory:
+          type: string
+          description: Advisory description.
+          nullable: true
+        TTI:
+          type: string
+          description: TTI field.
+          nullable: true
+        threat_id_hex:
+          type: string
+          description: Threat ID in hexadecimal.
+          nullable: true
+    RequestedUrlTooLongResponse:
+      type: object
+      description: Requested URL is too long.
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    AircraftSingleResponse:
+      type: object
+      description: Full aircraft model with all available information.
+      additionalProperties: false
+      properties:
+        hex:
+          type: string
+          description: The ICAO 24-bit address (hex) of the aircraft.
+        type:
+          type: string
+          description: The type of message (e.g., adsb_icao, tisb_icao, etc.).
+          nullable: true
+        flight:
+          type: string
+          description: The flight number or callsign.
+          nullable: true
+        r:
+          type: string
+          description: Registration or tail number.
+          nullable: true
+        t:
+          type: string
+          description: Aircraft type (e.g., B38M for Boeing 737 MAX 8).
+          nullable: true
+        dbFlags:
+          type: integer
+          description: Bitfield for certain database flags, below and must be a bitwise and … check the documentation for your programming language
+          nullable: true
+          example: "  military = dbFlags & 1;\n  interesting = dbFlags & 2;\n  PIA = dbFlags & 4;\n  LADD = dbFlags & 8;"
+        alt_baro:
+          description: Barometric altitude in feet.
+          nullable: true
+        alt_geom:
+          type: number
+          description: Geometric altitude in feet.
+          format: float
+          nullable: true
+        gs:
+          type: number
+          description: Ground speed in knots.
+          format: float
+          nullable: true
+        ias:
+          type: number
+          description: Indicated airspeed in knots
+          format: float
+          nullable: true
+        tas:
+          type: number
+          description: True airspeed in knots.
+          format: float
+          nullable: true
+        mach:
+          type: number
+          description: Mach number (speed as a fraction of the speed of sound).
+          format: float
+          nullable: true
+        wd:
+          type: integer
+          description: Wind direction in degrees.
+          nullable: true
+        ws:
+          type: integer
+          description: Wind speed in knots.
+          nullable: true
+        oat:
+          type: integer
+          description: Outer/Static air temperature (OAT), typically somewhat inaccurate at lower altitudes.
+          nullable: true
+        tat:
+          type: integer
+          description: Total air temperature (TAT), typically somewhat inaccurate at lower altitudes.
+          nullable: true
+        track:
+          type: number
+          description: Aircraft track over the ground in degrees.
+          format: float
+          nullable: true
+        track_rate:
+          type: number
+          description: Rate of change of the track in degrees per second.
+          format: float
+          nullable: true
+        roll:
+          type: number
+          description: Aircraft roll angle in degrees.
+          format: float
+          nullable: true
+        mag_heading:
+          type: number
+          description: Magnetic heading in degrees.
+          format: float
+          nullable: true
+        true_heading:
+          type: number
+          description: True heading in degrees.
+          format: float
+          nullable: true
+        baro_rate:
+          type: integer
+          description: Barometric vertical rate (climb or descent) in feet per minute.
+          format: int32
+          nullable: true
+        geom_rate:
+          type: integer
+          description: Geometric vertical rate (climb or descent) in feet per minute.
+          format: int32
+          nullable: true
+        squawk:
+          type: string
+          description: Transponder squawk code.
+          nullable: true
+        emergency:
+          type: string
+          description: Emergency code (if applicable).
+          nullable: true
+        category:
+          type: string
+          description: Aircraft category based on size and weight.
+          nullable: true
+        nav_qnh:
+          type: number
+          description: QNH setting (altimeter pressure setting) in hPa.
+          format: float
+          nullable: true
+        nav_altitude_mcp:
+          type: integer
+          description: MCP (Mode Control Panel) altitude setting in feet.
+          nullable: true
+        nav_altitude_fms:
+          type: integer
+          description: Selected altitude from the Flight Management System (FMS) in feet.
+          nullable: true
+        nav_heading:
+          type: number
+          description: MCP heading setting in degrees.
+          format: float
+          nullable: true
+        nav_modes:
+          type: array
+          description: 'Navigation modes: autopilot, vnav, althold, approach, lnav, tcas'
+          nullable: true
+          items:
+            type: string
+        rr_lat:
+          type: number
+          description: Rough estimated latitude based on receiver's position.
+          format: float
+          nullable: true
+        rr_lon:
+          type: number
+          description: Rough estimated longitude based on receiver's position.
+          format: float
+          nullable: true
+        lastPosition:
+          description: Last known position if lat/lon are older than 60 seconds.
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/LastPositionDataResponse'
+        gpsOkBefore:
+          type: number
+          description: Indicator of whether GPS was working well before degradation.
+          format: double
+          nullable: true
+        gpsOkLat:
+          type: number
+          description: Indicator of whether GPS was working well before degradation - latitude.
+          format: double
+          nullable: true
+        gpsOkLon:
+          type: number
+          description: Indicator of whether GPS was working well before degradation - longitude.
+          format: double
+          nullable: true
+        lat:
+          type: number
+          description: Latitude of the aircraft.
+          format: float
+          nullable: true
+        lon:
+          type: number
+          description: Longitude of the aircraft.
+          format: float
+          nullable: true
+        nic:
+          type: integer
+          description: Navigation Integrity Category.
+          format: int32
+          nullable: true
+        rc:
+          type: integer
+          description: Containment Radius of Accuracy in meters.
+          nullable: true
+        seen_pos:
+          type: number
+          description: Time since the last positional update in seconds.
+          format: float
+          nullable: true
+        version:
+          type: integer
+          description: ADS-B version.
+          format: int32
+          nullable: true
+        nic_baro:
+          type: integer
+          description: Barometric NIC (Navigation Integrity Category).
+          nullable: true
+        nac_p:
+          type: integer
+          description: Navigation Accuracy Category for Position.
+          nullable: true
+        nac_v:
+          type: integer
+          description: Navigation Accuracy Category for Velocity.
+          nullable: true
+        sil:
+          type: integer
+          description: Source Integrity Level.
+          nullable: true
+        sil_type:
+          type: string
+          description: Source Integrity Level type (e.g., per hour or per sample).
+          nullable: true
+        gva:
+          type: integer
+          description: Geometric Vertical Accuracy.
+          nullable: true
+        sda:
+          type: integer
+          description: System Design Assurance.
+          nullable: true
+        alert:
+          type: integer
+          description: Alert status (whether the transponder is indicating an alert).
+          nullable: true
+        spi:
+          type: integer
+          description: Special Position Identification (SPI) status.
+          nullable: true
+        mlat:
+          type: array
+          description: List of fields derived from MLAT data (e.g., "lat", "lon", "nic", "rc").
+          nullable: true
+          items:
+            type: string
+        tisb:
+          type: array
+          description: List of fields derived from TIS-B data (e.g., "gs", "lat", "lon", "nic", "rc", "nac_p", "sil", "sil_type").
+          nullable: true
+          items:
+            type: string
+        messages:
+          type: integer
+          description: The number of messages received from the aircraft.
+          format: int64
+          nullable: true
+        seen:
+          type: number
+          description: Time since the last message was received, in seconds.
+          format: float
+          nullable: true
+        rssi:
+          type: number
+          description: Signal strength in dBFS.
+          format: float
+          nullable: true
+        acas_ra:
+          description: ACAS Resolution Advisory data (experimental, subject to change).
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/AcasResolutionAdvisoryResponse'
+        now:
+          type: integer
+          description: Unix milliseconds timestamp of the time the data was put into the cache.
+          format: int64
+          nullable: true
+        geometries:
+          type: array
+          description: 'Contains caller-supplied collection of properties (up to 5) per matched geometry.
+
+            Properties are propagated from each geometry object in the filter request.'
+          nullable: true
+          items:
+            type: object
+            additionalProperties:
+              type: string
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type: string
+          nullable: true
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type: string
+          nullable: true
+    LastPositionDataResponse:
+      type: object
+      description: 'When the regular lat and lon are older than 60 seconds
+
+        they are no longer considered valid, this will provide
+
+        the last position and show the age for the last position.
+
+        Aircraft will only be in the aircraft json if a position
+
+        has been received in the last 60 seconds or if any message
+
+        has been received in the last 30 seconds.'
+      additionalProperties: false
+      properties:
+        lat:
+          type: number
+          format: float
+          nullable: true
+        lon:
+          type: number
+          format: float
+          nullable: true
+        nic:
+          type: integer
+          description: Navigation Integrity Category (2.2.3.2.7.2.6)
+          format: int32
+          nullable: true
+        rc:
+          type: integer
+          description: 'Radius of Containment, meters; a measure of position integrity
+
+            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
+          format: int32
+          nullable: true
+        seen_pos:
+          type: number
+          description: How long ago (in seconds before “now”) the position was last updated
+          format: double
+          nullable: true
+    AircraftCollectionResponse:
+      type: object
+      description: Response envelope for the multiple aircraft endpoint.
+      additionalProperties: false
+      properties:
+        ac:
+          type: array
+          description: List of aircraft with all available information.
+          items:
+            $ref: '#/components/schemas/AircraftSingleResponse'
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server (ms).
+          format: int64
+        total:
+          type: integer
+          description: The number of aircraft in the response.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp (ms) of when the underlying data was last updated.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on server to process the request (ms).
+          format: int64
+    FilterDefinition:
+      type: object
+      additionalProperties: false
+      properties:
+        property:
+          type: string
+          description: 'Name of the property to filter on. Case-insensitive.
+
+            Only top-level properties are supported at the moment.'
+        operator:
+          type: string
+          description: 'Operator to use when comparing the property value. All string comparisons are case-insensitive.
+
+            Supported operators are:
+
+            - "eq" (equals)
+
+            - "ne" (not equals)
+
+            - "gt" (greater than)
+
+            - "lt" (less than)
+
+            - "ge" (greater than or equal to)
+
+            - "le" (less than or equal to)
+
+            - "isNull" (property value is null)
+
+            - "isNotNull" (property is not null)
+
+            - "contains" (property value contains the specified value)
+
+            - "notContains" (property value does not contain the specified value)
+
+            - "startsWith" (property value starts with the specified value)
+
+            - "notStartsWith" (property value does not start with the specified value)
+
+            - "endsWith" (property value ends with the specified value)
+
+            - "notEndsWith" (property value does not end with the specified value)'
+        value:
+          description: "Value to compare the property against.\nThis can be a string, number, boolean and must match target property type.\n- If number - it will be parsed as double (scientific notation is not supported).\n- If string - maximum length is 255 characters.\n- If boolean - it will be parsed as boolean.\n            \nValue is not required for operators \"isNull\" and \"isNotNull\"."
+          nullable: true
+    ProblemDetails:
+      type: object
+      additionalProperties:
+        nullable: true
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+    FilterRequest:
+      type: object
+      description: Model describing filter criteria for live aircraft data.
+      additionalProperties: false
+      properties:
+        logical_operator:
+          type: string
+          description: Specifies the logical operator to use when combining filters.
+        filters:
+          type: array
+          description: Specifies the filters to apply to the aircraft data.
+          items:
+            $ref: '#/components/schemas/FilterDefinition'
+  securitySchemes:
+    X-Api-Key:
+      type: apiKey
+      description: Provide your API key via x-api-key header to access the API.
+      name: x-api-key
+      in: header
+x-generator: NSwag v14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))

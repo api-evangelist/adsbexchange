@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: ADSB Exchange Geopolitical Filtering Traces API
+  description: "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>"
+  termsOfService: https://www.adsbexchange.com/terms-of-use/
+  contact:
+    name: Contact ADSB Exchange
+    url: https://www.adsbexchange.com/products/enterprise-api/
+  version: v2
+  x-logo:
+    url: https://adsbexchange.com/wp-content/uploads/ax_logo_background_api-scaled.avif
+    href: '#'
+servers:
+- url: https://gateway.adsbexchange.com/api/aircraft/v2
+tags:
+- name: Traces
+  description: Endpoints provide access to historical trace files for an aircraft.
+paths:
+  /traces/{folder}/{jsonFile}:
+    get:
+      tags:
+      - Traces
+      summary: Get recent trace file
+      description: "Returns the trace file for the aircraft with the specified ICAO code.\n\nThe trace file contains aircraft position history starting 00:00 UTC today.\nMust begin with 'trace_recent_' or 'trace_full_' and end with '.json'.\nFolder name must be the last 2 characters of the aircraft ICAO code.\n\nExample: to request trace file for aircraft with ICAO code 'A1B2C3':\n```\nGET /api/aircraft/v2/traces/c3/trace_recent_a1b2c3.json\n```\n\n\nThe trace file is a JSON file with the following structure:\n```\n{\n    icao: \"a1b2c3\", // hex id of the aircraft\n    timestamp: 1609275898.495, // unix timestamp in seconds since epoch (1970)\n    trace: [\n        [ seconds after timestamp,\n            lat,\n            lon,\n            altitude in ft or \"ground\" or null,\n            ground speed in knots or null,\n            track in degrees or null, (if altitude == \"ground\", this will be true heading instead of track)\n            flags as a bitfield: (use bitwise and to extract data)\n                (flags & 1 > 0): position is stale (no position received for 20 seconds before this one)\n                (flags & 2 > 0): start of a new leg (tries to detect a separation point between landing and takeoff that separates flights)\n                (flags & 4 > 0): vertical rate is geometric and not barometric\n                (flags & 8 > 0): altitude is geometric and not barometric\n             ,\n            vertical rate in fpm or null,\n            aircraft object with extra details or null (see aircraft.json documentation, note that not all fields are present as lat and lon for example already in the values above),\n            // the following fields only in files generated 2022 and later:\n            type / source of this position or null,\n            geometric altitude or null,\n            geometric vertical rate or null,\n            indicated airspeed or null,\n            roll angle or null\n        ],\n        [next entry like the one before],\n        [next entry like the one before],\n    ]\n}\n```\n\n\nExample of the response:\n```\n{\n\t\"icao\":\"a1b2c3\",\n\t\"r\":\"N11Y22\",\n\t\"t\":\"P123\",\n\t\"dbFlags\":0,\n\t\"desc\":\"Gulfstream G650\",\n\t\"ownOp\":\"SOME CORP\",\n\t\"year\":\"2021\",\n\t\"timestamp\": 1712275200.000,\n\t\"trace\":[\n\t\t[76863.35,41.279114,-70.128967,2500,118.4,326.7,5,704,{\"type\":\"adsr_icao\",\"track\":326.71,\"geom_rate\":704,\"nic\":8,\"rc\":186,\"nac_v\":0,\"alert\":0,\"spi\":0},\"adsr_icao\",null,704,null,null],\n\t\t[76870.59,41.282455,-70.131775,2600,119.0,328.0,4,384,null,\"adsr_icao\",2150,384,null,null],\n\t\t[76877.88,41.286804,-70.135376,2700,117.7,328.2,4,640,null,\"adsr_icao\",2250,640,null,null],\n\t\t[76885.92,41.290512,-70.138489,2800,118.5,328.5,4,448,null,\"adsr_icao\",2350,448,null,null],\n        ...\n\t]\n}\n```"
+      operationId: GetApiAircraftV2Traces
+      parameters:
+      - name: folder
+        in: path
+        required: true
+        description: Last 2 characters of ICAO code.
+        schema:
+          type: string
+        x-position: 1
+      - name: jsonFile
+        in: path
+        required: true
+        description: Name of the JSON file. Must be in the format 'trace_[recent|full]_{ICAO}.json'.
+        schema:
+          type: string
+        x-position: 2
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: JSON response with the contents of the trace file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '404':
+          description: Trace Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceNotFoundResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+  /traces-hist/{year}/{month}/{day}/traces/{folder}/{jsonFile}:
+    get:
+      tags:
+      - Traces
+      summary: Get historical trace file
+      description: "Returns the trace file for the aircraft with the specified ICAO code.\n\nThe trace file contains aircraft position history before UTC today.\nFor getting the trace file for the current day, use the 'Get recent trace file' endpoint.\nFile name must begin with 'trace_full_' and end with '.json'.\nFolder name must be the last 2 characters of the aircraft ICAO code.\n\nTraces are available from January 1st, 2016 and later.\n\nExample: to request trace file for aircraft with ICAO code 'A1B2C3' for January 22, 2023:\n```\nGET /api/aircraft/v2/traces-hist/2023/01/22/traces/c3/trace_full_a1b2c3.json\n```\n\n\nThe trace file is a JSON file with the following structure:\n```\n{\n    icao: \"a1b2c3\", // hex id of the aircraft\n    timestamp: 1609275898.495, // unix timestamp in seconds since epoch (1970)\n    trace: [\n        [ seconds after timestamp,\n            lat,\n            lon,\n            altitude in ft or \"ground\" or null,\n            ground speed in knots or null,\n            track in degrees or null, (if altitude == \"ground\", this will be true heading instead of track)\n            flags as a bitfield: (use bitwise and to extract data)\n                (flags & 1 > 0): position is stale (no position received for 20 seconds before this one)\n                (flags & 2 > 0): start of a new leg (tries to detect a separation point between landing and takeoff that separates flights)\n                (flags & 4 > 0): vertical rate is geometric and not barometric\n                (flags & 8 > 0): altitude is geometric and not barometric\n             ,\n            vertical rate in fpm or null,\n            aircraft object with extra details or null (see aircraft.json documentation, note that not all fields are present as lat and lon for example already in the values above),\n            // the following fields only in files generated 2022 and later:\n            type / source of this position or null,\n            geometric altitude or null,\n            geometric vertical rate or null,\n            indicated airspeed or null,\n            roll angle or null\n        ],\n        [next entry like the one before],\n        [next entry like the one before],\n    ]\n}\n```\n\n\nExample of the response:\n```\n{\n\t\"icao\":\"a1b2c3\",\n\t\"r\":\"N11Y22\",\n\t\"t\":\"P123\",\n\t\"dbFlags\":0,\n\t\"desc\":\"Gulfstream G650\",\n\t\"ownOp\":\"SOME CORP\",\n\t\"year\":\"2021\",\n\t\"timestamp\": 1712275200.000,\n\t\"trace\":[\n\t\t[76863.35,41.279114,-70.128967,2500,118.4,326.7,5,704,{\"type\":\"adsr_icao\",\"track\":326.71,\"geom_rate\":704,\"nic\":8,\"rc\":186,\"nac_v\":0,\"alert\":0,\"spi\":0},\"adsr_icao\",null,704,null,null],\n\t\t[76870.59,41.282455,-70.131775,2600,119.0,328.0,4,384,null,\"adsr_icao\",2150,384,null,null],\n\t\t[76877.88,41.286804,-70.135376,2700,117.7,328.2,4,640,null,\"adsr_icao\",2250,640,null,null],\n\t\t[76885.92,41.290512,-70.138489,2800,118.5,328.5,4,448,null,\"adsr_icao\",2350,448,null,null],\n        ...\n\t]\n}\n```"
+      operationId: GetApiAircraftV2TracesHistTraces
+      parameters:
+      - name: year
+        in: path
+        required: true
+        description: Year of the trace file.
+        schema:
+          type: string
+        x-position: 1
+      - name: month
+        in: path
+        required: true
+        description: Month of the trace file.
+        schema:
+          type: string
+        x-position: 2
+      - name: day
+        in: path
+        required: true
+        description: Day of the trace file.
+        schema:
+          type: string
+        x-position: 3
+      - name: folder
+        in: path
+        required: true
+        description: Last 2 characters of ICAO code.
+        schema:
+          type: string
+        x-position: 4
+      - name: jsonFile
+        in: path
+        required: true
+        description: Name of the JSON file. Must be in the format 'trace_full_{ICAO}.json'.
+        schema:
+          type: string
+        x-position: 5
+      - type: string
+        name: Accept-Encoding
+        in: header
+        required: true
+        description: The encoding type the client will accept in the response. API call must use compression.
+        default: gzip
+        example: gzip
+      responses:
+        '200':
+          description: JSON response with the contents of the trace file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceResponse'
+        '402':
+          description: Payment Required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiUnauthorizedResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiForbiddenResponse'
+        '404':
+          description: Trace Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceNotFoundResponse'
+        '429':
+          description: Rate Limit Exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTooManyRequestsResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+      security:
+      - X-Api-Key: []
+components:
+  schemas:
+    TraceResponse:
+      type: object
+      description: Model used to represent a trace response example.
+      additionalProperties: false
+      properties:
+        icao:
+          type: string
+        timestamp:
+          type: number
+          format: double
+        trace:
+          type: array
+          items:
+            type: array
+            items: {}
+    TraceNotFoundResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        details:
+          type: string
+          description: Message clarifying the unsuccessful response.
+          nullable: true
+        status:
+          type: integer
+          description: Status code indicating the status of the request overall.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp of when the underlying data was last updated.
+          format: int64
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on API server to process the request, in milliseconds.
+          format: int64
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type: string
+          nullable: true
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type: string
+          nullable: true
+    ProblemDetails:
+      type: object
+      additionalProperties:
+        nullable: true
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+  securitySchemes:
+    X-Api-Key:
+      type: apiKey
+      description: Provide your API key via x-api-key header to access the API.
+      name: x-api-key
+      in: header
+x-generator: NSwag v14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))
