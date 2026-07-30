@@ -3,7 +3,20 @@ description: Unfiltered flight tracking network with REST APIs for accessing rea
   aircraft positions, military flights, and global ADS-B flight data without filtering.
   Operated by a crowdsourced global network of ADS-B and MLAT receivers providing
   ultra-low-latency aircraft tracking data for aviation research and applications.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adsbexchange.png
 url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -17,38 +30,168 @@ tags:
   - Military
   - MLAT
 apis:
-  - name: ADS-B Exchange Aircraft API
-    description: REST API providing real-time global aircraft positions, ICAO hex
-      identifiers, registrations, squawk codes, altitude, speed, heading, and military
-      aircraft flags. Delivered via the gateway.adsbexchange.com endpoint with API
-      key authentication. Accessible via RapidAPI for community and non-commercial
-      use with paid commercial tiers available.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.adsbexchange.com/data-products/
-    baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
-    tags:
-      - Aircraft Tracking
-      - ADS-B
-      - Real-Time Positions
-      - Military Aircraft
-      - ICAO
-      - Aviation
-    properties:
-      - type: Documentation
-        url: https://www.adsbexchange.com/version-2-api/
-      - type: Documentation
-        url: https://www.adsbexchange.com/data-products/sample-api-call/
-      - type: Plans
-        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
-      - type: RateLimits
-        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
-      - type: FinOps
-        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/openapi/openapi.json
-    contact:
-      - FN: ADS-B Exchange Support
-        url: https://www.adsbexchange.com/community/developer-hub/
+- aid: adsbexchange:adsbexchange-geopolitical-filtering-api
+  name: ADS-B Exchange Geopolitical Filtering API
+  description: >-
+    Allows filtering live data based on geopolitical boundaries, such as states/provinces, countries,
+    regions, or even continents.
+
+    All endpoints support ISO 3166-1 alpha-2 country codes and ISO 3166-2 subdivision (states/provinces)
+    codes.
+
+    <br /><br />
+
+    World boundaries are based on <a href="https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/map/"
+    target="_blank">OpenDataSoft</a> dataset.
+
+    <b>Attribution:</b><br />
+
+    This API includes data from <a href="https://marineregions.org/" target="_blank">Marine Regions</a>,
+    licensed under
+
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution
+    4.0 International (CC BY 4.0)</a>.<br />
+
+    <i>Flanders Marine Institute (2023). Maritime Boundaries Geodatabase, version 12. DOI: <a href="https://doi.org/10.14284/632"
+    target="_blank">10.14284/632</a></i>
+  humanURL: https://www.adsbexchange.com/data-products/
+  baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+  tags:
+  - Geopolitical Filtering
+  properties:
+  - type: OpenAPI
+    url: openapi/adsbexchange-geopolitical-filtering-api-openapi.yml
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Documentation
+    url: https://www.adsbexchange.com/data-products/sample-api-call/
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+- aid: adsbexchange:adsbexchange-geospatial-filtering-api
+  name: ADS-B Exchange Geospatial Filtering API
+  description: >-
+    Endpoints allow filtering live data based on geospatial boundaries, such as latitude, longitude, altitudes,
+    or even custom GeoJSON shapes.
+
+    Use these endpoints to get information about aircraft within a specific radius from a given point,
+    within a polygon, or within a custom shape.
+
+    <br /><br />
+
+    <b>Note</b>: When using GeoJSON shape files, only Polygon and MultiPolygon shapes are supported. Any
+    other shapes will be ignored.
+  humanURL: https://www.adsbexchange.com/data-products/
+  baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+  tags:
+  - Geospatial Filtering
+  properties:
+  - type: OpenAPI
+    url: openapi/adsbexchange-geospatial-filtering-api-openapi.yml
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Documentation
+    url: https://www.adsbexchange.com/data-products/sample-api-call/
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+- aid: adsbexchange:adsbexchange-live-positional-data-api
+  name: ADS-B Exchange Live Positional Data API
+  description: >-
+    Endpoints provide access to airborne or recently landed aircraft, as well as last known positions.
+
+    Use these endpoints to get information about aircraft, such as location, flight, altitude, speed,
+    and many more.
+
+    <br /><br />
+
+    Comprehensive filtering by various parameters is supported - such as ICAO hex code, registration,
+    squawk, etc.
+
+    See documentation to learn more about available endpoints and their parameters.
+
+    <br /><br />
+
+    For more information about properties returned, please navigate to <a href="https://www.adsbexchange.com/version-2-api-wip/"
+    target="_blank">Version 2 API Fields</a> documentation.
+  humanURL: https://www.adsbexchange.com/data-products/
+  baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+  tags:
+  - Live Positional Data
+  properties:
+  - type: OpenAPI
+    url: openapi/adsbexchange-live-positional-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Documentation
+    url: https://www.adsbexchange.com/data-products/sample-api-call/
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+- aid: adsbexchange:adsbexchange-operations-api
+  name: ADS-B Exchange Operations API
+  description: Endpoints provide access to Takeoffs/Landings operational events.
+  humanURL: https://www.adsbexchange.com/data-products/
+  baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/adsbexchange-operations-api-openapi.yml
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Documentation
+    url: https://www.adsbexchange.com/data-products/sample-api-call/
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
+- aid: adsbexchange:adsbexchange-traces-api
+  name: ADS-B Exchange Traces API
+  description: Endpoints provide access to historical trace files for an aircraft.
+  humanURL: https://www.adsbexchange.com/data-products/
+  baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
+  tags:
+  - Traces
+  properties:
+  - type: OpenAPI
+    url: openapi/adsbexchange-traces-api-openapi.yml
+  - type: Documentation
+    url: https://www.adsbexchange.com/version-2-api/
+  - type: Documentation
+    url: https://www.adsbexchange.com/data-products/sample-api-call/
+  - type: Plans
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml
+  - type: RateLimits
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml
+  - type: FinOps
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
 common:
   - type: AgenticAccess
     url: agentic-access/adsbexchange-agentic-access.yml
