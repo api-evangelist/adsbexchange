@@ -1,0 +1,22 @@
+{
+  "provider": "adsbexchange",
+  "sources": [
+    "adsbexchange-geopolitical-filtering-api-openapi.yml",
+    "adsbexchange-geospatial-filtering-api-openapi.yml",
+    "adsbexchange-live-positional-data-api-openapi.yml",
+    "adsbexchange-operations-api-openapi.yml",
+    "adsbexchange-traces-api-openapi.yml"
+  ],
+  "outputs": [
+    "adsbexchange-geopolitical-filtering-api-openapi.yml",
+    "adsbexchange-geospatial-filtering-api-openapi.yml",
+    "adsbexchange-live-positional-data-api-openapi.yml",
+    "adsbexchange-operations-api-openapi.yml",
+    "adsbexchange-traces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
