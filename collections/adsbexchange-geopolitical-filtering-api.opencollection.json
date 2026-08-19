@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADSB Exchange Geopolitical Filtering API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Geopolitical Filtering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aircraft by country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/country/:country",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns aircraft within the boundaries of the given country.\n\nSee below examples of how to query aircraft by country.\nCountry must be specified as ISO 3166-1 alpha-2 code.\nThe complete list of supported country codes can be accessed here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n\nUSA:\n* `/api/aircraft/v2/geospatial/country/US`\n\nCanada:\n* `/api/aircraft/v2/geospatial/country/CA`"
+        },
+        {
+          "info": {
+            "name": "Get subdivisions by country code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/country/:country/subdivisions",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Whe country code is provided, this endpoint will return a list of state/province subdivisions for the given country.\n\nThis endpoint is complimentary to `/geospatial/country/{country}/subdivision/{subdivision}` endpoint.\n\nThe complete list of supported country codes and states/provinces can be accessed here:\n* Countries: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n* States/Provinces: https://en.wikipedia.org/wiki/ISO_3166-2\n\n\nFor example, to get a list of subdivisions for the United States y"
+        },
+        {
+          "info": {
+            "name": "Get aircraft by country subdivision: state/province",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/country/:country/subdivision/:subdivision",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country ISO 3166-1 alpha-2 code. Case-insensitive."
+              },
+              {
+                "name": "subdivision",
+                "value": "",
+                "type": "path",
+                "description": "Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns aircraft within the boundaries of the given country's subdivision: state or province.\n\n* Country must be specified as ISO 3166-1 alpha-2 code.\n* State/province must be specified as ISO 3166-2 code. You can omit the country code prefix.\nBoth of the arguments are case-insensitive.\n            \nSee below examples of how to query aircraft by country and state/province.\n            \nUSA - California:\n* `/api/aircraft/v2/geospatial/country/US/subdivision/CA`\n* `/api/aircraft/v2/geospatial/coun"
+        },
+        {
+          "info": {
+            "name": "Get aircraft by geographical region",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/region/:region",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "Name of the geographical region from the list above. Case-insensitive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns aircraft within the boundaries of the given geographical region.\n\nSupported regions:\n* Northern/Eastern/Southern/Western Europe\n* North/Central/South America\n* Central/East/South-East/South/West Asia\n* North/Middle/East/South/West Africa\n* Australia and New Zealand\n* Caribbean\n* Melanesia\n* Micronesia\n* Polynesia\n\n\nTo filter by 'North America' use pure text value from the list above. Remove spaces, or URL-encode them. Case-insensitive.\n            \n* `/api/aircraft/v2/geospatial/region/N"
+        },
+        {
+          "info": {
+            "name": "Get aircraft by continent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/continent/:continent",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "continent",
+                "value": "",
+                "type": "path",
+                "description": "Name of the continent from the list above. Case-insensitive."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns aircraft within the boundaries of the given continent.\n\nSupported continents:\n* Americas\n* Africa\n* Asia\n* Europe\n* Oceania\n* Antarctica\n\n\nTo filter by continent use pure text value from the list above.\n\nExamples:\n* `/api/aircraft/v2/geospatial/continent/Europe`\n* `/api/aircraft/v2/geospatial/continent/Antarctica`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

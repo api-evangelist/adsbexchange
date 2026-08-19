@@ -1,0 +1,350 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADSB Exchange Geopolitical Filtering Live Positional Data API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live Positional Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all aircraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/all",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all aircraft currently being tracked.\n\nNote: This endpoint can be slow or unresponsive in Swagger UI due to the large volume of data returned. For best results, use an external tool (like Postman or curl)."
+        },
+        {
+          "info": {
+            "name": "Get total aircraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/total-aircraft",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns only count of aircraft currently being tracked."
+        },
+        {
+          "info": {
+            "name": "Filter aircraft by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/filter",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Filters and returns only aircraft that match the provided criteria.\nFilter contains of a list of filter definitions and a logical operator that defines how filter criteria shall be combined.\n\nTwo logical operators are supported: \"and\" and \"or\". Default is \"and\" when property is not provided.\n\nFilter definition consists of the following properties:\n* \"property\" (string) - name of the property to filter by. Case-insensitive. Filtering only on top-level properties is supported.\n* \"operator\" (string"
+        },
+        {
+          "info": {
+            "name": "Get last known position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/hex/:hex",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "hex",
+                "value": "",
+                "type": "path",
+                "description": "ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return a last known position for the aircraft.\n\n\nEach aircraft model will contain the \"now\" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.\n\n**Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,\ninstead of returning a collection of aircraft with a single aircraft, the method will return a single aircraft model. We understand\nthis is an unconventional behavior, which will be ad"
+        },
+        {
+          "info": {
+            "name": "Get last known position",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/hex",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return a last known position for the aircraft. Because GET request has a limit on the number of characters in the URL,\nit is recommended to use POST request when querying multiple aircraft (more than 10).\n\n\nEach aircraft model will contain the \"now\" property (unix timestamp, milliseconds) denoting the time when the aircraft was last observed.\n\n**Important:** Right now for backwards compatibility purposes, when requesting single aircraft by ICAO code,\ninstead of returning a col"
+        },
+        {
+          "info": {
+            "name": "Get aircraft by ICAO",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/icao/:icao",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "icao",
+                "value": "",
+                "type": "path",
+                "description": "ICAO code of the aircraft, or coma-separated list of aircraft ICAO codes."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided ICAO code(s). This will not return a match if aircraft has not been seen by ADSB Exchange in the last 15 minutes."
+        },
+        {
+          "info": {
+            "name": "Get aircraft by ICAO",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/icao",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided ICAO code(s).\nThis will not return a match if aircraft has not been seen by ADSB Exchange in the last 15 minutes.\n\nBecause GET request has a limit on the number of characters in the URL,\nit is recommended to use POST request when querying multiple aircraft (more than 10)."
+        },
+        {
+          "info": {
+            "name": "Get military aircraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/mil",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return only military aircraft."
+        },
+        {
+          "info": {
+            "name": "Get aircraft by callsign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/callsign/:callsign",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "callsign",
+                "value": "",
+                "type": "path",
+                "description": "Callsign of the aircraft, or coma-separated list of callsigns."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided callsign(s)."
+        },
+        {
+          "info": {
+            "name": "Get aircraft by registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/registration/:registration",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "registration",
+                "value": "",
+                "type": "path",
+                "description": "Registration number of the aircraft, or comma-separated list of registrations."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided registration number(s)."
+        },
+        {
+          "info": {
+            "name": "Get aircraft by registrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/registration",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided registration number(s).\n\nBecause GET request has a limit on the number of characters in the URL,\nit is recommended to use POST request when querying multiple aircraft (more than 10)."
+        },
+        {
+          "info": {
+            "name": "Get aircraft by squawk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/sqk/:squawk",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "squawk",
+                "value": "",
+                "type": "path",
+                "description": "Squawk of the aircraft, or coma-separated list of squawk codes."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data for the provided squawk code(s)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

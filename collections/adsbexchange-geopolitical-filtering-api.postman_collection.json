@@ -1,0 +1,1902 @@
+{
+  "item": [
+    {
+      "id": "f68a554d-9158-45d2-a987-13749ae813e0",
+      "name": "Geopolitical Filtering",
+      "description": {
+        "content": "Allows filtering live data based on geopolitical boundaries, such as states/provinces, countries, regions, or even continents.\nAll endpoints support ISO 3166-1 alpha-2 country codes and ISO 3166-2 subdivision (states/provinces) codes.\n<br /><br />\nWorld boundaries are based on <a href=\"https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/map/\" target=\"_blank\">OpenDataSoft</a> dataset.\n<b>Attribution:</b><br />\nThis API includes data from <a href=\"https://marineregions.org/\" target=\"_blank\">Marine Regions</a>, licensed under\n<a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>.<br />\n<i>Flanders Marine Institute (2023). Maritime Boundaries Geodatabase, version 12. DOI: <a href=\"https://doi.org/10.14284/632\" target=\"_blank\">10.14284/632</a></i>",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04eacac2-a2e5-413d-8a64-45560065c22d",
+          "name": "Get aircraft by country",
+          "request": {
+            "name": "Get aircraft by country",
+            "description": {
+              "content": "Returns aircraft within the boundaries of the given country.\n\nSee below examples of how to query aircraft by country.\nCountry must be specified as ISO 3166-1 alpha-2 code.\nThe complete list of supported country codes can be accessed here: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n\nUSA:\n* `/api/aircraft/v2/geospatial/country/US`\n\nCanada:\n* `/api/aircraft/v2/geospatial/country/CA`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "country",
+                ":country"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86af78b9-e127-4ed4-9405-36877ac0e3e3",
+              "name": "Response containing a collection of aircraft models.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 3946,\n      \"alt_baro\": {},\n      \"alt_geom\": 8040.206775995295,\n      \"gs\": 7269.76271807231,\n      \"ias\": 314.123918352055,\n      \"tas\": 4692.17755916863,\n      \"mach\": 806.2038386912251,\n      \"wd\": 6903,\n      \"ws\": 4528,\n      \"oat\": 7671,\n      \"tat\": 6869,\n      \"track\": 897.2594686980706,\n      \"track_rate\": 6349.973956622004,\n      \"roll\": 3632.1607547244294,\n      \"mag_heading\": 8438.94230754975,\n      \"true_heading\": 6543.911139253565,\n      \"baro_rate\": 2756,\n      \"geom_rate\": 4572,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 7111.908476971137,\n      \"nav_altitude_mcp\": 986,\n      \"nav_altitude_fms\": 9122,\n      \"nav_heading\": 1840.0912914169899,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 1866.2840930739433,\n      \"rr_lon\": 6279.941694019885,\n      \"lastPosition\": {\n        \"lat\": 7825.966442315272,\n        \"lon\": 6391.145072136398,\n        \"nic\": 3629,\n        \"rc\": 2893,\n        \"seen_pos\": 9137.770081575121\n      },\n      \"gpsOkBefore\": 5688.224766536158,\n      \"gpsOkLat\": 8060.32899194841,\n      \"gpsOkLon\": 8138.618568657961,\n      \"lat\": 4773.259163595604,\n      \"lon\": 3199.587722422916,\n      \"nic\": 926,\n      \"rc\": 2047,\n      \"seen_pos\": 6005.311207818341,\n      \"version\": 9803,\n      \"nic_baro\": 8217,\n      \"nac_p\": 2084,\n      \"nac_v\": 913,\n      \"sil\": 6425,\n      \"sil_type\": \"string\",\n      \"gva\": 7167,\n      \"sda\": 912,\n      \"alert\": 6568,\n      \"spi\": 1761,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 5708,\n      \"seen\": 2058.539234622909,\n      \"rssi\": 4380.30546564118,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 5475.429744296734,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3745,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 1922,\n      \"alt_baro\": {},\n      \"alt_geom\": 45.030651476080095,\n      \"gs\": 1999.7726834465334,\n      \"ias\": 9602.27986049762,\n      \"tas\": 2855.2943814772034,\n      \"mach\": 2505.6390016638943,\n      \"wd\": 2570,\n      \"ws\": 6497,\n      \"oat\": 451,\n      \"tat\": 3184,\n      \"track\": 2970.7553894417892,\n      \"track_rate\": 4792.73599195786,\n      \"roll\": 5488.180764730001,\n      \"mag_heading\": 8654.224750050595,\n      \"true_heading\": 9280.977320224516,\n      \"baro_rate\": 7316,\n      \"geom_rate\": 1903,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 1968.8817010536852,\n      \"nav_altitude_mcp\": 1918,\n      \"nav_altitude_fms\": 5387,\n      \"nav_heading\": 5954.005430182669,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 9474.613615857501,\n      \"rr_lon\": 4347.951985086254,\n      \"lastPosition\": {\n        \"lat\": 5999.72549121792,\n        \"lon\": 5475.911828696185,\n        \"nic\": 4175,\n        \"rc\": 2842,\n        \"seen_pos\": 2094.994259012952\n      },\n      \"gpsOkBefore\": 6846.029315305939,\n      \"gpsOkLat\": 4728.981967706506,\n      \"gpsOkLon\": 6899.723008593272,\n      \"lat\": 677.0757692834195,\n      \"lon\": 4353.841764234329,\n      \"nic\": 6010,\n      \"rc\": 550,\n      \"seen_pos\": 6973.8430055427525,\n      \"version\": 2817,\n      \"nic_baro\": 4624,\n      \"nac_p\": 2548,\n      \"nac_v\": 1022,\n      \"sil\": 677,\n      \"sil_type\": \"string\",\n      \"gva\": 5043,\n      \"sda\": 7832,\n      \"alert\": 6089,\n      \"spi\": 2716,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 6188,\n      \"seen\": 1163.3212444123587,\n      \"rssi\": 7680.403236146915,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 754.0070156159695,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 5763,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 1598,\n  \"total\": 2517,\n  \"ctime\": 898,\n  \"ptime\": 2080\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "027f4b54-f5f4-4c2a-a003-74ad6c3ca793",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73cdcc80-3e27-4f13-90fa-056a3def3074",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "513ddd67-f177-4971-bf64-2151ee91d73b",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3a74d62-35d7-4f33-bc5a-66dd627bbfeb",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1273,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99c6e9c6-456f-4608-a36a-9660ad99a37f",
+          "name": "Get subdivisions by country code",
+          "request": {
+            "name": "Get subdivisions by country code",
+            "description": {
+              "content": "Whe country code is provided, this endpoint will return a list of state/province subdivisions for the given country.\n\nThis endpoint is complimentary to `/geospatial/country/{country}/subdivision/{subdivision}` endpoint.\n\nThe complete list of supported country codes and states/provinces can be accessed here:\n* Countries: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n* States/Provinces: https://en.wikipedia.org/wiki/ISO_3166-2\n\n\nFor example, to get a list of subdivisions for the United States you would call:\n```\nGET /api/aircraft/v2/geospatial/country/US/subdivisions\n```\nand expect a response with a collection of subdivisions:\n```json\n{\n    \"country\": \"us\",\n    \"subdivisions\": [\n        {\n            \"name\": \"Washington\",\n            \"iso_a2\": \"US\",\n            \"iso_3166_2\": \"US-WA\",\n            \"adm1_code\": \"USA-3519\",\n            \"name_alt\": \"WA|Wash.\",\n            \"region\": \"West\"\n        },\n        ...\n    ]\n}\n```\nand in requests to `/geospatial/country/{country}/subdivision/{subdivision}` endpoint you would use `iso_3166_2` code as a subdivision identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "country",
+                ":country",
+                "subdivisions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d740470e-2cf2-48c2-bfd8-614ed64863eb",
+              "name": "Response containing a collection of subdivisions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"country\": \"string\",\n  \"subdivisions\": [\n    {\n      \"name\": \"string\",\n      \"iso_a2\": \"string\",\n      \"iso_3166_2\": \"string\",\n      \"adm1_code\": \"string\",\n      \"name_alt\": \"string\",\n      \"region\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"iso_a2\": \"string\",\n      \"iso_3166_2\": \"string\",\n      \"adm1_code\": \"string\",\n      \"name_alt\": \"string\",\n      \"region\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e19971-b96f-40cc-8345-c6751fe5b8a4",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee93b1ee-9e58-4e2a-9661-bb902404bab1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "beaeec6b-6f7d-4f25-a610-bf4f48532dc6",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc04a0a0-f71a-484e-a245-dafa4756c40f",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1273,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3bd8aa2-3944-4555-abf7-ac85791c4ee9",
+          "name": "Get aircraft by country subdivision: state/province",
+          "request": {
+            "name": "Get aircraft by country subdivision: state/province",
+            "description": {
+              "content": "Returns aircraft within the boundaries of the given country's subdivision: state or province.\n\n* Country must be specified as ISO 3166-1 alpha-2 code.\n* State/province must be specified as ISO 3166-2 code. You can omit the country code prefix.\nBoth of the arguments are case-insensitive.\n            \nSee below examples of how to query aircraft by country and state/province.\n            \nUSA - California:\n* `/api/aircraft/v2/geospatial/country/US/subdivision/CA`\n* `/api/aircraft/v2/geospatial/country/US/subdivision/US-CA`\n            \nCanada - British Columbia:\n* `/api/aircraft/v2/geospatial/country/CA/subdivision/BC`\n* `/api/aircraft/v2/geospatial/country/CA/subdivision/CA-BC`\n            \nFrance - Paris:\n* `/api/aircraft/v2/geospatial/country/FR/subdivision/75`\n* `/api/aircraft/v2/geospatial/country/FR/subdivision/FR-75`\n\n\nThe complete list of supported country codes and states/provinces can be accessed here:\n* Countries: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\n* States/Provinces: https://en.wikipedia.org/wiki/ISO_3166-2\n\nYou can get supported states/provinces by making GET request to\n`/geospatial/country/{country}/subdivisions` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "country",
+                ":country",
+                "subdivision",
+                ":subdivision"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subdivision",
+                  "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "969d0048-3c62-4534-a98f-dc73c4a20ef2",
+              "name": "Response containing a collection of aircraft models.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivision",
+                    ":subdivision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subdivision",
+                      "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4312,\n      \"alt_baro\": {},\n      \"alt_geom\": 3222.894125177416,\n      \"gs\": 8547.898108107822,\n      \"ias\": 5896.115518113041,\n      \"tas\": 455.43596604723956,\n      \"mach\": 3764.4280177590394,\n      \"wd\": 185,\n      \"ws\": 6891,\n      \"oat\": 9535,\n      \"tat\": 3096,\n      \"track\": 4375.101665243313,\n      \"track_rate\": 5669.3176828719825,\n      \"roll\": 6191.481998416104,\n      \"mag_heading\": 602.5865365835991,\n      \"true_heading\": 595.7724148046461,\n      \"baro_rate\": 1413,\n      \"geom_rate\": 4327,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 4923.215586573011,\n      \"nav_altitude_mcp\": 9858,\n      \"nav_altitude_fms\": 9920,\n      \"nav_heading\": 746.6089954503652,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 2865.8060597542044,\n      \"rr_lon\": 4855.858283929392,\n      \"lastPosition\": {\n        \"lat\": 8436.337768788235,\n        \"lon\": 2966.0030417090034,\n        \"nic\": 2203,\n        \"rc\": 3271,\n        \"seen_pos\": 1062.9676581980896\n      },\n      \"gpsOkBefore\": 2141.185797869678,\n      \"gpsOkLat\": 3798.0871519487337,\n      \"gpsOkLon\": 4104.079443767016,\n      \"lat\": 2102.325480187165,\n      \"lon\": 5831.318573407393,\n      \"nic\": 4605,\n      \"rc\": 6693,\n      \"seen_pos\": 647.4542667612182,\n      \"version\": 1590,\n      \"nic_baro\": 8905,\n      \"nac_p\": 610,\n      \"nac_v\": 2923,\n      \"sil\": 4724,\n      \"sil_type\": \"string\",\n      \"gva\": 4183,\n      \"sda\": 9425,\n      \"alert\": 7409,\n      \"spi\": 9254,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 2164,\n      \"seen\": 5636.646988696955,\n      \"rssi\": 1127.1624395003587,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7156.688438386743,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 9394,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 9041,\n      \"alt_baro\": {},\n      \"alt_geom\": 9011.861355693572,\n      \"gs\": 2677.3348106306503,\n      \"ias\": 7639.964581402224,\n      \"tas\": 6494.193170705773,\n      \"mach\": 9080.412067521487,\n      \"wd\": 8690,\n      \"ws\": 9292,\n      \"oat\": 2364,\n      \"tat\": 2457,\n      \"track\": 2764.8460397453214,\n      \"track_rate\": 884.9222584402305,\n      \"roll\": 2582.563892444185,\n      \"mag_heading\": 3325.751728264953,\n      \"true_heading\": 9025.497800516383,\n      \"baro_rate\": 5366,\n      \"geom_rate\": 8507,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 6929.709967525796,\n      \"nav_altitude_mcp\": 4556,\n      \"nav_altitude_fms\": 4970,\n      \"nav_heading\": 2011.1152123804977,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 6692.713885572242,\n      \"rr_lon\": 3634.398492176586,\n      \"lastPosition\": {\n        \"lat\": 3621.811573696291,\n        \"lon\": 8924.682149701843,\n        \"nic\": 5713,\n        \"rc\": 9996,\n        \"seen_pos\": 3017.314515077193\n      },\n      \"gpsOkBefore\": 5684.150522522934,\n      \"gpsOkLat\": 9629.976623355478,\n      \"gpsOkLon\": 5756.630107001068,\n      \"lat\": 3515.712841181974,\n      \"lon\": 8338.294251276571,\n      \"nic\": 7612,\n      \"rc\": 6033,\n      \"seen_pos\": 9498.006458452688,\n      \"version\": 2422,\n      \"nic_baro\": 5485,\n      \"nac_p\": 1824,\n      \"nac_v\": 6994,\n      \"sil\": 9968,\n      \"sil_type\": \"string\",\n      \"gva\": 1875,\n      \"sda\": 3862,\n      \"alert\": 3399,\n      \"spi\": 7662,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 6028,\n      \"seen\": 6239.193592175294,\n      \"rssi\": 1806.6899459943286,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 8568.550857541955,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 177,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 9335,\n  \"total\": 1344,\n  \"ctime\": 4372,\n  \"ptime\": 4535\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a29492b-ff03-431f-92a0-5d2fbd82d646",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivision",
+                    ":subdivision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subdivision",
+                      "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0baebb2d-fae4-4a65-bea4-840677d4050b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivision",
+                    ":subdivision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subdivision",
+                      "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0890d389-03e0-4e2e-b6cc-cee64f616dfb",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivision",
+                    ":subdivision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subdivision",
+                      "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f9511c9-5521-4a39-ad16-8ace2d2f973b",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "country",
+                    ":country",
+                    "subdivision",
+                    ":subdivision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Country ISO 3166-1 alpha-2 code. Case-insensitive."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subdivision",
+                      "description": "(Required) Subdivision (state/province) ISO_3166-2 code. You can omit the country code prefix. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1273,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1704db2-d73e-4408-b3fb-0eaa59e95c89",
+          "name": "Get aircraft by geographical region",
+          "request": {
+            "name": "Get aircraft by geographical region",
+            "description": {
+              "content": "Returns aircraft within the boundaries of the given geographical region.\n\nSupported regions:\n* Northern/Eastern/Southern/Western Europe\n* North/Central/South America\n* Central/East/South-East/South/West Asia\n* North/Middle/East/South/West Africa\n* Australia and New Zealand\n* Caribbean\n* Melanesia\n* Micronesia\n* Polynesia\n\n\nTo filter by 'North America' use pure text value from the list above. Remove spaces, or URL-encode them. Case-insensitive.\n            \n* `/api/aircraft/v2/geospatial/region/NorthAmerica`\n* `/api/aircraft/v2/geospatial/region/North%20America`\n\n\nTo filter by 'South-East Asia':\n            \n* `/api/aircraft/v2/geospatial/region/south-eastasia`\n* `/api/aircraft/v2/geospatial/region/South-East%20Asia`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "region",
+                ":region"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48fc3eb7-0ed4-476b-9fd4-ed6d64412c55",
+              "name": "Response containing a collection of aircraft models.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "region",
+                    ":region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4312,\n      \"alt_baro\": {},\n      \"alt_geom\": 3222.894125177416,\n      \"gs\": 8547.898108107822,\n      \"ias\": 5896.115518113041,\n      \"tas\": 455.43596604723956,\n      \"mach\": 3764.4280177590394,\n      \"wd\": 185,\n      \"ws\": 6891,\n      \"oat\": 9535,\n      \"tat\": 3096,\n      \"track\": 4375.101665243313,\n      \"track_rate\": 5669.3176828719825,\n      \"roll\": 6191.481998416104,\n      \"mag_heading\": 602.5865365835991,\n      \"true_heading\": 595.7724148046461,\n      \"baro_rate\": 1413,\n      \"geom_rate\": 4327,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 4923.215586573011,\n      \"nav_altitude_mcp\": 9858,\n      \"nav_altitude_fms\": 9920,\n      \"nav_heading\": 746.6089954503652,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 2865.8060597542044,\n      \"rr_lon\": 4855.858283929392,\n      \"lastPosition\": {\n        \"lat\": 8436.337768788235,\n        \"lon\": 2966.0030417090034,\n        \"nic\": 2203,\n        \"rc\": 3271,\n        \"seen_pos\": 1062.9676581980896\n      },\n      \"gpsOkBefore\": 2141.185797869678,\n      \"gpsOkLat\": 3798.0871519487337,\n      \"gpsOkLon\": 4104.079443767016,\n      \"lat\": 2102.325480187165,\n      \"lon\": 5831.318573407393,\n      \"nic\": 4605,\n      \"rc\": 6693,\n      \"seen_pos\": 647.4542667612182,\n      \"version\": 1590,\n      \"nic_baro\": 8905,\n      \"nac_p\": 610,\n      \"nac_v\": 2923,\n      \"sil\": 4724,\n      \"sil_type\": \"string\",\n      \"gva\": 4183,\n      \"sda\": 9425,\n      \"alert\": 7409,\n      \"spi\": 9254,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 2164,\n      \"seen\": 5636.646988696955,\n      \"rssi\": 1127.1624395003587,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7156.688438386743,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 9394,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 9041,\n      \"alt_baro\": {},\n      \"alt_geom\": 9011.861355693572,\n      \"gs\": 2677.3348106306503,\n      \"ias\": 7639.964581402224,\n      \"tas\": 6494.193170705773,\n      \"mach\": 9080.412067521487,\n      \"wd\": 8690,\n      \"ws\": 9292,\n      \"oat\": 2364,\n      \"tat\": 2457,\n      \"track\": 2764.8460397453214,\n      \"track_rate\": 884.9222584402305,\n      \"roll\": 2582.563892444185,\n      \"mag_heading\": 3325.751728264953,\n      \"true_heading\": 9025.497800516383,\n      \"baro_rate\": 5366,\n      \"geom_rate\": 8507,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 6929.709967525796,\n      \"nav_altitude_mcp\": 4556,\n      \"nav_altitude_fms\": 4970,\n      \"nav_heading\": 2011.1152123804977,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 6692.713885572242,\n      \"rr_lon\": 3634.398492176586,\n      \"lastPosition\": {\n        \"lat\": 3621.811573696291,\n        \"lon\": 8924.682149701843,\n        \"nic\": 5713,\n        \"rc\": 9996,\n        \"seen_pos\": 3017.314515077193\n      },\n      \"gpsOkBefore\": 5684.150522522934,\n      \"gpsOkLat\": 9629.976623355478,\n      \"gpsOkLon\": 5756.630107001068,\n      \"lat\": 3515.712841181974,\n      \"lon\": 8338.294251276571,\n      \"nic\": 7612,\n      \"rc\": 6033,\n      \"seen_pos\": 9498.006458452688,\n      \"version\": 2422,\n      \"nic_baro\": 5485,\n      \"nac_p\": 1824,\n      \"nac_v\": 6994,\n      \"sil\": 9968,\n      \"sil_type\": \"string\",\n      \"gva\": 1875,\n      \"sda\": 3862,\n      \"alert\": 3399,\n      \"spi\": 7662,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 6028,\n      \"seen\": 6239.193592175294,\n      \"rssi\": 1806.6899459943286,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 8568.550857541955,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 177,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 9335,\n  \"total\": 1344,\n  \"ctime\": 4372,\n  \"ptime\": 4535\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "561a17de-d521-4df7-9df6-a186af1dd493",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "region",
+                    ":region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c31cfd97-f881-4b8c-8bfc-b929f4bfd2e9",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "region",
+                    ":region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d38eca75-1ced-4c75-8ca5-f000fdf019e4",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "region",
+                    ":region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1518a76-69f7-45ff-ad73-990114b34a63",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "region",
+                    ":region"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) Name of the geographical region from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1273,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f06d313-767b-4378-9761-3659c0f51d7a",
+          "name": "Get aircraft by continent",
+          "request": {
+            "name": "Get aircraft by continent",
+            "description": {
+              "content": "Returns aircraft within the boundaries of the given continent.\n\nSupported continents:\n* Americas\n* Africa\n* Asia\n* Europe\n* Oceania\n* Antarctica\n\n\nTo filter by continent use pure text value from the list above.\n\nExamples:\n* `/api/aircraft/v2/geospatial/continent/Europe`\n* `/api/aircraft/v2/geospatial/continent/Antarctica`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "continent",
+                ":continent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "continent",
+                  "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ae626bd-cdfe-4e89-9a4e-b76f271b98b8",
+              "name": "Response containing a collection of aircraft models.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "continent",
+                    ":continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "continent",
+                      "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4312,\n      \"alt_baro\": {},\n      \"alt_geom\": 3222.894125177416,\n      \"gs\": 8547.898108107822,\n      \"ias\": 5896.115518113041,\n      \"tas\": 455.43596604723956,\n      \"mach\": 3764.4280177590394,\n      \"wd\": 185,\n      \"ws\": 6891,\n      \"oat\": 9535,\n      \"tat\": 3096,\n      \"track\": 4375.101665243313,\n      \"track_rate\": 5669.3176828719825,\n      \"roll\": 6191.481998416104,\n      \"mag_heading\": 602.5865365835991,\n      \"true_heading\": 595.7724148046461,\n      \"baro_rate\": 1413,\n      \"geom_rate\": 4327,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 4923.215586573011,\n      \"nav_altitude_mcp\": 9858,\n      \"nav_altitude_fms\": 9920,\n      \"nav_heading\": 746.6089954503652,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 2865.8060597542044,\n      \"rr_lon\": 4855.858283929392,\n      \"lastPosition\": {\n        \"lat\": 8436.337768788235,\n        \"lon\": 2966.0030417090034,\n        \"nic\": 2203,\n        \"rc\": 3271,\n        \"seen_pos\": 1062.9676581980896\n      },\n      \"gpsOkBefore\": 2141.185797869678,\n      \"gpsOkLat\": 3798.0871519487337,\n      \"gpsOkLon\": 4104.079443767016,\n      \"lat\": 2102.325480187165,\n      \"lon\": 5831.318573407393,\n      \"nic\": 4605,\n      \"rc\": 6693,\n      \"seen_pos\": 647.4542667612182,\n      \"version\": 1590,\n      \"nic_baro\": 8905,\n      \"nac_p\": 610,\n      \"nac_v\": 2923,\n      \"sil\": 4724,\n      \"sil_type\": \"string\",\n      \"gva\": 4183,\n      \"sda\": 9425,\n      \"alert\": 7409,\n      \"spi\": 9254,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 2164,\n      \"seen\": 5636.646988696955,\n      \"rssi\": 1127.1624395003587,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7156.688438386743,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 9394,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 9041,\n      \"alt_baro\": {},\n      \"alt_geom\": 9011.861355693572,\n      \"gs\": 2677.3348106306503,\n      \"ias\": 7639.964581402224,\n      \"tas\": 6494.193170705773,\n      \"mach\": 9080.412067521487,\n      \"wd\": 8690,\n      \"ws\": 9292,\n      \"oat\": 2364,\n      \"tat\": 2457,\n      \"track\": 2764.8460397453214,\n      \"track_rate\": 884.9222584402305,\n      \"roll\": 2582.563892444185,\n      \"mag_heading\": 3325.751728264953,\n      \"true_heading\": 9025.497800516383,\n      \"baro_rate\": 5366,\n      \"geom_rate\": 8507,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 6929.709967525796,\n      \"nav_altitude_mcp\": 4556,\n      \"nav_altitude_fms\": 4970,\n      \"nav_heading\": 2011.1152123804977,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 6692.713885572242,\n      \"rr_lon\": 3634.398492176586,\n      \"lastPosition\": {\n        \"lat\": 3621.811573696291,\n        \"lon\": 8924.682149701843,\n        \"nic\": 5713,\n        \"rc\": 9996,\n        \"seen_pos\": 3017.314515077193\n      },\n      \"gpsOkBefore\": 5684.150522522934,\n      \"gpsOkLat\": 9629.976623355478,\n      \"gpsOkLon\": 5756.630107001068,\n      \"lat\": 3515.712841181974,\n      \"lon\": 8338.294251276571,\n      \"nic\": 7612,\n      \"rc\": 6033,\n      \"seen_pos\": 9498.006458452688,\n      \"version\": 2422,\n      \"nic_baro\": 5485,\n      \"nac_p\": 1824,\n      \"nac_v\": 6994,\n      \"sil\": 9968,\n      \"sil_type\": \"string\",\n      \"gva\": 1875,\n      \"sda\": 3862,\n      \"alert\": 3399,\n      \"spi\": 7662,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 6028,\n      \"seen\": 6239.193592175294,\n      \"rssi\": 1806.6899459943286,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 8568.550857541955,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 177,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 9335,\n  \"total\": 1344,\n  \"ctime\": 4372,\n  \"ptime\": 4535\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c250949-5c75-4393-8c93-d087c2d4eb59",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "continent",
+                    ":continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "continent",
+                      "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98c4ce42-62d6-47c1-97f9-bf71616a154f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "continent",
+                    ":continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "continent",
+                      "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c83d3bd-19e5-48f7-a514-f65183820117",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "continent",
+                    ":continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "continent",
+                      "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c571fbf-1b2b-4722-b4c3-b42737885f1e",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "continent",
+                    ":continent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "continent",
+                      "description": "(Required) Name of the continent from the list above. Case-insensitive."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1273,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.adsbexchange.com/api/aircraft/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ad3d04c0-009a-49ec-ad86-ac12569b971d",
+    "name": "ADSB Exchange Geopolitical Filtering API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>\n\nContact Support:\n Name: Contact ADSB Exchange",
+      "type": "text/plain"
+    }
+  }
+}

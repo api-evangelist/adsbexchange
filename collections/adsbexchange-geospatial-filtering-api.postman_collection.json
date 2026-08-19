@@ -1,0 +1,2981 @@
+{
+  "item": [
+    {
+      "id": "87bf129f-036a-476b-93b1-603c939d2e00",
+      "name": "Geospatial Filtering",
+      "description": {
+        "content": "Endpoints allow filtering live data based on geospatial boundaries, such as latitude, longitude, altitudes, or even custom GeoJSON shapes.\nUse these endpoints to get information about aircraft within a specific radius from a given point, within a polygon, or within a custom shape.\n<br /><br />\n<b>Note</b>: When using GeoJSON shape files, only Polygon and MultiPolygon shapes are supported. Any other shapes will be ignored.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca847148-e6e6-48c6-8765-0d8874031a21",
+          "name": "Get aircraft in radius",
+          "request": {
+            "name": "Get aircraft in radius",
+            "description": {
+              "content": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates.\n\nGet aircraft within 50 nautical miles of San Francisco:\n```\nGET /api/aircraft/v2/lat/37.7749/lon/-122.4194/dist/50\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lat",
+                ":lat",
+                "lon",
+                ":lon",
+                "dist",
+                ":dist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lat",
+                  "description": "(Required) Latitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lon",
+                  "description": "(Required) Longitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "dist",
+                  "description": "(Required) Radius in nautical miles."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "28b72f94-a33c-4d5b-b25c-89458bdbecd4",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 5765,\n      \"alt_baro\": {},\n      \"alt_geom\": 7912.9535361149465,\n      \"gs\": 5811.705222101447,\n      \"ias\": 9223.358934348049,\n      \"tas\": 4525.8221453074575,\n      \"mach\": 5350.637358344839,\n      \"wd\": 668,\n      \"ws\": 9678,\n      \"oat\": 37,\n      \"tat\": 3442,\n      \"track\": 7392.687594323297,\n      \"track_rate\": 3971.7996429263767,\n      \"roll\": 9382.226116425165,\n      \"mag_heading\": 3591.255788163351,\n      \"true_heading\": 6789.56960917484,\n      \"baro_rate\": 2508,\n      \"geom_rate\": 2522,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 3556.844662368801,\n      \"nav_altitude_mcp\": 1446,\n      \"nav_altitude_fms\": 8082,\n      \"nav_heading\": 2030.894820456024,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 1949.1041621161287,\n      \"rr_lon\": 9619.467860382725,\n      \"lastPosition\": {\n        \"lat\": 1899.2730116144662,\n        \"lon\": 4474.612539017693,\n        \"nic\": 9491,\n        \"rc\": 5916,\n        \"seen_pos\": 8111.090673486378\n      },\n      \"gpsOkBefore\": 1682.506392580564,\n      \"gpsOkLat\": 4740.554070647873,\n      \"gpsOkLon\": 113.32987423965268,\n      \"lat\": 3281.193164895967,\n      \"lon\": 3484.312807586063,\n      \"nic\": 6195,\n      \"rc\": 1529,\n      \"seen_pos\": 6366.969282542971,\n      \"version\": 4109,\n      \"nic_baro\": 8826,\n      \"nac_p\": 7545,\n      \"nac_v\": 4424,\n      \"sil\": 9713,\n      \"sil_type\": \"string\",\n      \"gva\": 3936,\n      \"sda\": 2720,\n      \"alert\": 3195,\n      \"spi\": 3602,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 4496,\n      \"seen\": 6222.745266142805,\n      \"rssi\": 7662.88897195938,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7465.242803994598,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3645,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 282,\n      \"alt_baro\": {},\n      \"alt_geom\": 3421.014893731099,\n      \"gs\": 4025.4721065688536,\n      \"ias\": 4033.551943159439,\n      \"tas\": 1858.5242216196652,\n      \"mach\": 8836.152123507867,\n      \"wd\": 2905,\n      \"ws\": 9611,\n      \"oat\": 2797,\n      \"tat\": 7922,\n      \"track\": 9239.218165656255,\n      \"track_rate\": 91.37659309528145,\n      \"roll\": 5455.264370481719,\n      \"mag_heading\": 3352.552009108619,\n      \"true_heading\": 9855.850012923975,\n      \"baro_rate\": 9008,\n      \"geom_rate\": 7158,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5211.387645362563,\n      \"nav_altitude_mcp\": 5447,\n      \"nav_altitude_fms\": 7759,\n      \"nav_heading\": 8111.564622611215,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 396.85254016833204,\n      \"rr_lon\": 8924.06258191927,\n      \"lastPosition\": {\n        \"lat\": 6162.078359954483,\n        \"lon\": 3771.055345062365,\n        \"nic\": 5805,\n        \"rc\": 8425,\n        \"seen_pos\": 9280.205105125257\n      },\n      \"gpsOkBefore\": 2449.793024522683,\n      \"gpsOkLat\": 6579.279721241564,\n      \"gpsOkLon\": 4448.051135456323,\n      \"lat\": 4541.3327114831945,\n      \"lon\": 4995.0484787335,\n      \"nic\": 9657,\n      \"rc\": 5498,\n      \"seen_pos\": 4233.128965500134,\n      \"version\": 7080,\n      \"nic_baro\": 8080,\n      \"nac_p\": 2786,\n      \"nac_v\": 9809,\n      \"sil\": 559,\n      \"sil_type\": \"string\",\n      \"gva\": 2951,\n      \"sda\": 261,\n      \"alert\": 8191,\n      \"spi\": 5254,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8708,\n      \"seen\": 7816.755512439784,\n      \"rssi\": 5398.329572778097,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 1019.3878407135381,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 7883,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 3451,\n  \"total\": 4562,\n  \"ctime\": 8466,\n  \"ptime\": 9026\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06183233-cee4-4c5a-b0e3-f4ab59b113b1",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d830f830-aef3-4160-a904-91afa08a69de",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5db7ee28-7acd-4ff7-921e-f30fdddf94bf",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adc327eb-a9cb-4934-bee2-4ef4423c8f10",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "880f4cda-aa26-456e-ac10-2e78c9991c2e",
+          "name": "Get aircraft in radius",
+          "request": {
+            "name": "Get aircraft in radius",
+            "description": {
+              "content": "This endpoint will return aircraft data within the given radius (NM) of the provided points.\n\nGet aircraft within 50 nautical miles of San Francisco, and within 20 nautical miles from New York (KJFK) at altitudes between 5000 and 30000 feet:\n```\nPOST /api/aircraft/v2/proximity/radius\n{\n    \"filters\": [\n        {\n            \"latitude\": 37.7749,\n            \"longitude\": -122.4194,\n            \"radius\": 50\n        },\n        {\n            \"latitude\": 40.641,\n            \"longitude\": -73.775,\n            \"radius\": 20,\n            \"altitude_min\": 5000,\n            \"altitude_max\": 30000\n        },\n        ...\n    ]\n}\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "proximity",
+                "radius"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a304a053-6016-49d3-9fc0-4731cad95add",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proximity",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4303,\n      \"alt_baro\": {},\n      \"alt_geom\": 7209.952744134152,\n      \"gs\": 7565.399897778791,\n      \"ias\": 8601.84952137347,\n      \"tas\": 7398.338778353413,\n      \"mach\": 2810.027336834394,\n      \"wd\": 2984,\n      \"ws\": 9029,\n      \"oat\": 5075,\n      \"tat\": 6226,\n      \"track\": 2270.354989696386,\n      \"track_rate\": 1821.6775143019793,\n      \"roll\": 1670.001055182334,\n      \"mag_heading\": 5948.2298160586015,\n      \"true_heading\": 5503.378850039716,\n      \"baro_rate\": 3315,\n      \"geom_rate\": 7254,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 2095.457550882299,\n      \"nav_altitude_mcp\": 1120,\n      \"nav_altitude_fms\": 7512,\n      \"nav_heading\": 2859.6938352318734,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 818.2518170135444,\n      \"rr_lon\": 6169.475500856921,\n      \"lastPosition\": {\n        \"lat\": 102.84402537722227,\n        \"lon\": 4003.388149596422,\n        \"nic\": 7618,\n        \"rc\": 1263,\n        \"seen_pos\": 8810.271678824287\n      },\n      \"gpsOkBefore\": 9325.796314470072,\n      \"gpsOkLat\": 7182.664057669977,\n      \"gpsOkLon\": 1069.2196386419262,\n      \"lat\": 2735.3392047573,\n      \"lon\": 9159.048637814723,\n      \"nic\": 1878,\n      \"rc\": 9634,\n      \"seen_pos\": 3011.35605744257,\n      \"version\": 7026,\n      \"nic_baro\": 9345,\n      \"nac_p\": 1501,\n      \"nac_v\": 9903,\n      \"sil\": 6952,\n      \"sil_type\": \"string\",\n      \"gva\": 4737,\n      \"sda\": 2358,\n      \"alert\": 2157,\n      \"spi\": 8561,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8822,\n      \"seen\": 5191.763473645386,\n      \"rssi\": 1231.6794643334283,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7777.840834011269,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3581,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 23,\n      \"alt_baro\": {},\n      \"alt_geom\": 4284.975674097281,\n      \"gs\": 1648.611947773422,\n      \"ias\": 3559.828134623958,\n      \"tas\": 8056.103597944662,\n      \"mach\": 3941.082233824673,\n      \"wd\": 4074,\n      \"ws\": 8622,\n      \"oat\": 7856,\n      \"tat\": 2505,\n      \"track\": 6912.558539805194,\n      \"track_rate\": 9718.395447531604,\n      \"roll\": 8957.936558712036,\n      \"mag_heading\": 4680.391490548226,\n      \"true_heading\": 9492.621182511493,\n      \"baro_rate\": 8695,\n      \"geom_rate\": 9835,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5343.902802795965,\n      \"nav_altitude_mcp\": 9035,\n      \"nav_altitude_fms\": 5483,\n      \"nav_heading\": 1183.796957038633,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 4939.022926535831,\n      \"rr_lon\": 8353.564350977811,\n      \"lastPosition\": {\n        \"lat\": 9803.191201922906,\n        \"lon\": 6962.393244465303,\n        \"nic\": 6541,\n        \"rc\": 9933,\n        \"seen_pos\": 5282.983359702268\n      },\n      \"gpsOkBefore\": 4200.321840038347,\n      \"gpsOkLat\": 1172.6954524435207,\n      \"gpsOkLon\": 1942.595992255325,\n      \"lat\": 7176.701567715877,\n      \"lon\": 2992.015700173757,\n      \"nic\": 5817,\n      \"rc\": 6592,\n      \"seen_pos\": 9052.548125078903,\n      \"version\": 8561,\n      \"nic_baro\": 8846,\n      \"nac_p\": 7762,\n      \"nac_v\": 2865,\n      \"sil\": 8666,\n      \"sil_type\": \"string\",\n      \"gva\": 3676,\n      \"sda\": 9306,\n      \"alert\": 2191,\n      \"spi\": 5799,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 1843,\n      \"seen\": 496.793557483004,\n      \"rssi\": 324.7288268103543,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 2909.741817261443,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 2011,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 7912,\n  \"total\": 9186,\n  \"ctime\": 1694,\n  \"ptime\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb52401c-f778-43e6-b7b6-433f2b813eb0",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proximity",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c66d92c3-9a92-4e6b-80b1-3d7acbbed036",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proximity",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "621a6be7-c924-4a8d-9203-ca749bc85095",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proximity",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92f5de59-2192-4870-8bd7-e829853ea656",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proximity",
+                    "radius"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    },\n    {\n      \"latitude\": \"<double>\",\n      \"longitude\": \"<double>\",\n      \"radius\": \"<double>\",\n      \"altitude_min\": \"<integer>\",\n      \"altitude_max\": \"<integer>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9a7ca51-1cd5-4bc8-b05a-2e476d9d4f36",
+          "name": "Get aircraft in radius (minimal)",
+          "request": {
+            "name": "Get aircraft in radius (minimal)",
+            "description": {
+              "content": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates. The data will be returned in a minimal representation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "minimal",
+                "lat",
+                ":lat",
+                "lon",
+                ":lon",
+                "dist",
+                ":dist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lat",
+                  "description": "(Required) Latitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lon",
+                  "description": "(Required) Longitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "dist",
+                  "description": "(Required) Radius in nautical miles."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cba738de-5de8-4924-9611-37c808e20f70",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "minimal",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"alt_baro\": {},\n      \"alt_geom\": 6382.669946376548,\n      \"gs\": 7045.7284610903835,\n      \"ias\": 4542.5631626215545,\n      \"tas\": 5655.971180014204,\n      \"mach\": 9945.67138362686,\n      \"wd\": 8566,\n      \"ws\": 7374,\n      \"oat\": 415,\n      \"tat\": 8391,\n      \"track\": 8026.040951160781,\n      \"track_rate\": 6336.701181603389,\n      \"roll\": 893.075246247711,\n      \"mag_heading\": 799.3956845974526,\n      \"true_heading\": 6702.888020395388,\n      \"baro_rate\": 7656,\n      \"geom_rate\": 6874,\n      \"squawk\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 1871.8089311695496,\n      \"nav_altitude_mcp\": 1684,\n      \"nav_altitude_fms\": 9554,\n      \"nav_heading\": 2145.9366827555705,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"lat\": 6658.148242504737,\n      \"lon\": 4757.828565043704,\n      \"seen_pos\": 3724.559693016504,\n      \"seen\": 6374.769493049749\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"alt_baro\": {},\n      \"alt_geom\": 781.1878965808183,\n      \"gs\": 2316.9404230373057,\n      \"ias\": 2740.736448398633,\n      \"tas\": 3101.4046762067337,\n      \"mach\": 7334.820589980442,\n      \"wd\": 7295,\n      \"ws\": 1753,\n      \"oat\": 4795,\n      \"tat\": 9604,\n      \"track\": 4467.470174392897,\n      \"track_rate\": 3531.147963934782,\n      \"roll\": 313.7097598142158,\n      \"mag_heading\": 1714.3927042638873,\n      \"true_heading\": 3452.424109496147,\n      \"baro_rate\": 6425,\n      \"geom_rate\": 3955,\n      \"squawk\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 3120.826983366206,\n      \"nav_altitude_mcp\": 5751,\n      \"nav_altitude_fms\": 1565,\n      \"nav_heading\": 7804.295408923815,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"lat\": 1159.0323296988736,\n      \"lon\": 918.4937225011347,\n      \"seen_pos\": 6972.151198241081,\n      \"seen\": 1792.7672312376963\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 6375,\n  \"total\": 1144,\n  \"ctime\": 1249,\n  \"ptime\": 8658\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "196936a9-2b89-40fa-8059-0bd5ec2e852b",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "minimal",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0bd785c-e55b-4b01-8bd4-de5cc9468647",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "minimal",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d591e884-7a45-48f7-b54d-58de6b25b09b",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "minimal",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31a014f2-f427-4ba9-89f8-a11c6d6eb58a",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "minimal",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon",
+                    "dist",
+                    ":dist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6171291-0ef4-4422-8643-2fadb124b9a5",
+          "name": "Get aircraft in radius (above altitude)",
+          "request": {
+            "name": "Get aircraft in radius (above altitude)",
+            "description": {
+              "content": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates, and above the provided altitude (ft).\n\nGet aircraft within 50 nautical miles of San Francisco, above 5000 feet (sea level):\n```\nGET /nohex/dist/50/above/5000/lat/37.7749/lon/-122.4194\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nohex",
+                "dist",
+                ":dist",
+                "above",
+                ":alt",
+                "lat",
+                ":lat",
+                "lon",
+                ":lon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lat",
+                  "description": "(Required) Latitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "lon",
+                  "description": "(Required) Longitude of the center point."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<double>",
+                  "key": "dist",
+                  "description": "(Required) Radius in nautical miles."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "alt",
+                  "description": "(Required) Altitude in feet above sea level."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a2cc13a-7a08-4d1e-96d5-5a61a5359e41",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nohex",
+                    "dist",
+                    ":dist",
+                    "above",
+                    ":alt",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alt",
+                      "description": "(Required) Altitude in feet above sea level."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4303,\n      \"alt_baro\": {},\n      \"alt_geom\": 7209.952744134152,\n      \"gs\": 7565.399897778791,\n      \"ias\": 8601.84952137347,\n      \"tas\": 7398.338778353413,\n      \"mach\": 2810.027336834394,\n      \"wd\": 2984,\n      \"ws\": 9029,\n      \"oat\": 5075,\n      \"tat\": 6226,\n      \"track\": 2270.354989696386,\n      \"track_rate\": 1821.6775143019793,\n      \"roll\": 1670.001055182334,\n      \"mag_heading\": 5948.2298160586015,\n      \"true_heading\": 5503.378850039716,\n      \"baro_rate\": 3315,\n      \"geom_rate\": 7254,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 2095.457550882299,\n      \"nav_altitude_mcp\": 1120,\n      \"nav_altitude_fms\": 7512,\n      \"nav_heading\": 2859.6938352318734,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 818.2518170135444,\n      \"rr_lon\": 6169.475500856921,\n      \"lastPosition\": {\n        \"lat\": 102.84402537722227,\n        \"lon\": 4003.388149596422,\n        \"nic\": 7618,\n        \"rc\": 1263,\n        \"seen_pos\": 8810.271678824287\n      },\n      \"gpsOkBefore\": 9325.796314470072,\n      \"gpsOkLat\": 7182.664057669977,\n      \"gpsOkLon\": 1069.2196386419262,\n      \"lat\": 2735.3392047573,\n      \"lon\": 9159.048637814723,\n      \"nic\": 1878,\n      \"rc\": 9634,\n      \"seen_pos\": 3011.35605744257,\n      \"version\": 7026,\n      \"nic_baro\": 9345,\n      \"nac_p\": 1501,\n      \"nac_v\": 9903,\n      \"sil\": 6952,\n      \"sil_type\": \"string\",\n      \"gva\": 4737,\n      \"sda\": 2358,\n      \"alert\": 2157,\n      \"spi\": 8561,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8822,\n      \"seen\": 5191.763473645386,\n      \"rssi\": 1231.6794643334283,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7777.840834011269,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3581,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 23,\n      \"alt_baro\": {},\n      \"alt_geom\": 4284.975674097281,\n      \"gs\": 1648.611947773422,\n      \"ias\": 3559.828134623958,\n      \"tas\": 8056.103597944662,\n      \"mach\": 3941.082233824673,\n      \"wd\": 4074,\n      \"ws\": 8622,\n      \"oat\": 7856,\n      \"tat\": 2505,\n      \"track\": 6912.558539805194,\n      \"track_rate\": 9718.395447531604,\n      \"roll\": 8957.936558712036,\n      \"mag_heading\": 4680.391490548226,\n      \"true_heading\": 9492.621182511493,\n      \"baro_rate\": 8695,\n      \"geom_rate\": 9835,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5343.902802795965,\n      \"nav_altitude_mcp\": 9035,\n      \"nav_altitude_fms\": 5483,\n      \"nav_heading\": 1183.796957038633,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 4939.022926535831,\n      \"rr_lon\": 8353.564350977811,\n      \"lastPosition\": {\n        \"lat\": 9803.191201922906,\n        \"lon\": 6962.393244465303,\n        \"nic\": 6541,\n        \"rc\": 9933,\n        \"seen_pos\": 5282.983359702268\n      },\n      \"gpsOkBefore\": 4200.321840038347,\n      \"gpsOkLat\": 1172.6954524435207,\n      \"gpsOkLon\": 1942.595992255325,\n      \"lat\": 7176.701567715877,\n      \"lon\": 2992.015700173757,\n      \"nic\": 5817,\n      \"rc\": 6592,\n      \"seen_pos\": 9052.548125078903,\n      \"version\": 8561,\n      \"nic_baro\": 8846,\n      \"nac_p\": 7762,\n      \"nac_v\": 2865,\n      \"sil\": 8666,\n      \"sil_type\": \"string\",\n      \"gva\": 3676,\n      \"sda\": 9306,\n      \"alert\": 2191,\n      \"spi\": 5799,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 1843,\n      \"seen\": 496.793557483004,\n      \"rssi\": 324.7288268103543,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 2909.741817261443,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 2011,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 7912,\n  \"total\": 9186,\n  \"ctime\": 1694,\n  \"ptime\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e03b751-7797-4532-9126-bf078b7e6407",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nohex",
+                    "dist",
+                    ":dist",
+                    "above",
+                    ":alt",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alt",
+                      "description": "(Required) Altitude in feet above sea level."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f25286a1-aadd-40b1-9385-ad90eaf637cd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nohex",
+                    "dist",
+                    ":dist",
+                    "above",
+                    ":alt",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alt",
+                      "description": "(Required) Altitude in feet above sea level."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b63d38ef-0b1a-4cb6-828c-f21cad542f77",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nohex",
+                    "dist",
+                    ":dist",
+                    "above",
+                    ":alt",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alt",
+                      "description": "(Required) Altitude in feet above sea level."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eec048fc-2165-4da8-8ad6-07fe8062162d",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nohex",
+                    "dist",
+                    ":dist",
+                    "above",
+                    ":alt",
+                    "lat",
+                    ":lat",
+                    "lon",
+                    ":lon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lat",
+                      "description": "(Required) Latitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "lon",
+                      "description": "(Required) Longitude of the center point."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<double>",
+                      "key": "dist",
+                      "description": "(Required) Radius in nautical miles."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alt",
+                      "description": "(Required) Altitude in feet above sea level."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff36262e-5d46-4044-b6b8-ffe5b43976e0",
+          "name": "Get aircraft near the airport",
+          "request": {
+            "name": "Get aircraft near the airport",
+            "description": {
+              "content": "This endpoint will return aircraft data within 5 nautical miles of the provided airport ICAO code.\n\nGet aircraft within 5 nautical miles of San Francisco airport:\n```\nGET /api/aircraft/v2/airport/KSFO\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "airport",
+                ":airport"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "airport",
+                  "description": "(Required) ICAO code of the airport."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b949eae-3d9d-43fd-9298-ec159461478e",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4303,\n      \"alt_baro\": {},\n      \"alt_geom\": 7209.952744134152,\n      \"gs\": 7565.399897778791,\n      \"ias\": 8601.84952137347,\n      \"tas\": 7398.338778353413,\n      \"mach\": 2810.027336834394,\n      \"wd\": 2984,\n      \"ws\": 9029,\n      \"oat\": 5075,\n      \"tat\": 6226,\n      \"track\": 2270.354989696386,\n      \"track_rate\": 1821.6775143019793,\n      \"roll\": 1670.001055182334,\n      \"mag_heading\": 5948.2298160586015,\n      \"true_heading\": 5503.378850039716,\n      \"baro_rate\": 3315,\n      \"geom_rate\": 7254,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 2095.457550882299,\n      \"nav_altitude_mcp\": 1120,\n      \"nav_altitude_fms\": 7512,\n      \"nav_heading\": 2859.6938352318734,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 818.2518170135444,\n      \"rr_lon\": 6169.475500856921,\n      \"lastPosition\": {\n        \"lat\": 102.84402537722227,\n        \"lon\": 4003.388149596422,\n        \"nic\": 7618,\n        \"rc\": 1263,\n        \"seen_pos\": 8810.271678824287\n      },\n      \"gpsOkBefore\": 9325.796314470072,\n      \"gpsOkLat\": 7182.664057669977,\n      \"gpsOkLon\": 1069.2196386419262,\n      \"lat\": 2735.3392047573,\n      \"lon\": 9159.048637814723,\n      \"nic\": 1878,\n      \"rc\": 9634,\n      \"seen_pos\": 3011.35605744257,\n      \"version\": 7026,\n      \"nic_baro\": 9345,\n      \"nac_p\": 1501,\n      \"nac_v\": 9903,\n      \"sil\": 6952,\n      \"sil_type\": \"string\",\n      \"gva\": 4737,\n      \"sda\": 2358,\n      \"alert\": 2157,\n      \"spi\": 8561,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8822,\n      \"seen\": 5191.763473645386,\n      \"rssi\": 1231.6794643334283,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7777.840834011269,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3581,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 23,\n      \"alt_baro\": {},\n      \"alt_geom\": 4284.975674097281,\n      \"gs\": 1648.611947773422,\n      \"ias\": 3559.828134623958,\n      \"tas\": 8056.103597944662,\n      \"mach\": 3941.082233824673,\n      \"wd\": 4074,\n      \"ws\": 8622,\n      \"oat\": 7856,\n      \"tat\": 2505,\n      \"track\": 6912.558539805194,\n      \"track_rate\": 9718.395447531604,\n      \"roll\": 8957.936558712036,\n      \"mag_heading\": 4680.391490548226,\n      \"true_heading\": 9492.621182511493,\n      \"baro_rate\": 8695,\n      \"geom_rate\": 9835,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5343.902802795965,\n      \"nav_altitude_mcp\": 9035,\n      \"nav_altitude_fms\": 5483,\n      \"nav_heading\": 1183.796957038633,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 4939.022926535831,\n      \"rr_lon\": 8353.564350977811,\n      \"lastPosition\": {\n        \"lat\": 9803.191201922906,\n        \"lon\": 6962.393244465303,\n        \"nic\": 6541,\n        \"rc\": 9933,\n        \"seen_pos\": 5282.983359702268\n      },\n      \"gpsOkBefore\": 4200.321840038347,\n      \"gpsOkLat\": 1172.6954524435207,\n      \"gpsOkLon\": 1942.595992255325,\n      \"lat\": 7176.701567715877,\n      \"lon\": 2992.015700173757,\n      \"nic\": 5817,\n      \"rc\": 6592,\n      \"seen_pos\": 9052.548125078903,\n      \"version\": 8561,\n      \"nic_baro\": 8846,\n      \"nac_p\": 7762,\n      \"nac_v\": 2865,\n      \"sil\": 8666,\n      \"sil_type\": \"string\",\n      \"gva\": 3676,\n      \"sda\": 9306,\n      \"alert\": 2191,\n      \"spi\": 5799,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 1843,\n      \"seen\": 496.793557483004,\n      \"rssi\": 324.7288268103543,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 2909.741817261443,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 2011,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 7912,\n  \"total\": 9186,\n  \"ctime\": 1694,\n  \"ptime\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a53f86b9-030e-4dd6-abad-13193cbdaf57",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2f010f0-95af-4ca5-b6cf-641d77cb0c44",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f6d7a47-8646-4e8b-ba97-b0e5e1135f15",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b956b242-4ccf-4360-bccc-ef6d2b6c443a",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e39f6a26-b92c-4e80-8e3b-2873f12c5281",
+          "name": "Get aircraft near airports",
+          "request": {
+            "name": "Get aircraft near airports",
+            "description": {
+              "content": "This endpoint will return aircraft data within 5 nautical miles of the provided airport ICAO code(s).\n\nGet aircraft within 5 nautical miles of San Francisco and Calgary airports:\n```\nPOST /api/aircraft/v2/airport\n{\n    \"airports\": [\"KSFO\", \"CYYC\"]\n}\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "airport"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0aa4be76-8c7f-4556-81ef-025fa1afe78f",
+              "name": "Response containing a collection of aircraft models within the given radius.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4303,\n      \"alt_baro\": {},\n      \"alt_geom\": 7209.952744134152,\n      \"gs\": 7565.399897778791,\n      \"ias\": 8601.84952137347,\n      \"tas\": 7398.338778353413,\n      \"mach\": 2810.027336834394,\n      \"wd\": 2984,\n      \"ws\": 9029,\n      \"oat\": 5075,\n      \"tat\": 6226,\n      \"track\": 2270.354989696386,\n      \"track_rate\": 1821.6775143019793,\n      \"roll\": 1670.001055182334,\n      \"mag_heading\": 5948.2298160586015,\n      \"true_heading\": 5503.378850039716,\n      \"baro_rate\": 3315,\n      \"geom_rate\": 7254,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 2095.457550882299,\n      \"nav_altitude_mcp\": 1120,\n      \"nav_altitude_fms\": 7512,\n      \"nav_heading\": 2859.6938352318734,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 818.2518170135444,\n      \"rr_lon\": 6169.475500856921,\n      \"lastPosition\": {\n        \"lat\": 102.84402537722227,\n        \"lon\": 4003.388149596422,\n        \"nic\": 7618,\n        \"rc\": 1263,\n        \"seen_pos\": 8810.271678824287\n      },\n      \"gpsOkBefore\": 9325.796314470072,\n      \"gpsOkLat\": 7182.664057669977,\n      \"gpsOkLon\": 1069.2196386419262,\n      \"lat\": 2735.3392047573,\n      \"lon\": 9159.048637814723,\n      \"nic\": 1878,\n      \"rc\": 9634,\n      \"seen_pos\": 3011.35605744257,\n      \"version\": 7026,\n      \"nic_baro\": 9345,\n      \"nac_p\": 1501,\n      \"nac_v\": 9903,\n      \"sil\": 6952,\n      \"sil_type\": \"string\",\n      \"gva\": 4737,\n      \"sda\": 2358,\n      \"alert\": 2157,\n      \"spi\": 8561,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8822,\n      \"seen\": 5191.763473645386,\n      \"rssi\": 1231.6794643334283,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7777.840834011269,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3581,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 23,\n      \"alt_baro\": {},\n      \"alt_geom\": 4284.975674097281,\n      \"gs\": 1648.611947773422,\n      \"ias\": 3559.828134623958,\n      \"tas\": 8056.103597944662,\n      \"mach\": 3941.082233824673,\n      \"wd\": 4074,\n      \"ws\": 8622,\n      \"oat\": 7856,\n      \"tat\": 2505,\n      \"track\": 6912.558539805194,\n      \"track_rate\": 9718.395447531604,\n      \"roll\": 8957.936558712036,\n      \"mag_heading\": 4680.391490548226,\n      \"true_heading\": 9492.621182511493,\n      \"baro_rate\": 8695,\n      \"geom_rate\": 9835,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5343.902802795965,\n      \"nav_altitude_mcp\": 9035,\n      \"nav_altitude_fms\": 5483,\n      \"nav_heading\": 1183.796957038633,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 4939.022926535831,\n      \"rr_lon\": 8353.564350977811,\n      \"lastPosition\": {\n        \"lat\": 9803.191201922906,\n        \"lon\": 6962.393244465303,\n        \"nic\": 6541,\n        \"rc\": 9933,\n        \"seen_pos\": 5282.983359702268\n      },\n      \"gpsOkBefore\": 4200.321840038347,\n      \"gpsOkLat\": 1172.6954524435207,\n      \"gpsOkLon\": 1942.595992255325,\n      \"lat\": 7176.701567715877,\n      \"lon\": 2992.015700173757,\n      \"nic\": 5817,\n      \"rc\": 6592,\n      \"seen_pos\": 9052.548125078903,\n      \"version\": 8561,\n      \"nic_baro\": 8846,\n      \"nac_p\": 7762,\n      \"nac_v\": 2865,\n      \"sil\": 8666,\n      \"sil_type\": \"string\",\n      \"gva\": 3676,\n      \"sda\": 9306,\n      \"alert\": 2191,\n      \"spi\": 5799,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 1843,\n      \"seen\": 496.793557483004,\n      \"rssi\": 324.7288268103543,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 2909.741817261443,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 2011,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 7912,\n  \"total\": 9186,\n  \"ctime\": 1694,\n  \"ptime\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fe2b391-0ba3-4c30-acd2-105ffbf1939d",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ce20710-da08-4967-9735-91af6a7119d2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe50e4fd-7ce2-4235-9973-0c651b520032",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06fa3929-39ea-4a59-af85-053c6790c8a1",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13ae8954-df92-4a7d-97d2-2af9550860c2",
+          "name": "Get aircraft within boundary",
+          "request": {
+            "name": "Get aircraft within boundary",
+            "description": {
+              "content": "Returns all aircraft within the given geospatial boundary(ies) described by GeoJSON Features.\n\n\nThe boundary is defined as a GeoJSON \"FeatureCollection\" object that contains multiple \"Feature\" objects.\nOnly \"Polygon\" and \"MultiPolygon\" feature types are supported.\n\nWhen feature object in the request contains \"properties\" dictionary,\neach aircraft matched by the boundaries of the geometry in the response will inherit those.\nThis allows sending single request with multiple geometries. API supports having up to 5 properties per feature.\n**Important**: When overlapping geometries are provided, the aircraft will be returned only once.\nAircraft will inherit all properties from all geometries it falls into.\n\nTypical use-cases include:\n* Monitoring boundaries of multiple locations (e.g. airports, cities, regions)\n* Monitoring approaching certain airspace boundaries (defining multiple overlapping geometries)\n\nThe more geometries supplied in a single request, the slower the response becomes.\nWe recommended making more requests with fewer geometries to ensure faster response times.\n\nGet aircraft in the San Francisco Bay Area:\n```\nPOST /api/aircraft/v2/geospatial/boundary\n{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"properties\": {\n          \"id\": \"usa-san-francisco-bay-area\",\n          \"name\": \"San Francisco Bay Area\"\n      },\n      \"geometry\": {\n        \"coordinates\": [\n          [\n            [\n              -122.44631395117611,\n              37.83516640724265\n            ],\n            [\n              -122.5693889887842,\n              37.75095177721121\n            ],\n            [\n              -122.43882801189045,\n              37.67277406071676\n            ],\n            [\n              -122.29229571649552,\n              37.749864464293466\n            ],\n            [\n              -122.44631395117611,\n              37.83516640724265\n            ]\n          ]\n        ],\n        \"type\": \"Polygon\"\n      }\n    }\n  ]\n}\n```\n\n\nThe GeoJSON Specification can be found at https://geojson.org/.\n\nUsing https://geojson.io/ simplifies creating GeoJSON boundaries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geospatial",
+                "boundary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e14b2a08-6c20-42ed-b095-6bb0bc4ffb9c",
+              "name": "Response containing a collection of aircraft models within the given boundaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ac\": [\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 4303,\n      \"alt_baro\": {},\n      \"alt_geom\": 7209.952744134152,\n      \"gs\": 7565.399897778791,\n      \"ias\": 8601.84952137347,\n      \"tas\": 7398.338778353413,\n      \"mach\": 2810.027336834394,\n      \"wd\": 2984,\n      \"ws\": 9029,\n      \"oat\": 5075,\n      \"tat\": 6226,\n      \"track\": 2270.354989696386,\n      \"track_rate\": 1821.6775143019793,\n      \"roll\": 1670.001055182334,\n      \"mag_heading\": 5948.2298160586015,\n      \"true_heading\": 5503.378850039716,\n      \"baro_rate\": 3315,\n      \"geom_rate\": 7254,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 2095.457550882299,\n      \"nav_altitude_mcp\": 1120,\n      \"nav_altitude_fms\": 7512,\n      \"nav_heading\": 2859.6938352318734,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 818.2518170135444,\n      \"rr_lon\": 6169.475500856921,\n      \"lastPosition\": {\n        \"lat\": 102.84402537722227,\n        \"lon\": 4003.388149596422,\n        \"nic\": 7618,\n        \"rc\": 1263,\n        \"seen_pos\": 8810.271678824287\n      },\n      \"gpsOkBefore\": 9325.796314470072,\n      \"gpsOkLat\": 7182.664057669977,\n      \"gpsOkLon\": 1069.2196386419262,\n      \"lat\": 2735.3392047573,\n      \"lon\": 9159.048637814723,\n      \"nic\": 1878,\n      \"rc\": 9634,\n      \"seen_pos\": 3011.35605744257,\n      \"version\": 7026,\n      \"nic_baro\": 9345,\n      \"nac_p\": 1501,\n      \"nac_v\": 9903,\n      \"sil\": 6952,\n      \"sil_type\": \"string\",\n      \"gva\": 4737,\n      \"sda\": 2358,\n      \"alert\": 2157,\n      \"spi\": 8561,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 8822,\n      \"seen\": 5191.763473645386,\n      \"rssi\": 1231.6794643334283,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 7777.840834011269,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 3581,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      ]\n    },\n    {\n      \"hex\": \"string\",\n      \"type\": \"string\",\n      \"flight\": \"string\",\n      \"r\": \"string\",\n      \"t\": \"string\",\n      \"dbFlags\": 23,\n      \"alt_baro\": {},\n      \"alt_geom\": 4284.975674097281,\n      \"gs\": 1648.611947773422,\n      \"ias\": 3559.828134623958,\n      \"tas\": 8056.103597944662,\n      \"mach\": 3941.082233824673,\n      \"wd\": 4074,\n      \"ws\": 8622,\n      \"oat\": 7856,\n      \"tat\": 2505,\n      \"track\": 6912.558539805194,\n      \"track_rate\": 9718.395447531604,\n      \"roll\": 8957.936558712036,\n      \"mag_heading\": 4680.391490548226,\n      \"true_heading\": 9492.621182511493,\n      \"baro_rate\": 8695,\n      \"geom_rate\": 9835,\n      \"squawk\": \"string\",\n      \"emergency\": \"string\",\n      \"category\": \"string\",\n      \"nav_qnh\": 5343.902802795965,\n      \"nav_altitude_mcp\": 9035,\n      \"nav_altitude_fms\": 5483,\n      \"nav_heading\": 1183.796957038633,\n      \"nav_modes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"rr_lat\": 4939.022926535831,\n      \"rr_lon\": 8353.564350977811,\n      \"lastPosition\": {\n        \"lat\": 9803.191201922906,\n        \"lon\": 6962.393244465303,\n        \"nic\": 6541,\n        \"rc\": 9933,\n        \"seen_pos\": 5282.983359702268\n      },\n      \"gpsOkBefore\": 4200.321840038347,\n      \"gpsOkLat\": 1172.6954524435207,\n      \"gpsOkLon\": 1942.595992255325,\n      \"lat\": 7176.701567715877,\n      \"lon\": 2992.015700173757,\n      \"nic\": 5817,\n      \"rc\": 6592,\n      \"seen_pos\": 9052.548125078903,\n      \"version\": 8561,\n      \"nic_baro\": 8846,\n      \"nac_p\": 7762,\n      \"nac_v\": 2865,\n      \"sil\": 8666,\n      \"sil_type\": \"string\",\n      \"gva\": 3676,\n      \"sda\": 9306,\n      \"alert\": 2191,\n      \"spi\": 5799,\n      \"mlat\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tisb\": [\n        \"string\",\n        \"string\"\n      ],\n      \"messages\": 1843,\n      \"seen\": 496.793557483004,\n      \"rssi\": 324.7288268103543,\n      \"acas_ra\": {\n        \"utc\": \"string\",\n        \"unix_timestamp\": 2909.741817261443,\n        \"bytes\": \"string\",\n        \"ARA\": \"string\",\n        \"RAT\": \"string\",\n        \"MTE\": \"string\",\n        \"RAC\": \"string\",\n        \"advisory_complement\": \"string\",\n        \"advisory\": \"string\",\n        \"TTI\": \"string\",\n        \"threat_id_hex\": \"string\"\n      },\n      \"now\": 2011,\n      \"geometries\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"msg\": \"string\",\n  \"now\": 7912,\n  \"total\": 9186,\n  \"ctime\": 1694,\n  \"ptime\": 3304\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdf499d6-935d-4aa8-a61d-dadfe7856212",
+              "name": "When the request is malformed or the GeoJSON is invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 6592\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7fff888-e221-4e77-98e3-6c825e4c5d12",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e04f8b66-854d-4d94-846b-6889395fdeb7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73ea7a36-d231-46ec-8285-c678634dc403",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2aa0e09-5f9d-4008-86fe-6ddc3a548037",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geospatial",
+                    "boundary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"features\": [\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"key_0\": \"<string>\"\n      },\n      \"geometry\": {\n        \"type\": \"<string>\",\n        \"coordinates\": [\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ],\n          [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7046,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.adsbexchange.com/api/aircraft/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f9d2a294-c60b-4a6c-a555-4c3ce31bb8a1",
+    "name": "ADSB Exchange Geopolitical Filtering Geospatial Filtering API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>\n\nContact Support:\n Name: Contact ADSB Exchange",
+      "type": "text/plain"
+    }
+  }
+}

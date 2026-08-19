@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADSB Exchange Geopolitical Filtering Operations API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get operations by multiple aircraft ICAO codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/operations/icaos",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "time_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "time_to",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns operations (Takeoffs and Landings) for the given ICAO codes. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of ICAOs per request is 500 (enforced by model validation), further constrained by FleetLimit entitlement."
+        },
+        {
+          "info": {
+            "name": "Get operations by aircraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/operations/icao/:icao",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "icao",
+                "value": "",
+                "type": "path",
+                "description": "ICAO code of the aircraft."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return. When not specified, defaults to 1."
+              },
+              {
+                "name": "time_from",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds."
+              },
+              {
+                "name": "time_to",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns operations (Takeoffs and Landings) for the given ICAO code (hex code) of the aircraft.\nResponse is paginated and sorted by time (descending). Returns 20 items per page.\n\n```\nGET /api/aircraft/v2/operations/icao/A1B2C3\n```"
+        },
+        {
+          "info": {
+            "name": "Get operations by multiple airports",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/operations/airports",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "time_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "time_to",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns operations (Takeoffs and Landings) for the given ICAO codes of the airports. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of airports per request is 500 (hard limit), further constrained by AirportLimit entitlement.\n\n**Example**: get operations for three main California airports (Los Angeles, San Francisco, San Diego):\n```\nPOST /api/aircraft/v2/operations/airports\n            \n{\n    \"airports\": [\"KLAX\", \"KSFO\", \"KSAN\"]\n}\n```"
+        },
+        {
+          "info": {
+            "name": "Get operations by airport",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/operations/airport/:airport",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "airport",
+                "value": "",
+                "type": "path",
+                "description": "ICAO code of the airport."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to return. When not specified, defaults to 1."
+              },
+              {
+                "name": "time_from",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds."
+              },
+              {
+                "name": "time_to",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns operations (Takeoffs and Landings) for the given ICAO code of the airport. Response is paginated and sorted by time (descending). Returns 20 items per page.\n\nGet operations for San Francisco airport for the last 24 hours:\n```\nGET /api/aircraft/v2/operations/airport/KSFO\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

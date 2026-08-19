@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADSB Exchange Geopolitical Filtering Geospatial Filtering API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Geospatial Filtering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aircraft in radius",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/lat/:lat/lon/:lon/dist/:dist",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude of the center point."
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "path",
+                "description": "Longitude of the center point."
+              },
+              {
+                "name": "dist",
+                "value": "",
+                "type": "path",
+                "description": "Radius in nautical miles."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates.\n\nGet aircraft within 50 nautical miles of San Francisco:\n```\nGET /api/aircraft/v2/lat/37.7749/lon/-122.4194/dist/50\n```"
+        },
+        {
+          "info": {
+            "name": "Get aircraft in radius",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/proximity/radius",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within the given radius (NM) of the provided points.\n\nGet aircraft within 50 nautical miles of San Francisco, and within 20 nautical miles from New York (KJFK) at altitudes between 5000 and 30000 feet:\n```\nPOST /api/aircraft/v2/proximity/radius\n{\n    \"filters\": [\n        {\n            \"latitude\": 37.7749,\n            \"longitude\": -122.4194,\n            \"radius\": 50\n        },\n        {\n            \"latitude\": 40.641,\n            \"longitude\": -73.775,\n     "
+        },
+        {
+          "info": {
+            "name": "Get aircraft in radius (minimal)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/minimal/lat/:lat/lon/:lon/dist/:dist",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude of the center point."
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "path",
+                "description": "Longitude of the center point."
+              },
+              {
+                "name": "dist",
+                "value": "",
+                "type": "path",
+                "description": "Radius in nautical miles."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates. The data will be returned in a minimal representation."
+        },
+        {
+          "info": {
+            "name": "Get aircraft in radius (above altitude)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/nohex/dist/:dist/above/:alt/lat/:lat/lon/:lon",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude of the center point."
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "path",
+                "description": "Longitude of the center point."
+              },
+              {
+                "name": "dist",
+                "value": "",
+                "type": "path",
+                "description": "Radius in nautical miles."
+              },
+              {
+                "name": "alt",
+                "value": "",
+                "type": "path",
+                "description": "Altitude in feet above sea level."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within the given radius (NM) of the provided coordinates, and above the provided altitude (ft).\n\nGet aircraft within 50 nautical miles of San Francisco, above 5000 feet (sea level):\n```\nGET /nohex/dist/50/above/5000/lat/37.7749/lon/-122.4194\n```"
+        },
+        {
+          "info": {
+            "name": "Get aircraft near the airport",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/airport/:airport",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "params": [
+              {
+                "name": "airport",
+                "value": "",
+                "type": "path",
+                "description": "ICAO code of the airport."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within 5 nautical miles of the provided airport ICAO code.\n\nGet aircraft within 5 nautical miles of San Francisco airport:\n```\nGET /api/aircraft/v2/airport/KSFO\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports."
+        },
+        {
+          "info": {
+            "name": "Get aircraft near airports",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/airport",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint will return aircraft data within 5 nautical miles of the provided airport ICAO code(s).\n\nGet aircraft within 5 nautical miles of San Francisco and Calgary airports:\n```\nPOST /api/aircraft/v2/airport\n{\n    \"airports\": [\"KSFO\", \"CYYC\"]\n}\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports."
+        },
+        {
+          "info": {
+            "name": "Get aircraft within boundary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.adsbexchange.com/api/aircraft/v2/geospatial/boundary",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all aircraft within the given geospatial boundary(ies) described by GeoJSON Features.\n\n\nThe boundary is defined as a GeoJSON \"FeatureCollection\" object that contains multiple \"Feature\" objects.\nOnly \"Polygon\" and \"MultiPolygon\" feature types are supported.\n\nWhen feature object in the request contains \"properties\" dictionary,\neach aircraft matched by the boundaries of the geometry in the response will inherit those.\nThis allows sending single request with multiple geometries. API supports"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

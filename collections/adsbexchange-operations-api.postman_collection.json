@@ -1,0 +1,1938 @@
+{
+  "item": [
+    {
+      "id": "08f3c70b-66e0-4775-8771-ba53c9d890b8",
+      "name": "Operations",
+      "description": {
+        "content": "Endpoints provide access to Takeoffs/Landings operational events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78528892-4714-4385-9dc7-b8b2ff791fe3",
+          "name": "Get operations by multiple aircraft ICAO codes",
+          "request": {
+            "name": "Get operations by multiple aircraft ICAO codes",
+            "description": {
+              "content": "Returns operations (Takeoffs and Landings) for the given ICAO codes. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of ICAOs per request is 500 (enforced by model validation), further constrained by FleetLimit entitlement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "icaos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_from",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_to",
+                  "value": "<long>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cc296e7-42c9-4799-90d8-7cced3db934a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 1218,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 8815,\n      \"track\": \"string\",\n      \"lat\": 8082.057736851195,\n      \"lon\": 2094.8540716175944,\n      \"alt_geom\": 2148,\n      \"rate\": 6721,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": false,\n      \"faa_ladd\": false,\n      \"short_type\": \"string\",\n      \"mil\": false,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 9740\n    },\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 3381,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 9173,\n      \"track\": \"string\",\n      \"lat\": 5671.135380540118,\n      \"lon\": 1371.997196868422,\n      \"alt_geom\": 7080,\n      \"rate\": 6260,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": true,\n      \"faa_ladd\": false,\n      \"short_type\": \"string\",\n      \"mil\": true,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 5476\n    }\n  ],\n  \"msg\": \"string\",\n  \"totalItems\": 7966,\n  \"totalPages\": 1397,\n  \"pageNumber\": 8654,\n  \"ctime\": 5401,\n  \"now\": 1861,\n  \"ptime\": 2554\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe4a4a08-f6c5-4371-8be6-5363394cb14f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 6901\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d2a3e37-198c-4b70-b143-99bf48e240df",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7a36cbc-ac16-447c-8398-0118cfa19d13",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "982b3d8d-51b9-47cb-8b54-8ffad9805729",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84654283-1f3c-4bfc-a394-dd2f524c574c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icaos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"icaos\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4650,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc596c91-8bd3-4019-8a58-8e1b6a6992fb",
+          "name": "Get operations by aircraft",
+          "request": {
+            "name": "Get operations by aircraft",
+            "description": {
+              "content": "Returns operations (Takeoffs and Landings) for the given ICAO code (hex code) of the aircraft.\nResponse is paginated and sorted by time (descending). Returns 20 items per page.\n\n```\nGET /api/aircraft/v2/operations/icao/A1B2C3\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "icao",
+                ":icao"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to return. When not specified, defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_from",
+                  "value": "<long>",
+                  "description": "Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_to",
+                  "value": "<long>",
+                  "description": "Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "icao",
+                  "description": "(Required) ICAO code of the aircraft."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3faa78ec-925b-4683-b82d-b8e96eeaf8ab",
+              "name": "Response containing a collection of operational events: takeoffs and landings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icao",
+                    ":icao"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "icao",
+                      "description": "(Required) ICAO code of the aircraft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 6809,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 41,\n      \"track\": \"string\",\n      \"lat\": 3769.300560036709,\n      \"lon\": 6838.664300354826,\n      \"alt_geom\": 1702,\n      \"rate\": 4814,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": false,\n      \"faa_ladd\": true,\n      \"short_type\": \"string\",\n      \"mil\": true,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 8770\n    },\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 7811,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 4665,\n      \"track\": \"string\",\n      \"lat\": 5734.254599294956,\n      \"lon\": 6740.827362303567,\n      \"alt_geom\": 376,\n      \"rate\": 2032,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": true,\n      \"faa_ladd\": false,\n      \"short_type\": \"string\",\n      \"mil\": false,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 7242\n    }\n  ],\n  \"msg\": \"string\",\n  \"totalItems\": 1421,\n  \"totalPages\": 6469,\n  \"pageNumber\": 544,\n  \"ctime\": 5858,\n  \"now\": 2410,\n  \"ptime\": 5926\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "912d0207-ab0b-422a-893f-007379eeedcf",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icao",
+                    ":icao"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "icao",
+                      "description": "(Required) ICAO code of the aircraft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a2088fc-a5e9-40d1-a9cf-63d602408dd4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icao",
+                    ":icao"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "icao",
+                      "description": "(Required) ICAO code of the aircraft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d77b898b-8419-48c3-90cc-a95a76a690dd",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icao",
+                    ":icao"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "icao",
+                      "description": "(Required) ICAO code of the aircraft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1990263b-2fc9-4fd8-b90a-4b7e77621ec1",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "icao",
+                    ":icao"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "icao",
+                      "description": "(Required) ICAO code of the aircraft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4650,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1444fd2b-824f-4467-80ef-247491f6a229",
+          "name": "Get operations by multiple airports",
+          "request": {
+            "name": "Get operations by multiple airports",
+            "description": {
+              "content": "Returns operations (Takeoffs and Landings) for the given ICAO codes of the airports. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of airports per request is 500 (hard limit), further constrained by AirportLimit entitlement.\n\n**Example**: get operations for three main California airports (Los Angeles, San Francisco, San Diego):\n```\nPOST /api/aircraft/v2/operations/airports\n            \n{\n    \"airports\": [\"KLAX\", \"KSFO\", \"KSAN\"]\n}\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "airports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_from",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_to",
+                  "value": "<long>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13fb3896-10c3-4354-aef9-16250e49b45e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 6809,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 41,\n      \"track\": \"string\",\n      \"lat\": 3769.300560036709,\n      \"lon\": 6838.664300354826,\n      \"alt_geom\": 1702,\n      \"rate\": 4814,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": false,\n      \"faa_ladd\": true,\n      \"short_type\": \"string\",\n      \"mil\": true,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 8770\n    },\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 7811,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 4665,\n      \"track\": \"string\",\n      \"lat\": 5734.254599294956,\n      \"lon\": 6740.827362303567,\n      \"alt_geom\": 376,\n      \"rate\": 2032,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": true,\n      \"faa_ladd\": false,\n      \"short_type\": \"string\",\n      \"mil\": false,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 7242\n    }\n  ],\n  \"msg\": \"string\",\n  \"totalItems\": 1421,\n  \"totalPages\": 6469,\n  \"pageNumber\": 544,\n  \"ctime\": 5858,\n  \"now\": 2410,\n  \"ptime\": 5926\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb5872f6-d3b3-4a00-84f1-424d25213491",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 6901\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d134f44-dca4-47f6-918a-0fd1f15e6109",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3b533a8-7365-4321-8a37-4ff8b726a08a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f1d1640-c9b8-4ecb-a634-1fc47eb62a69",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2eb541a-c5dc-4116-b76a-6acbcf54643c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"airports\": [\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4650,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eea8ec4f-1f75-42c8-95b6-9d652c9d5600",
+          "name": "Get operations by airport",
+          "request": {
+            "name": "Get operations by airport",
+            "description": {
+              "content": "Returns operations (Takeoffs and Landings) for the given ICAO code of the airport. Response is paginated and sorted by time (descending). Returns 20 items per page.\n\nGet operations for San Francisco airport for the last 24 hours:\n```\nGET /api/aircraft/v2/operations/airport/KSFO\n```\nUse https://www.world-airport-codes.com/ to find ICAO codes for airports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "airport",
+                ":airport"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to return. When not specified, defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_from",
+                  "value": "<long>",
+                  "description": "Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_to",
+                  "value": "<long>",
+                  "description": "Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "airport",
+                  "description": "(Required) ICAO code of the airport."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                "key": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "02b79e5b-4846-47b7-8037-313335369bac",
+              "name": "Response containing a collection of operational events: takeoffs and landings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 6809,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 41,\n      \"track\": \"string\",\n      \"lat\": 3769.300560036709,\n      \"lon\": 6838.664300354826,\n      \"alt_geom\": 1702,\n      \"rate\": 4814,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": false,\n      \"faa_ladd\": true,\n      \"short_type\": \"string\",\n      \"mil\": true,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 8770\n    },\n    {\n      \"icao\": \"string\",\n      \"registration\": \"string\",\n      \"flight\": \"string\",\n      \"ac_type\": \"string\",\n      \"time\": \"string\",\n      \"time_epoch\": 7811,\n      \"airport\": \"string\",\n      \"runway\": \"string\",\n      \"operation\": \"string\",\n      \"flight_link\": \"string\",\n      \"gs\": \"string\",\n      \"squawk\": \"string\",\n      \"signal_type\": \"string\",\n      \"alt_baro\": 4665,\n      \"track\": \"string\",\n      \"lat\": 5734.254599294956,\n      \"lon\": 6740.827362303567,\n      \"alt_geom\": 376,\n      \"rate\": 2032,\n      \"category\": \"string\",\n      \"reg\": \"string\",\n      \"icaotype\": \"string\",\n      \"year\": \"string\",\n      \"manufacturer\": \"string\",\n      \"model\": \"string\",\n      \"ownop\": \"string\",\n      \"faa_pia\": true,\n      \"faa_ladd\": false,\n      \"short_type\": \"string\",\n      \"mil\": false,\n      \"apt_type\": \"string\",\n      \"name\": \"string\",\n      \"continent\": \"string\",\n      \"iso_country\": \"string\",\n      \"iso_region\": \"string\",\n      \"municipality\": \"string\",\n      \"scheduled_service\": \"string\",\n      \"iata_code\": \"string\",\n      \"wgs84_elev\": 7242\n    }\n  ],\n  \"msg\": \"string\",\n  \"totalItems\": 1421,\n  \"totalPages\": 6469,\n  \"pageNumber\": 544,\n  \"ctime\": 5858,\n  \"now\": 2410,\n  \"ptime\": 5926\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d0c5963-89f6-4a3e-8a93-4876acd765c4",
+              "name": "Payment Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc92eceb-3bfd-4db4-8872-db52bd6f4665",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"msg\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad94c4db-dca1-4f18-9765-164094fcecb1",
+              "name": "Rate Limit Exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75b32045-2b8b-41dc-8cd0-41acbf326128",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "airport",
+                    ":airport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "time_to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "airport",
+                      "description": "(Required) ICAO code of the airport."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The encoding type the client will accept in the response. API call must use compression.",
+                    "key": "Accept-Encoding",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4650,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.adsbexchange.com/api/aircraft/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4236dd6f-b7e7-43c4-aa7c-3a52bbaeed15",
+    "name": "ADSB Exchange Geopolitical Filtering Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>\n\nContact Support:\n Name: Contact ADSB Exchange",
+      "type": "text/plain"
+    }
+  }
+}
