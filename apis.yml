@@ -151,7 +151,8 @@ apis:
   description: Endpoints provide access to Takeoffs/Landings operational events.
   humanURL: https://www.adsbexchange.com/data-products/
   baseURL: https://gateway.adsbexchange.com/api/aircraft/v2
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
