@@ -3,6 +3,18 @@ description: Unfiltered flight tracking network with REST APIs for accessing rea
   aircraft positions, military flights, and global ADS-B flight data without filtering.
   Operated by a crowdsourced global network of ADS-B and MLAT receivers providing
   ultra-low-latency aircraft tracking data for aviation research and applications.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
