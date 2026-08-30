@@ -206,6 +206,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/adsbexchange-capability-edges.yml
+    name: ADS-B Exchange Business Capability Map
   - type: AgenticAccess
     url: agentic-access/adsbexchange-agentic-access.yml
   - type: DomainSecurity

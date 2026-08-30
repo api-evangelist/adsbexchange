@@ -1,0 +1,26 @@
+slug: adsbexchange
+provider: ADS-B Exchange
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Air Traffic Control
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Live Positional Data
+  spec_file: adsbexchange-live-positional-data-api-openapi.yml
+  capability_id: BC-1240.40
+  capability_id_l1: BC-1240
+  capability_name: Surveillance Systems Management
+  confidence: 0.7
+  evidence: '"Get all aircraft", "Get military aircraft", "Get aircraft by squawk", schema "LastPositionDataResponse"'
+  reason: 'Core surface: real-time aircraft position reports keyed by Mode-S hex, ICAO, callsign and squawk
+    code — i.e. secondary-surveillance/ADS-B derived surveillance data. Maps to Surveillance Systems Management
+    as the closest supported capability; not an ATC control-operations capability since nothing here directs
+    traffic.'
