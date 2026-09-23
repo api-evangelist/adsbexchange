@@ -1,7 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: ADSB Exchange Geopolitical Filtering Operations API
-  description: "The ADSB Exchange API provides real-time access to live global flight data,\nenabling retrieval of detailed information on aircraft positions, flight events, historical trace files,\nand many more aviation metrics. <br /><br />\nKnown for its accurate data, ADSB Exchange API is ideal\nfor aviation tracking applications, research, and analytics, offering extensive coverage powered by a\nglobal network of ADS-B and MLAT receivers. <br /><br />\nThis documentation is available in <a href=\"/api/aircraft/v2/docs\">ReDoc</a> and <a href=\"/api/aircraft/v2/docs/swagger\">Swagger</a> formats.\n<p>\n<b>Important developer notes:</b><br />\n<ul>\n  <li>When designing API client, please ensure that all requests include the 'Accept-Encoding' header with 'gzip' value.</li>\n  <li>When property values are not available, they will be omitted from the response object overall.</li>\n  <li>When parsing JSON response do not hard-code the order of properties. Use property names to access values.</li>\n  <li>We will never remove or rename properties. However, we may add new properties. Please ensure your code is resilient to new additive properties on the response objects.</li>\n</ul>\n</p>"
+  title: ADSB Exchange Operations API
+  description: 'The ADSB Exchange API provides real-time access to live global flight data,
+
+    enabling retrieval of detailed information on aircraft positions, flight events, historical trace files,
+
+    and many more aviation metrics.'
   termsOfService: https://www.adsbexchange.com/terms-of-use/
   contact:
     name: Contact ADSB Exchange
@@ -30,25 +34,28 @@ paths:
         x-originalName: pageNumber
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         x-position: 2
       - name: time_from
         x-originalName: unixTimestampFrom
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 3
       - name: time_to
         x-originalName: unixTimestampTo
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 4
       - type: string
         name: Accept-Encoding
@@ -133,27 +140,30 @@ paths:
         in: query
         description: Page number to return. When not specified, defaults to 1.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         x-position: 2
       - name: time_from
         x-originalName: unixTimestampFrom
         in: query
         description: Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 3
       - name: time_to
         x-originalName: unixTimestampTo
         in: query
         description: Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 4
       - type: string
         name: Accept-Encoding
@@ -200,32 +210,53 @@ paths:
       tags:
       - Operations
       summary: Get operations by multiple airports
-      description: "Returns operations (Takeoffs and Landings) for the given ICAO codes of the airports. Response is paginated and sorted by time (descending). Returns 1000 items per page.\nMax number of airports per request is 500 (hard limit), further constrained by AirportLimit entitlement.\n\n**Example**: get operations for three main California airports (Los Angeles, San Francisco, San Diego):\n```\nPOST /api/aircraft/v2/operations/airports\n            \n{\n    \"airports\": [\"KLAX\", \"KSFO\", \"KSAN\"]\n}\n```"
+      description: 'Returns operations (Takeoffs and Landings) for the given ICAO codes of the airports. Response is paginated and sorted by time (descending). Returns 1000 items per page.
+
+        Max number of airports per request is 500 (hard limit), further constrained by AirportLimit entitlement.
+
+
+        **Example**: get operations for three main California airports (Los Angeles, San Francisco, San Diego):
+
+        ```
+
+        POST /api/aircraft/v2/operations/airports
+
+
+        {
+
+        "airports": ["KLAX", "KSFO", "KSAN"]
+
+        }
+
+        ```'
       operationId: PostApiAircraftV2OperationsAirports
       parameters:
       - name: page
         x-originalName: pageNumber
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         x-position: 2
       - name: time_from
         x-originalName: unixTimestampFrom
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 3
       - name: time_to
         x-originalName: unixTimestampTo
         in: query
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 4
       - type: string
         name: Accept-Encoding
@@ -312,27 +343,30 @@ paths:
         in: query
         description: Page number to return. When not specified, defaults to 1.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         x-position: 2
       - name: time_from
         x-originalName: unixTimestampFrom
         in: query
         description: Unix timestamp from which to start the search. When not specified, defaults to 24 hours ago. Value in seconds.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 3
       - name: time_to
         x-originalName: unixTimestampTo
         in: query
         description: Unix timestamp to which to end the search. When not specified, defaults to current time. Value in seconds.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int64
-          nullable: true
         x-position: 4
       - type: string
         name: Accept-Encoding
@@ -376,6 +410,190 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
+    OperationsAirportRequest:
+      type: object
+      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
+      additionalProperties: false
+      properties:
+        airports:
+          type: array
+          maxItems: 500
+          minItems: 1
+          items:
+            type: string
+    OperationsResponseItem:
+      type: object
+      additionalProperties: false
+      properties:
+        icao:
+          type: string
+        registration:
+          type:
+          - string
+          - 'null'
+        flight:
+          type:
+          - string
+          - 'null'
+        ac_type:
+          type:
+          - string
+          - 'null'
+        time:
+          type:
+          - string
+          - 'null'
+        time_epoch:
+          type: integer
+          format: int64
+        airport:
+          type:
+          - string
+          - 'null'
+        runway:
+          type:
+          - string
+          - 'null'
+        operation:
+          type:
+          - string
+          - 'null'
+        flight_link:
+          type:
+          - string
+          - 'null'
+        gs:
+          type:
+          - string
+          - 'null'
+        squawk:
+          type:
+          - string
+          - 'null'
+        signal_type:
+          type:
+          - string
+          - 'null'
+        alt_baro:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        track:
+          type:
+          - string
+          - 'null'
+        lat:
+          type:
+          - number
+          - 'null'
+          format: float
+        lon:
+          type:
+          - number
+          - 'null'
+          format: float
+        alt_geom:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        rate:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        category:
+          type:
+          - string
+          - 'null'
+        reg:
+          type:
+          - string
+          - 'null'
+        icaotype:
+          type:
+          - string
+          - 'null'
+        year:
+          type:
+          - string
+          - 'null'
+        manufacturer:
+          type:
+          - string
+          - 'null'
+        model:
+          type:
+          - string
+          - 'null'
+        ownop:
+          type:
+          - string
+          - 'null'
+        faa_pia:
+          type:
+          - boolean
+          - 'null'
+        faa_ladd:
+          type:
+          - boolean
+          - 'null'
+        short_type:
+          type:
+          - string
+          - 'null'
+        mil:
+          type:
+          - boolean
+          - 'null'
+        apt_type:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        continent:
+          type:
+          - string
+          - 'null'
+        iso_country:
+          type:
+          - string
+          - 'null'
+        iso_region:
+          type:
+          - string
+          - 'null'
+        municipality:
+          type:
+          - string
+          - 'null'
+        scheduled_service:
+          type:
+          - string
+          - 'null'
+        iata_code:
+          type:
+          - string
+          - 'null'
+        wgs84_elev:
+          type:
+          - integer
+          - 'null'
+          format: int32
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
     BadRequest:
       type: object
       additionalProperties: false
@@ -383,12 +601,6 @@ components:
         statusCode:
           type: integer
           format: int32
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
     OperationsIcaosRequest:
       type: object
       description: Model representing a request for obtaining operations (takeoffs/landings) for one or more aircraft ICAO codes.
@@ -400,15 +612,41 @@ components:
           minItems: 1
           items:
             type: string
-    ApiUnauthorizedResponse:
+    ProblemDetails:
+      type: object
+      additionalProperties: {}
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    ApiForbiddenResponse:
       type: object
       additionalProperties: false
       properties:
         msg:
           type: string
         reason:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     OperationsResponse:
       type: object
       description: Response envelope for the response containing multiple operations objects.
@@ -446,173 +684,12 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
-    ApiForbiddenResponse:
+    ApiTooManyRequestsResponse:
       type: object
       additionalProperties: false
       properties:
-        msg:
+        message:
           type: string
-        reason:
-          type: string
-          nullable: true
-    ProblemDetails:
-      type: object
-      additionalProperties:
-        nullable: true
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-    OperationsResponseItem:
-      type: object
-      additionalProperties: false
-      properties:
-        icao:
-          type: string
-        registration:
-          type: string
-          nullable: true
-        flight:
-          type: string
-          nullable: true
-        ac_type:
-          type: string
-          nullable: true
-        time:
-          type: string
-          nullable: true
-        time_epoch:
-          type: integer
-          format: int64
-        airport:
-          type: string
-          nullable: true
-        runway:
-          type: string
-          nullable: true
-        operation:
-          type: string
-          nullable: true
-        flight_link:
-          type: string
-          nullable: true
-        gs:
-          type: string
-          nullable: true
-        squawk:
-          type: string
-          nullable: true
-        signal_type:
-          type: string
-          nullable: true
-        alt_baro:
-          type: integer
-          format: int32
-          nullable: true
-        track:
-          type: string
-          nullable: true
-        lat:
-          type: number
-          format: float
-          nullable: true
-        lon:
-          type: number
-          format: float
-          nullable: true
-        alt_geom:
-          type: integer
-          format: int32
-          nullable: true
-        rate:
-          type: integer
-          format: int32
-          nullable: true
-        category:
-          type: string
-          nullable: true
-        reg:
-          type: string
-          nullable: true
-        icaotype:
-          type: string
-          nullable: true
-        year:
-          type: string
-          nullable: true
-        manufacturer:
-          type: string
-          nullable: true
-        model:
-          type: string
-          nullable: true
-        ownop:
-          type: string
-          nullable: true
-        faa_pia:
-          type: boolean
-          nullable: true
-        faa_ladd:
-          type: boolean
-          nullable: true
-        short_type:
-          type: string
-          nullable: true
-        mil:
-          type: boolean
-          nullable: true
-        apt_type:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        continent:
-          type: string
-          nullable: true
-        iso_country:
-          type: string
-          nullable: true
-        iso_region:
-          type: string
-          nullable: true
-        municipality:
-          type: string
-          nullable: true
-        scheduled_service:
-          type: string
-          nullable: true
-        iata_code:
-          type: string
-          nullable: true
-        wgs84_elev:
-          type: integer
-          format: int32
-          nullable: true
-    OperationsAirportRequest:
-      type: object
-      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
-      additionalProperties: false
-      properties:
-        airports:
-          type: array
-          maxItems: 500
-          minItems: 1
-          items:
-            type: string
   securitySchemes:
     X-Api-Key:
       type: apiKey
