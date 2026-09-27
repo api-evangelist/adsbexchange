@@ -410,17 +410,6 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    OperationsAirportRequest:
-      type: object
-      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
-      additionalProperties: false
-      properties:
-        airports:
-          type: array
-          maxItems: 500
-          minItems: 1
-          items:
-            type: string
     OperationsResponseItem:
       type: object
       additionalProperties: false
@@ -584,16 +573,6 @@ components:
           - integer
           - 'null'
           format: int32
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
     BadRequest:
       type: object
       additionalProperties: false
@@ -601,6 +580,17 @@ components:
         statusCode:
           type: integer
           format: int32
+    OperationsAirportRequest:
+      type: object
+      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
+      additionalProperties: false
+      properties:
+        airports:
+          type: array
+          maxItems: 500
+          minItems: 1
+          items:
+            type: string
     OperationsIcaosRequest:
       type: object
       description: Model representing a request for obtaining operations (takeoffs/landings) for one or more aircraft ICAO codes.
@@ -612,6 +602,32 @@ components:
           minItems: 1
           items:
             type: string
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
     ProblemDetails:
       type: object
       additionalProperties: {}
@@ -634,16 +650,6 @@ components:
           - string
           - 'null'
         instance:
-          type:
-          - string
-          - 'null'
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
           type:
           - string
           - 'null'
@@ -684,12 +690,6 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
   securitySchemes:
     X-Api-Key:
       type: apiKey

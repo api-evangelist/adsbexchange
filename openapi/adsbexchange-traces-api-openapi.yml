@@ -428,7 +428,66 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
+    TraceResponse:
+      type: object
+      description: Model used to represent a trace response example.
+      additionalProperties: false
+      properties:
+        icao:
+          type: string
+        timestamp:
+          type: number
+          format: double
+        trace:
+          type: array
+          items:
+            type: array
+            items: {}
     ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    TraceNotFoundResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        details:
+          type:
+          - string
+          - 'null'
+          description: Message clarifying the unsuccessful response.
+        status:
+          type: integer
+          description: Status code indicating the status of the request overall.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp of when the underlying data was last updated.
+          format: int64
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on API server to process the request, in milliseconds.
+          format: int64
+    ApiForbiddenResponse:
       type: object
       additionalProperties: false
       properties:
@@ -463,65 +522,6 @@ components:
           type:
           - string
           - 'null'
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
-    TraceNotFoundResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-          description: Message indicating the status of the request overall.
-        details:
-          type:
-          - string
-          - 'null'
-          description: Message clarifying the unsuccessful response.
-        status:
-          type: integer
-          description: Status code indicating the status of the request overall.
-          format: int32
-        ctime:
-          type: integer
-          description: Unix timestamp of when the underlying data was last updated.
-          format: int64
-        now:
-          type: integer
-          description: Unix timestamp of the current UTC time on the server.
-          format: int64
-        ptime:
-          type: integer
-          description: Time taken on API server to process the request, in milliseconds.
-          format: int64
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
-    TraceResponse:
-      type: object
-      description: Model used to represent a trace response example.
-      additionalProperties: false
-      properties:
-        icao:
-          type: string
-        timestamp:
-          type: number
-          format: double
-        trace:
-          type: array
-          items:
-            type: array
-            items: {}
   securitySchemes:
     X-Api-Key:
       type: apiKey
