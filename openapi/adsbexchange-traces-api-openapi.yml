@@ -443,13 +443,28 @@ components:
           items:
             type: array
             items: {}
-    ApiUnauthorizedResponse:
+    ProblemDetails:
       type: object
-      additionalProperties: false
+      additionalProperties: {}
       properties:
-        msg:
-          type: string
-        reason:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
           type:
           - string
           - 'null'
@@ -487,7 +502,7 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
-    ApiForbiddenResponse:
+    ApiUnauthorizedResponse:
       type: object
       additionalProperties: false
       properties:
@@ -497,28 +512,13 @@ components:
           type:
           - string
           - 'null'
-    ProblemDetails:
+    ApiForbiddenResponse:
       type: object
-      additionalProperties: {}
+      additionalProperties: false
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
+        msg:
+          type: string
+        reason:
           type:
           - string
           - 'null'
