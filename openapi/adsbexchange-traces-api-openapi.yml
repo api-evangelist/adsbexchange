@@ -428,21 +428,6 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    TraceResponse:
-      type: object
-      description: Model used to represent a trace response example.
-      additionalProperties: false
-      properties:
-        icao:
-          type: string
-        timestamp:
-          type: number
-          format: double
-        trace:
-          type: array
-          items:
-            type: array
-            items: {}
     ProblemDetails:
       type: object
       additionalProperties: {}
@@ -468,12 +453,47 @@ components:
           type:
           - string
           - 'null'
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
     ApiTooManyRequestsResponse:
       type: object
       additionalProperties: false
       properties:
         message:
           type: string
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    TraceResponse:
+      type: object
+      description: Model used to represent a trace response example.
+      additionalProperties: false
+      properties:
+        icao:
+          type: string
+        timestamp:
+          type: number
+          format: double
+        trace:
+          type: array
+          items:
+            type: array
+            items: {}
     TraceNotFoundResponse:
       type: object
       additionalProperties: false
@@ -502,26 +522,6 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey

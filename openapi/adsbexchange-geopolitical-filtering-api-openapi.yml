@@ -481,19 +481,35 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    GeoboundaryCountrySubdivisionsResponse:
+    AircraftCollectionResponse:
       type: object
-      description: Response from the geoboundary endpoint containing country subdivisions.
+      description: Response envelope for the multiple aircraft endpoint.
       additionalProperties: false
       properties:
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-        subdivisions:
+        ac:
           type: array
-          description: List of subdivisions for the country available in the API.
+          description: List of aircraft with all available information.
           items:
-            $ref: '#/components/schemas/GeoboundaryCountrySubdivision'
+            $ref: '#/components/schemas/AircraftSingleResponse'
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server (ms).
+          format: int64
+        total:
+          type: integer
+          description: The number of aircraft in the response.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp (ms) of when the underlying data was last updated.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on server to process the request (ms).
+          format: int64
     ProblemDetails:
       type: object
       additionalProperties: {}
@@ -516,6 +532,192 @@ components:
           - string
           - 'null'
         instance:
+          type:
+          - string
+          - 'null'
+    GeoboundaryCountrySubdivisionsResponse:
+      type: object
+      description: Response from the geoboundary endpoint containing country subdivisions.
+      additionalProperties: false
+      properties:
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        subdivisions:
+          type: array
+          description: List of subdivisions for the country available in the API.
+          items:
+            $ref: '#/components/schemas/GeoboundaryCountrySubdivision'
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    LastPositionDataResponse:
+      type: object
+      description: 'When the regular lat and lon are older than 60 seconds
+
+        they are no longer considered valid, this will provide
+
+        the last position and show the age for the last position.
+
+        Aircraft will only be in the aircraft json if a position
+
+        has been received in the last 60 seconds or if any message
+
+        has been received in the last 30 seconds.'
+      additionalProperties: false
+      properties:
+        lat:
+          type:
+          - number
+          - 'null'
+          format: float
+        lon:
+          type:
+          - number
+          - 'null'
+          format: float
+        nic:
+          type:
+          - integer
+          - 'null'
+          description: Navigation Integrity Category (2.2.3.2.7.2.6)
+          format: int32
+        rc:
+          type:
+          - integer
+          - 'null'
+          description: 'Radius of Containment, meters; a measure of position integrity
+
+            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
+          format: int32
+        seen_pos:
+          type:
+          - number
+          - 'null'
+          description: How long ago (in seconds before “now”) the position was last updated
+          format: double
+    AcasResolutionAdvisoryResponse:
+      type: object
+      description: ACAS Resolution Advisory Class
+      additionalProperties: false
+      properties:
+        utc:
+          type:
+          - string
+          - 'null'
+          description: UTC timestamp of the advisory.
+        unix_timestamp:
+          type:
+          - number
+          - 'null'
+          description: Unix timestamp.
+          format: double
+        bytes:
+          type:
+          - string
+          - 'null'
+          description: Advisory bytes as a string.
+        ARA:
+          type:
+          - string
+          - 'null'
+          description: Advisory ARA field.
+        RAT:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAT field.
+        MTE:
+          type:
+          - string
+          - 'null'
+          description: Advisory MTE field.
+        RAC:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAC field.
+        advisory_complement:
+          type:
+          - string
+          - 'null'
+          description: Advisory complement description.
+        advisory:
+          type:
+          - string
+          - 'null'
+          description: Advisory description.
+        TTI:
+          type:
+          - string
+          - 'null'
+          description: TTI field.
+        threat_id_hex:
+          type:
+          - string
+          - 'null'
+          description: Threat ID in hexadecimal.
+    GeoboundaryCountrySubdivision:
+      type: object
+      description: Represents the response from the geoboundary endpoint.
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: 'Name of the country subdivision.
+
+            Example: California'
+        iso_a2:
+          type: string
+          description: 'ISO 3166-1 alpha-2 country code.
+
+            Example: US'
+        iso_3166_2:
+          type: string
+          description: 'ISO 3166-2 country subdivision code.
+
+            Example: US-CA (for California)'
+        adm1_code:
+          type:
+          - string
+          - 'null'
+          description: 'ADM1 code.
+
+            Example: USA-3521'
+        name_alt:
+          type:
+          - string
+          - 'null'
+          description: 'Alternative name of the country subdivision.
+
+            Example: CA|Calif.|Cal.'
+        region:
+          type:
+          - string
+          - 'null'
+          description: 'Name of the region.
+
+            Example: West'
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
           type:
           - string
           - 'null'
@@ -858,208 +1060,6 @@ components:
             type: object
             additionalProperties:
               type: string
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
-    GeoboundaryCountrySubdivision:
-      type: object
-      description: Represents the response from the geoboundary endpoint.
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-          description: 'Name of the country subdivision.
-
-            Example: California'
-        iso_a2:
-          type: string
-          description: 'ISO 3166-1 alpha-2 country code.
-
-            Example: US'
-        iso_3166_2:
-          type: string
-          description: 'ISO 3166-2 country subdivision code.
-
-            Example: US-CA (for California)'
-        adm1_code:
-          type:
-          - string
-          - 'null'
-          description: 'ADM1 code.
-
-            Example: USA-3521'
-        name_alt:
-          type:
-          - string
-          - 'null'
-          description: 'Alternative name of the country subdivision.
-
-            Example: CA|Calif.|Cal.'
-        region:
-          type:
-          - string
-          - 'null'
-          description: 'Name of the region.
-
-            Example: West'
-    AcasResolutionAdvisoryResponse:
-      type: object
-      description: ACAS Resolution Advisory Class
-      additionalProperties: false
-      properties:
-        utc:
-          type:
-          - string
-          - 'null'
-          description: UTC timestamp of the advisory.
-        unix_timestamp:
-          type:
-          - number
-          - 'null'
-          description: Unix timestamp.
-          format: double
-        bytes:
-          type:
-          - string
-          - 'null'
-          description: Advisory bytes as a string.
-        ARA:
-          type:
-          - string
-          - 'null'
-          description: Advisory ARA field.
-        RAT:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAT field.
-        MTE:
-          type:
-          - string
-          - 'null'
-          description: Advisory MTE field.
-        RAC:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAC field.
-        advisory_complement:
-          type:
-          - string
-          - 'null'
-          description: Advisory complement description.
-        advisory:
-          type:
-          - string
-          - 'null'
-          description: Advisory description.
-        TTI:
-          type:
-          - string
-          - 'null'
-          description: TTI field.
-        threat_id_hex:
-          type:
-          - string
-          - 'null'
-          description: Threat ID in hexadecimal.
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
-    LastPositionDataResponse:
-      type: object
-      description: 'When the regular lat and lon are older than 60 seconds
-
-        they are no longer considered valid, this will provide
-
-        the last position and show the age for the last position.
-
-        Aircraft will only be in the aircraft json if a position
-
-        has been received in the last 60 seconds or if any message
-
-        has been received in the last 30 seconds.'
-      additionalProperties: false
-      properties:
-        lat:
-          type:
-          - number
-          - 'null'
-          format: float
-        lon:
-          type:
-          - number
-          - 'null'
-          format: float
-        nic:
-          type:
-          - integer
-          - 'null'
-          description: Navigation Integrity Category (2.2.3.2.7.2.6)
-          format: int32
-        rc:
-          type:
-          - integer
-          - 'null'
-          description: 'Radius of Containment, meters; a measure of position integrity
-
-            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
-          format: int32
-        seen_pos:
-          type:
-          - number
-          - 'null'
-          description: How long ago (in seconds before “now”) the position was last updated
-          format: double
-    AircraftCollectionResponse:
-      type: object
-      description: Response envelope for the multiple aircraft endpoint.
-      additionalProperties: false
-      properties:
-        ac:
-          type: array
-          description: List of aircraft with all available information.
-          items:
-            $ref: '#/components/schemas/AircraftSingleResponse'
-        msg:
-          type: string
-          description: Message indicating the status of the request overall.
-        now:
-          type: integer
-          description: Unix timestamp of the current UTC time on the server (ms).
-          format: int64
-        total:
-          type: integer
-          description: The number of aircraft in the response.
-          format: int32
-        ctime:
-          type: integer
-          description: Unix timestamp (ms) of when the underlying data was last updated.
-          format: int64
-        ptime:
-          type: integer
-          description: Time taken on server to process the request (ms).
-          format: int64
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey

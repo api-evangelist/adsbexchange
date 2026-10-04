@@ -757,35 +757,35 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    RegistrationRequest:
+    AircraftCollectionResponse:
       type: object
-      description: Model for querying api for multiple aircraft by registration numbers
+      description: Response envelope for the multiple aircraft endpoint.
       additionalProperties: false
       properties:
-        registrations:
+        ac:
           type: array
+          description: List of aircraft with all available information.
           items:
-            type: string
-    FilterRequest:
-      type: object
-      description: Model describing filter criteria for live aircraft data.
-      additionalProperties: false
-      properties:
-        logical_operator:
-          type: string
-          description: Specifies the logical operator to use when combining filters.
-        filters:
-          type: array
-          description: Specifies the filters to apply to the aircraft data.
-          items:
-            $ref: '#/components/schemas/FilterDefinition'
-    RequestedUrlTooLongResponse:
-      type: object
-      description: Requested URL is too long.
-      additionalProperties: false
-      properties:
+            $ref: '#/components/schemas/AircraftSingleResponse'
         msg:
           type: string
+          description: Message indicating the status of the request overall.
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server (ms).
+          format: int64
+        total:
+          type: integer
+          description: The number of aircraft in the response.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp (ms) of when the underlying data was last updated.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on server to process the request (ms).
+          format: int64
     ProblemDetails:
       type: object
       additionalProperties: {}
@@ -811,6 +811,213 @@ components:
           type:
           - string
           - 'null'
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    LastPositionDataResponse:
+      type: object
+      description: 'When the regular lat and lon are older than 60 seconds
+
+        they are no longer considered valid, this will provide
+
+        the last position and show the age for the last position.
+
+        Aircraft will only be in the aircraft json if a position
+
+        has been received in the last 60 seconds or if any message
+
+        has been received in the last 30 seconds.'
+      additionalProperties: false
+      properties:
+        lat:
+          type:
+          - number
+          - 'null'
+          format: float
+        lon:
+          type:
+          - number
+          - 'null'
+          format: float
+        nic:
+          type:
+          - integer
+          - 'null'
+          description: Navigation Integrity Category (2.2.3.2.7.2.6)
+          format: int32
+        rc:
+          type:
+          - integer
+          - 'null'
+          description: 'Radius of Containment, meters; a measure of position integrity
+
+            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
+          format: int32
+        seen_pos:
+          type:
+          - number
+          - 'null'
+          description: How long ago (in seconds before “now”) the position was last updated
+          format: double
+    AcasResolutionAdvisoryResponse:
+      type: object
+      description: ACAS Resolution Advisory Class
+      additionalProperties: false
+      properties:
+        utc:
+          type:
+          - string
+          - 'null'
+          description: UTC timestamp of the advisory.
+        unix_timestamp:
+          type:
+          - number
+          - 'null'
+          description: Unix timestamp.
+          format: double
+        bytes:
+          type:
+          - string
+          - 'null'
+          description: Advisory bytes as a string.
+        ARA:
+          type:
+          - string
+          - 'null'
+          description: Advisory ARA field.
+        RAT:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAT field.
+        MTE:
+          type:
+          - string
+          - 'null'
+          description: Advisory MTE field.
+        RAC:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAC field.
+        advisory_complement:
+          type:
+          - string
+          - 'null'
+          description: Advisory complement description.
+        advisory:
+          type:
+          - string
+          - 'null'
+          description: Advisory description.
+        TTI:
+          type:
+          - string
+          - 'null'
+          description: TTI field.
+        threat_id_hex:
+          type:
+          - string
+          - 'null'
+          description: Threat ID in hexadecimal.
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    FilterRequest:
+      type: object
+      description: Model describing filter criteria for live aircraft data.
+      additionalProperties: false
+      properties:
+        logical_operator:
+          type: string
+          description: Specifies the logical operator to use when combining filters.
+        filters:
+          type: array
+          description: Specifies the filters to apply to the aircraft data.
+          items:
+            $ref: '#/components/schemas/FilterDefinition'
+    AircraftRequest:
+      type: object
+      description: Model for querying api for multiple aircraft hexes
+      additionalProperties: false
+      properties:
+        hex_list:
+          type: array
+          items:
+            type: string
+    FilterDefinition:
+      type: object
+      additionalProperties: false
+      properties:
+        property:
+          type: string
+          description: 'Name of the property to filter on. Case-insensitive.
+
+            Only top-level properties are supported at the moment.'
+        operator:
+          type: string
+          description: 'Operator to use when comparing the property value. All string comparisons are case-insensitive.
+
+            Supported operators are:
+
+            - "eq" (equals)
+
+            - "ne" (not equals)
+
+            - "gt" (greater than)
+
+            - "lt" (less than)
+
+            - "ge" (greater than or equal to)
+
+            - "le" (less than or equal to)
+
+            - "isNull" (property value is null)
+
+            - "isNotNull" (property is not null)
+
+            - "contains" (property value contains the specified value)
+
+            - "notContains" (property value does not contain the specified value)
+
+            - "startsWith" (property value starts with the specified value)
+
+            - "notStartsWith" (property value does not start with the specified value)
+
+            - "endsWith" (property value ends with the specified value)
+
+            - "notEndsWith" (property value does not end with the specified value)'
+        value:
+          description: "Value to compare the property against.\nThis can be a string, number, boolean and must match target property type.\n- If number - it will be parsed as double (scientific notation is not supported).\n- If string - maximum length is 255 characters.\n- If boolean - it will be parsed as boolean.\n            \nValue is not required for operators \"isNull\" and \"isNotNull\"."
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    RegistrationRequest:
+      type: object
+      description: Model for querying api for multiple aircraft by registration numbers
+      additionalProperties: false
+      properties:
+        registrations:
+          type: array
+          items:
+            type: string
     AircraftSingleResponse:
       type: object
       description: Full aircraft model with all available information.
@@ -1150,220 +1357,13 @@ components:
             type: object
             additionalProperties:
               type: string
-    ApiTooManyRequestsResponse:
+    RequestedUrlTooLongResponse:
       type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
-    AcasResolutionAdvisoryResponse:
-      type: object
-      description: ACAS Resolution Advisory Class
-      additionalProperties: false
-      properties:
-        utc:
-          type:
-          - string
-          - 'null'
-          description: UTC timestamp of the advisory.
-        unix_timestamp:
-          type:
-          - number
-          - 'null'
-          description: Unix timestamp.
-          format: double
-        bytes:
-          type:
-          - string
-          - 'null'
-          description: Advisory bytes as a string.
-        ARA:
-          type:
-          - string
-          - 'null'
-          description: Advisory ARA field.
-        RAT:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAT field.
-        MTE:
-          type:
-          - string
-          - 'null'
-          description: Advisory MTE field.
-        RAC:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAC field.
-        advisory_complement:
-          type:
-          - string
-          - 'null'
-          description: Advisory complement description.
-        advisory:
-          type:
-          - string
-          - 'null'
-          description: Advisory description.
-        TTI:
-          type:
-          - string
-          - 'null'
-          description: TTI field.
-        threat_id_hex:
-          type:
-          - string
-          - 'null'
-          description: Threat ID in hexadecimal.
-    AircraftCollectionResponse:
-      type: object
-      description: Response envelope for the multiple aircraft endpoint.
-      additionalProperties: false
-      properties:
-        ac:
-          type: array
-          description: List of aircraft with all available information.
-          items:
-            $ref: '#/components/schemas/AircraftSingleResponse'
-        msg:
-          type: string
-          description: Message indicating the status of the request overall.
-        now:
-          type: integer
-          description: Unix timestamp of the current UTC time on the server (ms).
-          format: int64
-        total:
-          type: integer
-          description: The number of aircraft in the response.
-          format: int32
-        ctime:
-          type: integer
-          description: Unix timestamp (ms) of when the underlying data was last updated.
-          format: int64
-        ptime:
-          type: integer
-          description: Time taken on server to process the request (ms).
-          format: int64
-    ApiUnauthorizedResponse:
-      type: object
+      description: Requested URL is too long.
       additionalProperties: false
       properties:
         msg:
           type: string
-        reason:
-          type:
-          - string
-          - 'null'
-    LastPositionDataResponse:
-      type: object
-      description: 'When the regular lat and lon are older than 60 seconds
-
-        they are no longer considered valid, this will provide
-
-        the last position and show the age for the last position.
-
-        Aircraft will only be in the aircraft json if a position
-
-        has been received in the last 60 seconds or if any message
-
-        has been received in the last 30 seconds.'
-      additionalProperties: false
-      properties:
-        lat:
-          type:
-          - number
-          - 'null'
-          format: float
-        lon:
-          type:
-          - number
-          - 'null'
-          format: float
-        nic:
-          type:
-          - integer
-          - 'null'
-          description: Navigation Integrity Category (2.2.3.2.7.2.6)
-          format: int32
-        rc:
-          type:
-          - integer
-          - 'null'
-          description: 'Radius of Containment, meters; a measure of position integrity
-
-            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
-          format: int32
-        seen_pos:
-          type:
-          - number
-          - 'null'
-          description: How long ago (in seconds before “now”) the position was last updated
-          format: double
-    AircraftRequest:
-      type: object
-      description: Model for querying api for multiple aircraft hexes
-      additionalProperties: false
-      properties:
-        hex_list:
-          type: array
-          items:
-            type: string
-    FilterDefinition:
-      type: object
-      additionalProperties: false
-      properties:
-        property:
-          type: string
-          description: 'Name of the property to filter on. Case-insensitive.
-
-            Only top-level properties are supported at the moment.'
-        operator:
-          type: string
-          description: 'Operator to use when comparing the property value. All string comparisons are case-insensitive.
-
-            Supported operators are:
-
-            - "eq" (equals)
-
-            - "ne" (not equals)
-
-            - "gt" (greater than)
-
-            - "lt" (less than)
-
-            - "ge" (greater than or equal to)
-
-            - "le" (less than or equal to)
-
-            - "isNull" (property value is null)
-
-            - "isNotNull" (property is not null)
-
-            - "contains" (property value contains the specified value)
-
-            - "notContains" (property value does not contain the specified value)
-
-            - "startsWith" (property value starts with the specified value)
-
-            - "notStartsWith" (property value does not start with the specified value)
-
-            - "endsWith" (property value ends with the specified value)
-
-            - "notEndsWith" (property value does not end with the specified value)'
-        value:
-          description: "Value to compare the property against.\nThis can be a string, number, boolean and must match target property type.\n- If number - it will be parsed as double (scientific notation is not supported).\n- If string - maximum length is 255 characters.\n- If boolean - it will be parsed as boolean.\n            \nValue is not required for operators \"isNull\" and \"isNotNull\"."
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey

@@ -410,13 +410,47 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    BadRequest:
+    ProblemDetails:
+      type: object
+      additionalProperties: {}
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    ApiUnauthorizedResponse:
       type: object
       additionalProperties: false
       properties:
-        statusCode:
-          type: integer
-          format: int32
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
     OperationsResponseItem:
       type: object
       additionalProperties: false
@@ -580,37 +614,6 @@ components:
           - integer
           - 'null'
           format: int32
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
-    ProblemDetails:
-      type: object
-      additionalProperties: {}
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
     OperationsIcaosRequest:
       type: object
       description: Model representing a request for obtaining operations (takeoffs/landings) for one or more aircraft ICAO codes.
@@ -622,7 +625,14 @@ components:
           minItems: 1
           items:
             type: string
-    ApiUnauthorizedResponse:
+    BadRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+    ApiForbiddenResponse:
       type: object
       additionalProperties: false
       properties:
@@ -680,16 +690,6 @@ components:
           minItems: 1
           items:
             type: string
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey

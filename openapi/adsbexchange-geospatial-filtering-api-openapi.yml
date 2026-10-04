@@ -693,13 +693,73 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    BadRequest:
+    ProximityPointFilter:
       type: object
+      description: Describes a point in proximity to which aircraft should be queried
       additionalProperties: false
       properties:
-        statusCode:
-          type: integer
+        latitude:
+          type: number
+          description: Latitude of the coordinate
+          format: double
+        longitude:
+          type: number
+          description: Longitude of the coordinate
+          format: double
+        radius:
+          type: number
+          description: Radius in Nautical Miles from the coordinate specified via Latitude and Longitude
+          format: double
+        altitude_min:
+          type:
+          - integer
+          - 'null'
+          description: Altitude in feet to filter aircraft by (lower boundary)
           format: int32
+        altitude_max:
+          type:
+          - integer
+          - 'null'
+          description: Altitude in feet to filter aircraft by (upper boundary)
+          format: int32
+    AircraftCollectionResponse:
+      type: object
+      description: Response envelope for the multiple aircraft endpoint.
+      additionalProperties: false
+      properties:
+        ac:
+          type: array
+          description: List of aircraft with all available information.
+          items:
+            $ref: '#/components/schemas/AircraftSingleResponse'
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server (ms).
+          format: int64
+        total:
+          type: integer
+          description: The number of aircraft in the response.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp (ms) of when the underlying data was last updated.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on server to process the request (ms).
+          format: int64
+    AirportRequest:
+      type: object
+      description: Model representing a request for obtaining aircraft in proximity to an airport(s)
+      additionalProperties: false
+      properties:
+        airports:
+          type: array
+          items:
+            type: string
     ProblemDetails:
       type: object
       additionalProperties: {}
@@ -725,6 +785,421 @@ components:
           type:
           - string
           - 'null'
+    AircraftCollectionMinimalResponse:
+      type: object
+      description: Response envelope for the multiple aircraft endpoint.
+      additionalProperties: false
+      properties:
+        ac:
+          type: array
+          description: List of aircraft with all available information.
+          items:
+            $ref: '#/components/schemas/AircraftSingleMinimalResponse'
+        msg:
+          type: string
+          description: Message indicating the status of the request overall.
+        now:
+          type: integer
+          description: Unix timestamp of the current UTC time on the server (ms).
+          format: int64
+        total:
+          type: integer
+          description: The number of aircraft in the response.
+          format: int32
+        ctime:
+          type: integer
+          description: Unix timestamp (ms) of when the underlying data was last updated.
+          format: int64
+        ptime:
+          type: integer
+          description: Time taken on server to process the request (ms).
+          format: int64
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ProximityRequest:
+      type: object
+      description: Model for querying api for multiple aircraft by proximity
+      additionalProperties: false
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProximityPointFilter'
+    LastPositionDataResponse:
+      type: object
+      description: 'When the regular lat and lon are older than 60 seconds
+
+        they are no longer considered valid, this will provide
+
+        the last position and show the age for the last position.
+
+        Aircraft will only be in the aircraft json if a position
+
+        has been received in the last 60 seconds or if any message
+
+        has been received in the last 30 seconds.'
+      additionalProperties: false
+      properties:
+        lat:
+          type:
+          - number
+          - 'null'
+          format: float
+        lon:
+          type:
+          - number
+          - 'null'
+          format: float
+        nic:
+          type:
+          - integer
+          - 'null'
+          description: Navigation Integrity Category (2.2.3.2.7.2.6)
+          format: int32
+        rc:
+          type:
+          - integer
+          - 'null'
+          description: 'Radius of Containment, meters; a measure of position integrity
+
+            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
+          format: int32
+        seen_pos:
+          type:
+          - number
+          - 'null'
+          description: How long ago (in seconds before “now”) the position was last updated
+          format: double
+    AcasResolutionAdvisoryResponse:
+      type: object
+      description: ACAS Resolution Advisory Class
+      additionalProperties: false
+      properties:
+        utc:
+          type:
+          - string
+          - 'null'
+          description: UTC timestamp of the advisory.
+        unix_timestamp:
+          type:
+          - number
+          - 'null'
+          description: Unix timestamp.
+          format: double
+        bytes:
+          type:
+          - string
+          - 'null'
+          description: Advisory bytes as a string.
+        ARA:
+          type:
+          - string
+          - 'null'
+          description: Advisory ARA field.
+        RAT:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAT field.
+        MTE:
+          type:
+          - string
+          - 'null'
+          description: Advisory MTE field.
+        RAC:
+          type:
+          - string
+          - 'null'
+          description: Advisory RAC field.
+        advisory_complement:
+          type:
+          - string
+          - 'null'
+          description: Advisory complement description.
+        advisory:
+          type:
+          - string
+          - 'null'
+          description: Advisory description.
+        TTI:
+          type:
+          - string
+          - 'null'
+          description: TTI field.
+        threat_id_hex:
+          type:
+          - string
+          - 'null'
+          description: Threat ID in hexadecimal.
+    ApiTooManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        message:
+          type: string
+    BadRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    AircraftSingleMinimalResponse:
+      type: object
+      description: Contains the minimal information about an aircraft.
+      additionalProperties: false
+      properties:
+        hex:
+          type: string
+          description: The ICAO 24-bit address (hex) of the aircraft.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of message (e.g., adsb_icao, tisb_icao, etc.).
+        flight:
+          type:
+          - string
+          - 'null'
+          description: The flight number or callsign.
+        r:
+          type:
+          - string
+          - 'null'
+          description: Registration or tail number.
+        t:
+          type:
+          - string
+          - 'null'
+          description: Aircraft type (e.g., B38M for Boeing 737 MAX 8).
+        alt_baro:
+          description: Barometric altitude in feet.
+        alt_geom:
+          type:
+          - number
+          - 'null'
+          description: Geometric altitude in feet.
+          format: float
+        gs:
+          type:
+          - number
+          - 'null'
+          description: Ground speed in knots.
+          format: float
+        ias:
+          type:
+          - number
+          - 'null'
+          description: Indicated airspeed in knots
+          format: float
+        tas:
+          type:
+          - number
+          - 'null'
+          description: True airspeed in knots.
+          format: float
+        mach:
+          type:
+          - number
+          - 'null'
+          description: Mach number (speed as a fraction of the speed of sound).
+          format: float
+        wd:
+          type:
+          - integer
+          - 'null'
+          description: Wind direction in degrees.
+        ws:
+          type:
+          - integer
+          - 'null'
+          description: Wind speed in knots.
+        oat:
+          type:
+          - integer
+          - 'null'
+          description: Outer/Static air temperature (OAT), typically somewhat inaccurate at lower altitudes.
+        tat:
+          type:
+          - integer
+          - 'null'
+          description: Total air temperature (TAT), typically somewhat inaccurate at lower altitudes.
+        track:
+          type:
+          - number
+          - 'null'
+          description: Aircraft track over the ground in degrees.
+          format: float
+        track_rate:
+          type:
+          - number
+          - 'null'
+          description: Rate of change of the track in degrees per second.
+          format: float
+        roll:
+          type:
+          - number
+          - 'null'
+          description: Aircraft roll angle in degrees.
+          format: float
+        mag_heading:
+          type:
+          - number
+          - 'null'
+          description: Magnetic heading in degrees.
+          format: float
+        true_heading:
+          type:
+          - number
+          - 'null'
+          description: True heading in degrees.
+          format: float
+        baro_rate:
+          type:
+          - integer
+          - 'null'
+          description: Barometric vertical rate (climb or descent) in feet per minute.
+          format: int32
+        geom_rate:
+          type:
+          - integer
+          - 'null'
+          description: Geometric vertical rate (climb or descent) in feet per minute.
+          format: int32
+        squawk:
+          type:
+          - string
+          - 'null'
+          description: Transponder squawk code.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Aircraft category based on size and weight.
+        nav_qnh:
+          type:
+          - number
+          - 'null'
+          description: QNH setting (altimeter pressure setting) in hPa.
+          format: float
+        nav_altitude_mcp:
+          type:
+          - integer
+          - 'null'
+          description: MCP (Mode Control Panel) altitude setting in feet.
+        nav_altitude_fms:
+          type:
+          - integer
+          - 'null'
+          description: Selected altitude from the Flight Management System (FMS) in feet.
+        nav_heading:
+          type:
+          - number
+          - 'null'
+          description: MCP heading setting in degrees.
+          format: float
+        nav_modes:
+          type:
+          - array
+          - 'null'
+          description: 'Navigation modes: autopilot, vnav, althold, approach, lnav, tcas'
+          items:
+            type: string
+        lat:
+          type:
+          - number
+          - 'null'
+          description: Latitude of the aircraft.
+          format: float
+        lon:
+          type:
+          - number
+          - 'null'
+          description: Longitude of the aircraft.
+          format: float
+        seen_pos:
+          type:
+          - number
+          - 'null'
+          description: Time since the last positional update in seconds.
+          format: float
+        seen:
+          type:
+          - number
+          - 'null'
+          description: Time since the last message was received, in seconds.
+          format: float
+    FeatureCollectionRequest:
+      type: object
+      description: Mimics the request model for the feature collection endpoint (GeoJSON)
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          description: Type of the GeoJSON object. Should be "FeatureCollection"
+        features:
+          type: array
+          description: Collection of features describing the geometries
+          items:
+            $ref: '#/components/schemas/FeatureRequest'
+    FeatureGeometryRequest:
+      type: object
+      description: Describes the geometry of the feature in the GeoJSON feature collection
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          description: Type of the GeoJSON object. Should be "Polygon" or "MultiPolygon"
+        coordinates:
+          type: array
+          description: Coordinates of the polygon or multipolygon geometry in GeoJSON format.
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+                format: double
+    FeatureRequest:
+      type: object
+      description: Describes single feature in the GeoJSON feature collection
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          description: Type of the GeoJSON object. Should be "Feature"
+        properties:
+          type: object
+          description: 'Collection of properties associated with the geometry.
+
+            Properties with will propagated to each aircraft object in "properties" field.
+
+
+            **IMPORTANT**: Only 5 properties supported. Each key and value must not exceed 128 characters.'
+          additionalProperties:
+            type: string
+        geometry:
+          description: Geometry of the feature. Must be a Polygon or MultiPolygon.
+          oneOf:
+          - $ref: '#/components/schemas/FeatureGeometryRequest'
     AircraftSingleResponse:
       type: object
       description: Full aircraft model with all available information.
@@ -1064,481 +1539,6 @@ components:
             type: object
             additionalProperties:
               type: string
-    ApiTooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        message:
-          type: string
-    AcasResolutionAdvisoryResponse:
-      type: object
-      description: ACAS Resolution Advisory Class
-      additionalProperties: false
-      properties:
-        utc:
-          type:
-          - string
-          - 'null'
-          description: UTC timestamp of the advisory.
-        unix_timestamp:
-          type:
-          - number
-          - 'null'
-          description: Unix timestamp.
-          format: double
-        bytes:
-          type:
-          - string
-          - 'null'
-          description: Advisory bytes as a string.
-        ARA:
-          type:
-          - string
-          - 'null'
-          description: Advisory ARA field.
-        RAT:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAT field.
-        MTE:
-          type:
-          - string
-          - 'null'
-          description: Advisory MTE field.
-        RAC:
-          type:
-          - string
-          - 'null'
-          description: Advisory RAC field.
-        advisory_complement:
-          type:
-          - string
-          - 'null'
-          description: Advisory complement description.
-        advisory:
-          type:
-          - string
-          - 'null'
-          description: Advisory description.
-        TTI:
-          type:
-          - string
-          - 'null'
-          description: TTI field.
-        threat_id_hex:
-          type:
-          - string
-          - 'null'
-          description: Threat ID in hexadecimal.
-    FeatureGeometryRequest:
-      type: object
-      description: Describes the geometry of the feature in the GeoJSON feature collection
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          description: Type of the GeoJSON object. Should be "Polygon" or "MultiPolygon"
-        coordinates:
-          type: array
-          description: Coordinates of the polygon or multipolygon geometry in GeoJSON format.
-          items:
-            type: array
-            items:
-              type: array
-              items:
-                type: number
-                format: double
-    FeatureCollectionRequest:
-      type: object
-      description: Mimics the request model for the feature collection endpoint (GeoJSON)
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          description: Type of the GeoJSON object. Should be "FeatureCollection"
-        features:
-          type: array
-          description: Collection of features describing the geometries
-          items:
-            $ref: '#/components/schemas/FeatureRequest'
-    FeatureRequest:
-      type: object
-      description: Describes single feature in the GeoJSON feature collection
-      additionalProperties: false
-      properties:
-        type:
-          type: string
-          description: Type of the GeoJSON object. Should be "Feature"
-        properties:
-          type: object
-          description: 'Collection of properties associated with the geometry.
-
-            Properties with will propagated to each aircraft object in "properties" field.
-
-
-            **IMPORTANT**: Only 5 properties supported. Each key and value must not exceed 128 characters.'
-          additionalProperties:
-            type: string
-        geometry:
-          description: Geometry of the feature. Must be a Polygon or MultiPolygon.
-          oneOf:
-          - $ref: '#/components/schemas/FeatureGeometryRequest'
-    AirportRequest:
-      type: object
-      description: Model representing a request for obtaining aircraft in proximity to an airport(s)
-      additionalProperties: false
-      properties:
-        airports:
-          type: array
-          items:
-            type: string
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
-    AircraftSingleMinimalResponse:
-      type: object
-      description: Contains the minimal information about an aircraft.
-      additionalProperties: false
-      properties:
-        hex:
-          type: string
-          description: The ICAO 24-bit address (hex) of the aircraft.
-        type:
-          type:
-          - string
-          - 'null'
-          description: The type of message (e.g., adsb_icao, tisb_icao, etc.).
-        flight:
-          type:
-          - string
-          - 'null'
-          description: The flight number or callsign.
-        r:
-          type:
-          - string
-          - 'null'
-          description: Registration or tail number.
-        t:
-          type:
-          - string
-          - 'null'
-          description: Aircraft type (e.g., B38M for Boeing 737 MAX 8).
-        alt_baro:
-          description: Barometric altitude in feet.
-        alt_geom:
-          type:
-          - number
-          - 'null'
-          description: Geometric altitude in feet.
-          format: float
-        gs:
-          type:
-          - number
-          - 'null'
-          description: Ground speed in knots.
-          format: float
-        ias:
-          type:
-          - number
-          - 'null'
-          description: Indicated airspeed in knots
-          format: float
-        tas:
-          type:
-          - number
-          - 'null'
-          description: True airspeed in knots.
-          format: float
-        mach:
-          type:
-          - number
-          - 'null'
-          description: Mach number (speed as a fraction of the speed of sound).
-          format: float
-        wd:
-          type:
-          - integer
-          - 'null'
-          description: Wind direction in degrees.
-        ws:
-          type:
-          - integer
-          - 'null'
-          description: Wind speed in knots.
-        oat:
-          type:
-          - integer
-          - 'null'
-          description: Outer/Static air temperature (OAT), typically somewhat inaccurate at lower altitudes.
-        tat:
-          type:
-          - integer
-          - 'null'
-          description: Total air temperature (TAT), typically somewhat inaccurate at lower altitudes.
-        track:
-          type:
-          - number
-          - 'null'
-          description: Aircraft track over the ground in degrees.
-          format: float
-        track_rate:
-          type:
-          - number
-          - 'null'
-          description: Rate of change of the track in degrees per second.
-          format: float
-        roll:
-          type:
-          - number
-          - 'null'
-          description: Aircraft roll angle in degrees.
-          format: float
-        mag_heading:
-          type:
-          - number
-          - 'null'
-          description: Magnetic heading in degrees.
-          format: float
-        true_heading:
-          type:
-          - number
-          - 'null'
-          description: True heading in degrees.
-          format: float
-        baro_rate:
-          type:
-          - integer
-          - 'null'
-          description: Barometric vertical rate (climb or descent) in feet per minute.
-          format: int32
-        geom_rate:
-          type:
-          - integer
-          - 'null'
-          description: Geometric vertical rate (climb or descent) in feet per minute.
-          format: int32
-        squawk:
-          type:
-          - string
-          - 'null'
-          description: Transponder squawk code.
-        category:
-          type:
-          - string
-          - 'null'
-          description: Aircraft category based on size and weight.
-        nav_qnh:
-          type:
-          - number
-          - 'null'
-          description: QNH setting (altimeter pressure setting) in hPa.
-          format: float
-        nav_altitude_mcp:
-          type:
-          - integer
-          - 'null'
-          description: MCP (Mode Control Panel) altitude setting in feet.
-        nav_altitude_fms:
-          type:
-          - integer
-          - 'null'
-          description: Selected altitude from the Flight Management System (FMS) in feet.
-        nav_heading:
-          type:
-          - number
-          - 'null'
-          description: MCP heading setting in degrees.
-          format: float
-        nav_modes:
-          type:
-          - array
-          - 'null'
-          description: 'Navigation modes: autopilot, vnav, althold, approach, lnav, tcas'
-          items:
-            type: string
-        lat:
-          type:
-          - number
-          - 'null'
-          description: Latitude of the aircraft.
-          format: float
-        lon:
-          type:
-          - number
-          - 'null'
-          description: Longitude of the aircraft.
-          format: float
-        seen_pos:
-          type:
-          - number
-          - 'null'
-          description: Time since the last positional update in seconds.
-          format: float
-        seen:
-          type:
-          - number
-          - 'null'
-          description: Time since the last message was received, in seconds.
-          format: float
-    LastPositionDataResponse:
-      type: object
-      description: 'When the regular lat and lon are older than 60 seconds
-
-        they are no longer considered valid, this will provide
-
-        the last position and show the age for the last position.
-
-        Aircraft will only be in the aircraft json if a position
-
-        has been received in the last 60 seconds or if any message
-
-        has been received in the last 30 seconds.'
-      additionalProperties: false
-      properties:
-        lat:
-          type:
-          - number
-          - 'null'
-          format: float
-        lon:
-          type:
-          - number
-          - 'null'
-          format: float
-        nic:
-          type:
-          - integer
-          - 'null'
-          description: Navigation Integrity Category (2.2.3.2.7.2.6)
-          format: int32
-        rc:
-          type:
-          - integer
-          - 'null'
-          description: 'Radius of Containment, meters; a measure of position integrity
-
-            derived from NIC and supplementary bits. (2.2.3.2.7.2.6, Table 2-69)'
-          format: int32
-        seen_pos:
-          type:
-          - number
-          - 'null'
-          description: How long ago (in seconds before “now”) the position was last updated
-          format: double
-    ProximityRequest:
-      type: object
-      description: Model for querying api for multiple aircraft by proximity
-      additionalProperties: false
-      properties:
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProximityPointFilter'
-    AircraftCollectionResponse:
-      type: object
-      description: Response envelope for the multiple aircraft endpoint.
-      additionalProperties: false
-      properties:
-        ac:
-          type: array
-          description: List of aircraft with all available information.
-          items:
-            $ref: '#/components/schemas/AircraftSingleResponse'
-        msg:
-          type: string
-          description: Message indicating the status of the request overall.
-        now:
-          type: integer
-          description: Unix timestamp of the current UTC time on the server (ms).
-          format: int64
-        total:
-          type: integer
-          description: The number of aircraft in the response.
-          format: int32
-        ctime:
-          type: integer
-          description: Unix timestamp (ms) of when the underlying data was last updated.
-          format: int64
-        ptime:
-          type: integer
-          description: Time taken on server to process the request (ms).
-          format: int64
-    ProximityPointFilter:
-      type: object
-      description: Describes a point in proximity to which aircraft should be queried
-      additionalProperties: false
-      properties:
-        latitude:
-          type: number
-          description: Latitude of the coordinate
-          format: double
-        longitude:
-          type: number
-          description: Longitude of the coordinate
-          format: double
-        radius:
-          type: number
-          description: Radius in Nautical Miles from the coordinate specified via Latitude and Longitude
-          format: double
-        altitude_min:
-          type:
-          - integer
-          - 'null'
-          description: Altitude in feet to filter aircraft by (lower boundary)
-          format: int32
-        altitude_max:
-          type:
-          - integer
-          - 'null'
-          description: Altitude in feet to filter aircraft by (upper boundary)
-          format: int32
-    AircraftCollectionMinimalResponse:
-      type: object
-      description: Response envelope for the multiple aircraft endpoint.
-      additionalProperties: false
-      properties:
-        ac:
-          type: array
-          description: List of aircraft with all available information.
-          items:
-            $ref: '#/components/schemas/AircraftSingleMinimalResponse'
-        msg:
-          type: string
-          description: Message indicating the status of the request overall.
-        now:
-          type: integer
-          description: Unix timestamp of the current UTC time on the server (ms).
-          format: int64
-        total:
-          type: integer
-          description: The number of aircraft in the response.
-          format: int32
-        ctime:
-          type: integer
-          description: Unix timestamp (ms) of when the underlying data was last updated.
-          format: int64
-        ptime:
-          type: integer
-          description: Time taken on server to process the request (ms).
-          format: int64
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey
