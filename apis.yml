@@ -32,7 +32,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adsbexchange.png
 url: https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 tags:
   - Aviation
@@ -207,6 +207,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml
 common:
+  - url: https://www.adsbexchange.com/news/
+    type: Blog
   - type: CapabilityMap
     url: capabilities/adsbexchange-capability-edges.yml
     name: ADS-B Exchange Business Capability Map
