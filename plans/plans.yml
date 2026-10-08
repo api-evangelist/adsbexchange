@@ -86,3 +86,53 @@ plans:
       - CSV delivery format
       - BI-ready structured data
       - Annual subscription with minimum commitment
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units:
+  - negotiated
+  - period
+  plans:
+  - name: Community API
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Live Positions Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Live Operations Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Daily Positions Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Daily Operations Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
