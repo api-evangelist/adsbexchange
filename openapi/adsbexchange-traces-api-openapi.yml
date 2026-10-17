@@ -428,41 +428,6 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      additionalProperties: {}
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
     ApiTooManyRequestsResponse:
       type: object
       additionalProperties: false
@@ -494,6 +459,16 @@ components:
           items:
             type: array
             items: {}
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
     TraceNotFoundResponse:
       type: object
       additionalProperties: false
@@ -522,6 +497,31 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
+    ProblemDetails:
+      type: object
+      additionalProperties: {}
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     X-Api-Key:
       type: apiKey

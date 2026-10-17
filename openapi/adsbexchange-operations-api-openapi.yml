@@ -410,47 +410,30 @@ paths:
       - X-Api-Key: []
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      additionalProperties: {}
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-    ApiUnauthorizedResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
     ApiTooManyRequestsResponse:
       type: object
       additionalProperties: false
       properties:
         message:
           type: string
+    OperationsAirportRequest:
+      type: object
+      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
+      additionalProperties: false
+      properties:
+        airports:
+          type: array
+          maxItems: 500
+          minItems: 1
+          items:
+            type: string
+    BadRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        statusCode:
+          type: integer
+          format: int32
     OperationsResponseItem:
       type: object
       additionalProperties: false
@@ -614,6 +597,51 @@ components:
           - integer
           - 'null'
           format: int32
+    ApiForbiddenResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ApiUnauthorizedResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        msg:
+          type: string
+        reason:
+          type:
+          - string
+          - 'null'
+    ProblemDetails:
+      type: object
+      additionalProperties: {}
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
     OperationsIcaosRequest:
       type: object
       description: Model representing a request for obtaining operations (takeoffs/landings) for one or more aircraft ICAO codes.
@@ -625,23 +653,6 @@ components:
           minItems: 1
           items:
             type: string
-    BadRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        statusCode:
-          type: integer
-          format: int32
-    ApiForbiddenResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        msg:
-          type: string
-        reason:
-          type:
-          - string
-          - 'null'
     OperationsResponse:
       type: object
       description: Response envelope for the response containing multiple operations objects.
@@ -679,17 +690,6 @@ components:
           type: integer
           description: Time taken on API server to process the request, in milliseconds.
           format: int64
-    OperationsAirportRequest:
-      type: object
-      description: Model representing a request for obtaining operations (takeoffs/landings) for one or more airports.
-      additionalProperties: false
-      properties:
-        airports:
-          type: array
-          maxItems: 500
-          minItems: 1
-          items:
-            type: string
   securitySchemes:
     X-Api-Key:
       type: apiKey
