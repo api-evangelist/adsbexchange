@@ -1,4 +1,4 @@
-# ADS-B Exchange (adsbexchange)
+# ADS-B Exchange
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,64 +66,199 @@
 
 Unfiltered flight tracking network with REST APIs for accessing real-time aircraft positions, military flights, and global ADS-B flight data without filtering. Operated by a crowdsourced global network of ADS-B and MLAT receivers providing ultra-low-latency aircraft tracking data for aviation research and applications.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/apis.yml)
+**Areas:** Aviation · Flight Tracking · ADS-B · Aircraft · Real-Time · Military · MLAT
 
-## Tags
+## ADS-B Exchange on APIs.io
 
-- Aviation
-- Flight Tracking
-- ADS-B
-- Aircraft
-- Real-Time
-- Military
-- MLAT
+Everything profiled for ADS-B Exchange is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/adsbexchange/](https://apis.io/providers/adsbexchange/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [ADS-B Exchange Geopolitical Filtering API](https://apis.io/apis/adsbexchange/adsbexchange-geopolitical-filtering-api/) — Allows filtering live data based on geopolitical boundaries, such as states/provinces, countries, regions, or even continents. All endpoints support ISO…
+- [ADS-B Exchange Geospatial Filtering API](https://apis.io/apis/adsbexchange/adsbexchange-geospatial-filtering-api/) — Endpoints allow filtering live data based on geospatial boundaries, such as latitude, longitude, altitudes, or even custom GeoJSON shapes. Use these…
+- [ADS-B Exchange Live Positional Data API](https://apis.io/apis/adsbexchange/adsbexchange-live-positional-data-api/) — Endpoints provide access to airborne or recently landed aircraft, as well as last known positions. Use these endpoints to get information about aircraft,…
+- [ADS-B Exchange Operations API](https://apis.io/apis/adsbexchange/adsbexchange-operations-api/) — Endpoints provide access to Takeoffs/Landings operational events.
+- [ADS-B Exchange Traces API](https://apis.io/apis/adsbexchange/adsbexchange-traces-api/) — Endpoints provide access to historical trace files for an aircraft.
 
-## APIs
+### Published properties
 
-### ADS-B Exchange Aircraft API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API providing real-time global aircraft positions, ICAO hex identifiers, registrations, squawk codes, altitude, speed, heading, and military aircraft flags. Delivered via the gateway.adsbexchange.com endpoint with API key authentication. Accessible via RapidAPI for community and non-commercial use with paid commercial tiers available.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.adsbexchange.com/data-products/](https://www.adsbexchange.com/data-products/)
-- **Base URL:** `https://gateway.adsbexchange.com/api/aircraft/v2`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Adsbexchange Agentic Access](https://apis.io/agentic-access/adsbexchange/adsbexchange-agentic-access/)
 
-- Aircraft Tracking
-- ADS-B
-- Real-Time Positions
-- Military Aircraft
-- ICAO
-- Aviation
+#### JSON Schema (30)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://www.adsbexchange.com/version-2-api/)
-- [Documentation](https://www.adsbexchange.com/data-products/sample-api-call/)
-- [Plans](https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/plans/plans.yml)
-- [Rate Limits](https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/rate-limits/rate-limits.yml)
-- [Fin Ops](https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/finops/finops.yml)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/adsbexchange/refs/heads/main/openapi/openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [AcasResolutionAdvisoryResponse](https://apis.io/schemas/adsbexchange/acasresolutionadvisoryresponse/)
+- [AircraftCollectionMinimalResponse](https://apis.io/schemas/adsbexchange/aircraftcollectionminimalresponse/)
+- [AircraftCollectionResponse](https://apis.io/schemas/adsbexchange/aircraftcollectionresponse/)
+- [AircraftRequest](https://apis.io/schemas/adsbexchange/aircraftrequest/)
+- [AircraftSingleMinimalResponse](https://apis.io/schemas/adsbexchange/aircraftsingleminimalresponse/)
+- [AircraftSingleResponse](https://apis.io/schemas/adsbexchange/aircraftsingleresponse/)
+- [AirportRequest](https://apis.io/schemas/adsbexchange/airportrequest/)
+- [ApiForbiddenResponse](https://apis.io/schemas/adsbexchange/apiforbiddenresponse/)
+- [ApiTooManyRequestsResponse](https://apis.io/schemas/adsbexchange/apitoomanyrequestsresponse/)
+- [ApiUnauthorizedResponse](https://apis.io/schemas/adsbexchange/apiunauthorizedresponse/)
+- [BadRequest](https://apis.io/schemas/adsbexchange/badrequest/)
+- [FeatureCollectionRequest](https://apis.io/schemas/adsbexchange/featurecollectionrequest/)
+- [FeatureGeometryRequest](https://apis.io/schemas/adsbexchange/featuregeometryrequest/)
+- [FeatureRequest](https://apis.io/schemas/adsbexchange/featurerequest/)
+- [FilterDefinition](https://apis.io/schemas/adsbexchange/filterdefinition/)
+- [FilterRequest](https://apis.io/schemas/adsbexchange/filterrequest/)
+- [GeoboundaryCountrySubdivision](https://apis.io/schemas/adsbexchange/geoboundarycountrysubdivision/)
+- [GeoboundaryCountrySubdivisionsResponse](https://apis.io/schemas/adsbexchange/geoboundarycountrysubdivisionsresponse/)
+- [LastPositionDataResponse](https://apis.io/schemas/adsbexchange/lastpositiondataresponse/)
+- [OperationsAirportRequest](https://apis.io/schemas/adsbexchange/operationsairportrequest/)
+- [OperationsIcaosRequest](https://apis.io/schemas/adsbexchange/operationsicaosrequest/)
+- [OperationsResponse](https://apis.io/schemas/adsbexchange/operationsresponse/)
+- [OperationsResponseItem](https://apis.io/schemas/adsbexchange/operationsresponseitem/)
+- [ProblemDetails](https://apis.io/schemas/adsbexchange/problemdetails/)
+- [ProximityPointFilter](https://apis.io/schemas/adsbexchange/proximitypointfilter/)
+- …and 5 more published on APIs.io
 
-## Common Properties
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [context Context](https://apis.io/jsonld/adsbexchange/context/)
+
+#### Examples (30)
+
+Example requests and responses.
+
+- [Getapiaircraftv2Airport](https://apis.io/examples/adsbexchange/getapiaircraftv2airport/)
+- [Getapiaircraftv2All](https://apis.io/examples/adsbexchange/getapiaircraftv2all/)
+- [Getapiaircraftv2Callsign](https://apis.io/examples/adsbexchange/getapiaircraftv2callsign/)
+- [Getapiaircraftv2Geospatialcontinent](https://apis.io/examples/adsbexchange/getapiaircraftv2geospatialcontinent/)
+- [Getapiaircraftv2Geospatialcountry](https://apis.io/examples/adsbexchange/getapiaircraftv2geospatialcountry/)
+- [Getapiaircraftv2Geospatialcountrysubdivision](https://apis.io/examples/adsbexchange/getapiaircraftv2geospatialcountrysubdivision/)
+- [Getapiaircraftv2Geospatialcountrysubdivisions](https://apis.io/examples/adsbexchange/getapiaircraftv2geospatialcountrysubdivisions/)
+- [Getapiaircraftv2Geospatialregion](https://apis.io/examples/adsbexchange/getapiaircraftv2geospatialregion/)
+- [Getapiaircraftv2Hex](https://apis.io/examples/adsbexchange/getapiaircraftv2hex/)
+- [Getapiaircraftv2Icao](https://apis.io/examples/adsbexchange/getapiaircraftv2icao/)
+- [Getapiaircraftv2Latlondist](https://apis.io/examples/adsbexchange/getapiaircraftv2latlondist/)
+- [Getapiaircraftv2Mil](https://apis.io/examples/adsbexchange/getapiaircraftv2mil/)
+- [Getapiaircraftv2Minimallatlondist](https://apis.io/examples/adsbexchange/getapiaircraftv2minimallatlondist/)
+- [Getapiaircraftv2Nohexdistabovelatlon](https://apis.io/examples/adsbexchange/getapiaircraftv2nohexdistabovelatlon/)
+- [Getapiaircraftv2Operationsairport](https://apis.io/examples/adsbexchange/getapiaircraftv2operationsairport/)
+- [Getapiaircraftv2Operationsicao](https://apis.io/examples/adsbexchange/getapiaircraftv2operationsicao/)
+- [Getapiaircraftv2Registration](https://apis.io/examples/adsbexchange/getapiaircraftv2registration/)
+- [Getapiaircraftv2Sqk](https://apis.io/examples/adsbexchange/getapiaircraftv2sqk/)
+- [Getapiaircraftv2Totalaircraft](https://apis.io/examples/adsbexchange/getapiaircraftv2totalaircraft/)
+- [Getapiaircraftv2Traces](https://apis.io/examples/adsbexchange/getapiaircraftv2traces/)
+- [Getapiaircraftv2Traceshisttraces](https://apis.io/examples/adsbexchange/getapiaircraftv2traceshisttraces/)
+- [Postapiaircraftv2Airport](https://apis.io/examples/adsbexchange/postapiaircraftv2airport/)
+- [Postapiaircraftv2Filter](https://apis.io/examples/adsbexchange/postapiaircraftv2filter/)
+- [Postapiaircraftv2Geospatialboundary](https://apis.io/examples/adsbexchange/postapiaircraftv2geospatialboundary/)
+- [Postapiaircraftv2Hex](https://apis.io/examples/adsbexchange/postapiaircraftv2hex/)
+- …and 5 more published on APIs.io
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [ADSB Exchange Geopolitical Filtering API](https://apis.io/collections/adsbexchange/open-adsbexchange-geopolitical-filtering-api/)
+- [ADSB Exchange Geopolitical Filtering Geospatial Filtering API](https://apis.io/collections/adsbexchange/open-adsbexchange-geospatial-filtering-api/)
+- [ADSB Exchange Geopolitical Filtering Live Positional Data API](https://apis.io/collections/adsbexchange/open-adsbexchange-live-positional-data-api/)
+- [ADSB Exchange Geopolitical Filtering Operations API](https://apis.io/collections/adsbexchange/open-adsbexchange-operations-api/)
+- [ADSB Exchange Geopolitical Filtering Traces API](https://apis.io/collections/adsbexchange/open-adsbexchange-traces-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [ADS-B Exchange — jsonschema rules](https://apis.io/rules/adsbexchange/adsbexchange-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Adsbexchange Authentication](https://apis.io/security/adsbexchange/adsbexchange-authentication/)
+- [Adsbexchange Domain Security](https://apis.io/security/adsbexchange/adsbexchange-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Plans](https://apis.io/plans/adsbexchange/plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rate Limits](https://apis.io/rate-limits/adsbexchange/rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Finops](https://apis.io/finops/adsbexchange/finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.adsbexchange.com)
-- [Developer](https://www.adsbexchange.com/community/developer-hub/)
 - [Documentation](https://www.adsbexchange.com/version-2-api/)
 - [Pricing](https://www.adsbexchange.com/data-products/)
-- [Data Products](https://www.adsbexchange.com/data-products/)
-- [Contact](https://www.adsbexchange.com/contact/)
-- [Terms of Service](https://www.adsbexchange.com/legal/terms-and-conditions/)
-- [Privacy Policy](https://www.adsbexchange.com/legal/privacy-policy/)
-- [Rapid A P I](https://rapidapi.com/adsbx/api/adsbexchange-com1)
+- [Blog](https://www.adsbexchange.com/news/)
+- [Terms of service](https://www.adsbexchange.com/legal/terms-and-conditions/)
+- [Privacy policy](https://www.adsbexchange.com/legal/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 31.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 62.0 |
+| Contract governance | 9.8 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 30.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/adsbexchange/](https://apis.io/providers/adsbexchange/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ADS-B Exchange: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/adsbexchange/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
